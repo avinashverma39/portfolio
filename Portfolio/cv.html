@@ -1136,8 +1136,8 @@
       const html = document.documentElement;
       if (!btn) return;
       const saved = localStorage.getItem('av-theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      html.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+      const initial = saved || 'dark';
+      html.setAttribute('data-theme', initial);
       btn.addEventListener('click', () => {
         const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
         html.classList.add('theme-transitioning');

@@ -108,28 +108,49 @@ function initNavbar() {
 function initHamburger() {
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
+  const navOverlay = document.getElementById('navOverlay');
 
   if (!hamburger || !navLinks) return;
 
+  function toggleMenu(show) {
+    const isOpen = show !== undefined ? show : !navLinks.classList.contains('open');
+    hamburger.classList.toggle('open', isOpen);
+    navLinks.classList.toggle('open', isOpen);
+    if (navOverlay) navOverlay.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+
   // Toggle menu open/close
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    navLinks.classList.toggle('open');
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMenu();
   });
 
   // Close menu when a link is clicked
   navLinks.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
-      hamburger.classList.remove('open');
-      navLinks.classList.remove('open');
+      toggleMenu(false);
     });
   });
 
+  // Close menu when clicking overlay
+  if (navOverlay) {
+    navOverlay.addEventListener('click', () => {
+      toggleMenu(false);
+    });
+  }
+
   // Close menu when clicking outside
   document.addEventListener('click', (e) => {
-    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-      hamburger.classList.remove('open');
-      navLinks.classList.remove('open');
+    if (navLinks.classList.contains('open') && !hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+      toggleMenu(false);
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+      toggleMenu(false);
     }
   });
 }
@@ -364,10 +385,9 @@ function initThemeToggle() {
   const html = document.documentElement;
   if (!btn) return;
 
-  // Load saved theme or system preference
+  // Always default to dark theme unless user explicitly saved light theme preference
   const saved = localStorage.getItem('av-theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const initial = saved || (prefersDark ? 'dark' : 'light');
+  const initial = saved || 'dark';
   setTheme(initial, false);
 
   btn.addEventListener('click', () => {
