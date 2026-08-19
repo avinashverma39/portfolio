@@ -523,7 +523,143 @@
       });
     })();
 
-    /* Click ripple for buttons */
+    /* ─────────────────────────────────────────────────────────────
+       16. ACHIEVEMENTS — SCROLL ENTRANCE, 3D TILT & FILTER ANIMATION
+       ───────────────────────────────────────────────────────────── */
+    (function achievementsSection() {
+      const grid = document.querySelector('.achievements-grid');
+      const counters = document.querySelector('.achievement-counters');
+      const filters = document.querySelector('.achievement-filters');
+
+      /* Entrance animation for achievement cards (called on initial load + filter) */
+      function animateCards() {
+        const cards = grid?.querySelectorAll('.achievement-card');
+        if (!cards || cards.length === 0) return;
+
+        anime({
+          targets: Array.from(cards),
+          opacity: [0, 1],
+          translateY: [50, 0],
+          scale: [0.92, 1],
+          delay: anime.stagger(100),
+          duration: 800,
+          easing: 'spring(1, 78, 10, 0)'
+        });
+
+        /* 3D Tilt physics on hover */
+        cards.forEach(card => {
+          card.addEventListener('mousemove', e => {
+            const r = card.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - 0.5;
+            const y = (e.clientY - r.top) / r.height - 0.5;
+            anime({
+              targets: card,
+              rotateX: -y * 10,
+              rotateY: x * 10,
+              translateZ: 12,
+              duration: 400,
+              easing: 'easeOutQuad'
+            });
+          });
+
+          card.addEventListener('mouseleave', () => {
+            anime({
+              targets: card,
+              rotateX: 0,
+              rotateY: 0,
+              translateZ: 0,
+              duration: 800,
+              easing: 'spring(1, 75, 10, 0)'
+            });
+          });
+        });
+      }
+
+      /* Initial scroll-triggered entrance */
+      if (grid) {
+        ScrollTrigger.create({
+          trigger: grid,
+          start: 'top 82%',
+          once: true,
+          onEnter: animateCards
+        });
+
+        /* Watch for DOM changes (filter/view-all re-renders cards) */
+        const observer = new MutationObserver(() => {
+          animateCards();
+        });
+        observer.observe(grid, { childList: true });
+      }
+
+      /* Counter pills entrance */
+      if (counters) {
+        ScrollTrigger.create({
+          trigger: counters,
+          start: 'top 85%',
+          once: true,
+          onEnter: () => {
+            anime({
+              targets: '.achievement-counter-pill',
+              opacity: [0, 1],
+              scale: [0.8, 1],
+              translateY: [16, 0],
+              delay: anime.stagger(80),
+              duration: 700,
+              easing: 'spring(1, 80, 12, 0)'
+            });
+
+            anime({
+              targets: '.achievement-counter-separator',
+              opacity: [0, 1],
+              delay: anime.stagger(80, { start: 100 }),
+              duration: 500,
+              easing: 'easeOutCubic'
+            });
+          }
+        });
+      }
+
+      /* Filter buttons entrance */
+      if (filters) {
+        ScrollTrigger.create({
+          trigger: filters,
+          start: 'top 85%',
+          once: true,
+          onEnter: () => {
+            anime({
+              targets: '.achievement-filters .filter-btn',
+              opacity: [0, 1],
+              translateY: [12, 0],
+              delay: anime.stagger(60),
+              duration: 600,
+              easing: 'easeOutCubic'
+            });
+          }
+        });
+      }
+
+      /* View All button entrance */
+      const viewAllWrap = document.querySelector('.achievements-view-all-wrap');
+      if (viewAllWrap) {
+        ScrollTrigger.create({
+          trigger: viewAllWrap,
+          start: 'top 90%',
+          once: true,
+          onEnter: () => {
+            anime({
+              targets: viewAllWrap,
+              opacity: [0, 1],
+              translateY: [20, 0],
+              duration: 800,
+              easing: 'easeOutCubic'
+            });
+          }
+        });
+      }
+    })();
+
+
+    /* Click ripple for buttons (includes achievement filter buttons) */
     (function buttonRipples() {
       document.querySelectorAll('.btn, .filter-btn').forEach(btn => {
         btn.addEventListener('click', function (e) {

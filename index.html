@@ -53,6 +53,7 @@
                 <li><a href="#education" class="nav-link">Education</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#achievements" class="nav-link">Achievements</a></li>
                 <li><a href="#hobbies" class="nav-link">Hobbies</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
@@ -614,6 +615,67 @@
         </div>
     </section>
 
+    <!-- ========== ACHIEVEMENTS & CERTIFICATIONS SECTION ========== -->
+    <section class="section achievements-section" id="achievements">
+        <div class="container">
+            <!-- Subtle animated background particles -->
+            <div class="achievements-bg-glow"></div>
+
+            <div class="section-header">
+                <span class="section-tag">my credentials</span>
+                <h2 class="section-title">Achievements & <span class="highlight">Certifications</span></h2>
+            </div>
+
+            <!-- Achievement Counters -->
+            <div class="achievement-counters" id="achievementCounters">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Category Filters -->
+            <div class="achievement-filters" id="achievementFilters">
+                <button class="filter-btn active" data-achievement-filter="all">All</button>
+                <button class="filter-btn" data-achievement-filter="certificate"><i class="fa-solid fa-certificate"></i> Certificates</button>
+                <button class="filter-btn" data-achievement-filter="course"><i class="fa-solid fa-book"></i> Courses</button>
+                <button class="filter-btn" data-achievement-filter="internship"><i class="fa-solid fa-briefcase"></i> Internships</button>
+                <button class="filter-btn" data-achievement-filter="achievement"><i class="fa-solid fa-trophy"></i> Achievements</button>
+            </div>
+
+            <!-- Achievement Cards Grid -->
+            <div class="achievements-grid" id="achievementsGrid">
+                <!-- Cards rendered dynamically by JavaScript -->
+            </div>
+
+            <!-- View All Button -->
+            <div class="achievements-view-all-wrap" id="achievementsViewAllWrap" style="display:none;">
+                <button class="btn btn-outline achievements-view-all-btn" id="achievementsViewAllBtn">
+                    <i class="fa-solid fa-layer-group"></i> <span>View All Achievements</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificate Preview Modal -->
+    <div class="cert-modal-overlay" id="certModalOverlay" role="dialog" aria-modal="true" aria-label="Certificate Preview" tabindex="-1">
+        <div class="cert-modal">
+            <button class="cert-modal-close" id="certModalClose" aria-label="Close preview">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="cert-modal-body">
+                <div class="cert-modal-image-wrap">
+                    <img class="cert-modal-image" id="certModalImage" src="" alt="Certificate Preview" />
+                </div>
+                <div class="cert-modal-info" id="certModalInfo">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+            <div class="cert-modal-controls">
+                <button class="cert-modal-zoom-btn" id="certModalZoomIn" aria-label="Zoom in"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                <button class="cert-modal-zoom-btn" id="certModalZoomOut" aria-label="Zoom out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                <button class="cert-modal-zoom-btn" id="certModalZoomReset" aria-label="Reset zoom"><i class="fa-solid fa-expand"></i></button>
+            </div>
+        </div>
+    </div>
+
     <!-- ========== HOBBIES SECTION ========== -->
     <section class="section hobbies-section" id="hobbies">
         <div class="container">
@@ -771,6 +833,7 @@
                     <a href="#home">Home</a>
                     <a href="#about">About</a>
                     <a href="#projects">Projects</a>
+                    <a href="#achievements">Achievements</a>
                     <a href="#contact">Contact</a>
                 </div>
             </div>

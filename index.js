@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initSkillBars();       // fills progress bar widths via IntersectionObserver
   initActiveNavLink();   // active pill indicator
   initBackToTop();       // back to top button visibility
+  initAchievements();    // achievements & certifications section
 
   /* NOTE: Hero entrance, scroll reveal, count-up, timeline animation,
      and magnetic buttons are all handled by animations.js (GSAP) */
@@ -71,7 +72,7 @@ function initCustomCursor() {
   animateFollower();
 
   // Expand cursor on hover
-  const interactives = document.querySelectorAll('a, button, input, textarea, .project-card, .hobby-card, .stat-card, .tech-icon-card');
+  const interactives = document.querySelectorAll('a, button, input, textarea, .project-card, .hobby-card, .stat-card, .tech-icon-card, .achievement-card');
   interactives.forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursor.classList.add('cursor-hover');
@@ -692,6 +693,433 @@ function initMagneticButtons() {
     });
     btn.addEventListener('mouseleave', () => {
       btn.style.transform = '';
+    });
+  });
+}
+
+
+/* =============================================
+   22. ACHIEVEMENTS & CERTIFICATIONS
+   ============================================= */
+
+/* ── Achievement Data — Add your own entries here ─── */
+const achievementsData = [
+  {
+    id: 'cert-cpp',
+    title: 'C++ Programming Certificate',
+    category: 'certificate',
+    organization: 'Coursera',
+    date: 'Jan 2025',
+    description: 'Completed a comprehensive C++ programming course covering OOP, STL, memory management, and modern C++ features with hands-on projects.',
+    skills: ['C++', 'OOP', 'STL'],
+    image: null, // Replace with actual certificate image path
+    credentialUrl: '#',
+    credentialId: 'CERT-CPP-2025-001'
+  },
+  {
+    id: 'course-webdev',
+    title: 'Web Development Bootcamp',
+    category: 'course',
+    organization: 'Udemy',
+    date: 'Mar 2025',
+    description: 'Mastered full-stack web development fundamentals including HTML5, CSS3, responsive design, and JavaScript ES6+ through 40+ real-world projects.',
+    skills: ['HTML', 'CSS', 'JavaScript'],
+    image: null,
+    credentialUrl: '#',
+    credentialId: 'UC-WEBDEV-2025'
+  },
+  {
+    id: 'intern-summer',
+    title: 'Summer Internship — Web Developer',
+    category: 'internship',
+    organization: 'TechCorp Solutions',
+    date: 'Jun 2025',
+    description: 'Worked as a Web Development Intern building responsive interfaces, collaborating with senior developers, and delivering production-ready UI components.',
+    skills: ['Web Development', 'JavaScript', 'Team Collaboration'],
+    image: null,
+    credentialUrl: '#',
+    credentialId: null
+  },
+  {
+    id: 'course-dsa',
+    title: 'DSA Course Completion',
+    category: 'course',
+    organization: 'GeeksforGeeks',
+    date: 'Feb 2025',
+    description: 'Completed an intensive Data Structures and Algorithms course covering arrays, linked lists, trees, graphs, dynamic programming, and competitive coding strategies.',
+    skills: ['C++', 'DSA', 'Algorithms'],
+    image: null,
+    credentialUrl: '#',
+    credentialId: 'GFG-DSA-2025'
+  },
+  {
+    id: 'hack-2025',
+    title: 'Hackathon Runner-Up',
+    category: 'achievement',
+    organization: 'HackFest 2025',
+    date: 'Apr 2025',
+    description: 'Secured 2nd place in a 24-hour hackathon among 50+ teams by building an innovative web application that solved a real-world accessibility challenge.',
+    skills: ['Problem Solving', 'Teamwork', 'Web Dev'],
+    image: null,
+    credentialUrl: '#',
+    credentialId: null
+  },
+  {
+    id: 'cert-python',
+    title: 'Python Programming Certificate',
+    category: 'certificate',
+    organization: 'Coursera',
+    date: 'Dec 2024',
+    description: 'Earned a certification in Python programming covering data types, control flow, functions, file handling, and introduction to libraries like NumPy and Pandas.',
+    skills: ['Python', 'Automation', 'Data Analysis'],
+    image: null,
+    credentialUrl: '#',
+    credentialId: 'CERT-PY-2024-042'
+  },
+  {
+    id: 'course-git',
+    title: 'Git & GitHub Masterclass',
+    category: 'course',
+    organization: 'LinkedIn Learning',
+    date: 'Nov 2024',
+    description: 'Mastered version control with Git and GitHub including branching strategies, pull requests, collaboration workflows, and CI/CD fundamentals.',
+    skills: ['Git', 'GitHub', 'Version Control'],
+    image: null,
+    credentialUrl: '#',
+    credentialId: null
+  },
+  {
+    id: 'award-academic',
+    title: 'Academic Excellence Award',
+    category: 'achievement',
+    organization: 'R R Institute of Modern Technology',
+    date: 'Aug 2025',
+    description: 'Recognized for outstanding academic performance and consistent contributions to the Computer Science department through projects and peer mentoring.',
+    skills: ['Computer Science', 'Leadership'],
+    image: null,
+    credentialUrl: '#',
+    credentialId: null
+  }
+];
+
+function initAchievements() {
+  const grid = document.getElementById('achievementsGrid');
+  const countersEl = document.getElementById('achievementCounters');
+  const filterBtns = document.querySelectorAll('[data-achievement-filter]');
+  const viewAllWrap = document.getElementById('achievementsViewAllWrap');
+  const viewAllBtn = document.getElementById('achievementsViewAllBtn');
+
+  if (!grid) return;
+
+  const INITIAL_VISIBLE = 6;
+  let showAll = false;
+  let currentFilter = 'all';
+
+  /* ── Render Counters ─── */
+  renderCounters();
+
+  /* ── Render Cards ─── */
+  renderCards();
+
+  /* ── Setup Filters ─── */
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.getAttribute('data-achievement-filter');
+      showAll = false;
+      if (viewAllBtn) {
+        viewAllBtn.querySelector('span').textContent = 'View All Achievements';
+      }
+      renderCards();
+    });
+  });
+
+  /* ── Setup View All ─── */
+  if (viewAllBtn) {
+    viewAllBtn.addEventListener('click', () => {
+      showAll = !showAll;
+      viewAllBtn.querySelector('span').textContent = showAll ? 'Show Less' : 'View All Achievements';
+      renderCards();
+    });
+  }
+
+  /* ── Setup Modal ─── */
+  initCertModal();
+
+  /* ── Render counters ─── */
+  function renderCounters() {
+    if (!countersEl) return;
+
+    const counts = {};
+    const labels = {
+      certificate: { label: 'Certificates', icon: 'fa-certificate' },
+      course: { label: 'Courses', icon: 'fa-book' },
+      internship: { label: 'Internships', icon: 'fa-briefcase' },
+      achievement: { label: 'Achievements', icon: 'fa-trophy' }
+    };
+
+    achievementsData.forEach(a => {
+      counts[a.category] = (counts[a.category] || 0) + 1;
+    });
+
+    const pills = [];
+    Object.entries(labels).forEach(([cat, meta], i) => {
+      const count = counts[cat] || 0;
+      if (count === 0) return;
+      if (i > 0 && pills.length > 0) {
+        pills.push('<span class="achievement-counter-separator">|</span>');
+      }
+      pills.push(`
+        <div class="achievement-counter-pill">
+          <i class="fa-solid ${meta.icon}"></i>
+          <span class="counter-num" data-count="${count}">${count}+</span>
+          ${meta.label}
+        </div>
+      `);
+    });
+
+    countersEl.innerHTML = pills.join('');
+  }
+
+  /* ── Render cards ─── */
+  function renderCards() {
+    const filtered = currentFilter === 'all'
+      ? achievementsData
+      : achievementsData.filter(a => a.category === currentFilter);
+
+    const visible = showAll ? filtered : filtered.slice(0, INITIAL_VISIBLE);
+
+    grid.innerHTML = visible.map(a => createCardHTML(a)).join('');
+
+    // Show/hide "View All" button
+    if (viewAllWrap) {
+      viewAllWrap.style.display = filtered.length > INITIAL_VISIBLE ? 'block' : 'none';
+    }
+
+    // Attach card click handlers for modal
+    grid.querySelectorAll('.achievement-view-cert-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = btn.getAttribute('data-achievement-id');
+        openCertModal(id);
+      });
+    });
+
+    // Lazy load images
+    lazyLoadImages();
+
+    // Re-register custom cursor interactives on new cards
+    const cursor = document.getElementById('cursor');
+    const follower = document.getElementById('cursorFollower');
+    if (cursor && follower && !prefersReducedMotion) {
+      grid.querySelectorAll('.achievement-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          cursor.classList.add('cursor-hover');
+          follower.classList.add('cursor-hover');
+        });
+        card.addEventListener('mouseleave', () => {
+          cursor.classList.remove('cursor-hover');
+          follower.classList.remove('cursor-hover');
+        });
+      });
+    }
+  }
+
+  /* ── Create card HTML ─── */
+  function createCardHTML(a) {
+    const categoryMeta = {
+      certificate: { icon: 'fa-certificate', label: 'Certificate' },
+      course: { icon: 'fa-book', label: 'Course' },
+      internship: { icon: 'fa-briefcase', label: 'Internship' },
+      achievement: { icon: 'fa-trophy', label: 'Achievement' }
+    };
+    const meta = categoryMeta[a.category] || { icon: 'fa-star', label: 'Other' };
+
+    const imageHTML = a.image
+      ? `<img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="${a.image}" alt="${a.title}" loading="lazy" />`
+      : `<div class="achievement-placeholder-img">
+           <i class="fa-solid ${meta.icon} placeholder-icon"></i>
+           <span class="placeholder-label">Replace with certificate image</span>
+         </div>`;
+
+    const credentialHTML = a.credentialId
+      ? `<div class="achievement-card-credential"><strong>ID:</strong> ${a.credentialId}</div>`
+      : '';
+
+    const skillsHTML = a.skills.map(s => `<span>${s}</span>`).join('');
+
+    return `
+      <article class="achievement-card" data-achievement-category="${a.category}" data-achievement-id="${a.id}">
+        <div class="achievement-card-image">
+          ${imageHTML}
+          <div class="achievement-card-badge">
+            <i class="fa-solid ${meta.icon}"></i>
+            ${meta.label}
+          </div>
+        </div>
+        <div class="achievement-card-body">
+          <div class="achievement-card-header">
+            <h3 class="achievement-card-title">${a.title}</h3>
+            <span class="achievement-card-date">${a.date}</span>
+          </div>
+          <div class="achievement-card-org">
+            <i class="fa-solid fa-building"></i>
+            ${a.organization}
+          </div>
+          <p class="achievement-card-desc">${a.description}</p>
+          ${credentialHTML}
+          <div class="achievement-card-skills">${skillsHTML}</div>
+        </div>
+        <div class="achievement-card-actions">
+          <button class="btn btn-outline achievement-view-cert-btn" data-achievement-id="${a.id}">
+            <i class="fa-solid fa-eye"></i> View Certificate
+          </button>
+        </div>
+      </article>
+    `;
+  }
+
+  /* ── Lazy load images ─── */
+  function lazyLoadImages() {
+    const images = grid.querySelectorAll('img[data-src]');
+    if (images.length === 0) return;
+
+    const imgObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const img = entry.target;
+        img.src = img.getAttribute('data-src');
+        img.removeAttribute('data-src');
+        imgObserver.unobserve(img);
+      });
+    }, { rootMargin: '100px' });
+
+    images.forEach(img => imgObserver.observe(img));
+  }
+}
+
+
+/* =============================================
+   23. CERTIFICATE PREVIEW MODAL
+   ============================================= */
+function initCertModal() {
+  const overlay = document.getElementById('certModalOverlay');
+  const closeBtn = document.getElementById('certModalClose');
+  const modalImg = document.getElementById('certModalImage');
+  const modalInfo = document.getElementById('certModalInfo');
+  const zoomInBtn = document.getElementById('certModalZoomIn');
+  const zoomOutBtn = document.getElementById('certModalZoomOut');
+  const zoomResetBtn = document.getElementById('certModalZoomReset');
+
+  if (!overlay) return;
+
+  let currentZoom = 1;
+  const ZOOM_STEP = 0.25;
+  const ZOOM_MAX = 3;
+  const ZOOM_MIN = 0.5;
+
+  /* ── Close modal ─── */
+  function closeModal() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    currentZoom = 1;
+    if (modalImg) modalImg.style.transform = `scale(1)`;
+    // Use a slight delay to let CSS transition finish before hiding
+    setTimeout(() => {
+      if (!overlay.classList.contains('active')) {
+        overlay.style.display = 'none';
+      }
+    }, 400);
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+  // Click outside modal to close
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModal();
+  });
+
+  // Keyboard Esc to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  /* ── Zoom controls ─── */
+  function setZoom(level) {
+    currentZoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, level));
+    if (modalImg) modalImg.style.transform = `scale(${currentZoom})`;
+  }
+
+  if (zoomInBtn) zoomInBtn.addEventListener('click', () => setZoom(currentZoom + ZOOM_STEP));
+  if (zoomOutBtn) zoomOutBtn.addEventListener('click', () => setZoom(currentZoom - ZOOM_STEP));
+  if (zoomResetBtn) zoomResetBtn.addEventListener('click', () => setZoom(1));
+}
+
+/* ── Open modal with achievement data ─── */
+function openCertModal(achievementId) {
+  const overlay = document.getElementById('certModalOverlay');
+  const modalImg = document.getElementById('certModalImage');
+  const modalInfo = document.getElementById('certModalInfo');
+
+  if (!overlay) return;
+
+  const achievement = achievementsData.find(a => a.id === achievementId);
+  if (!achievement) return;
+
+  // Set image
+  if (achievement.image) {
+    modalImg.src = achievement.image;
+    modalImg.style.display = 'block';
+    modalImg.parentElement.querySelector('.achievement-placeholder-img')?.remove();
+  } else {
+    modalImg.style.display = 'none';
+    // Show placeholder in modal
+    const wrap = modalImg.parentElement;
+    const existing = wrap.querySelector('.achievement-placeholder-img');
+    if (!existing) {
+      const categoryMeta = {
+        certificate: 'fa-certificate',
+        course: 'fa-book',
+        internship: 'fa-briefcase',
+        achievement: 'fa-trophy'
+      };
+      const icon = categoryMeta[achievement.category] || 'fa-star';
+      const placeholder = document.createElement('div');
+      placeholder.className = 'achievement-placeholder-img';
+      placeholder.style.minHeight = '250px';
+      placeholder.innerHTML = `<i class="fa-solid ${icon} placeholder-icon" style="font-size:5rem;"></i>
+        <span class="placeholder-label">Certificate image placeholder</span>`;
+      wrap.appendChild(placeholder);
+    }
+  }
+
+  // Set info
+  const credentialHTML = achievement.credentialId
+    ? `<div class="cert-modal-info-credential"><strong>Credential ID:</strong> ${achievement.credentialId}</div>`
+    : '';
+
+  const skillsHTML = achievement.skills.map(s => `<span>${s}</span>`).join('');
+
+  modalInfo.innerHTML = `
+    <h3 class="cert-modal-info-title">${achievement.title}</h3>
+    <div class="cert-modal-info-org"><i class="fa-solid fa-building"></i> ${achievement.organization}</div>
+    <div class="cert-modal-info-date"><i class="fa-solid fa-calendar"></i> ${achievement.date}</div>
+    <p class="cert-modal-info-desc">${achievement.description}</p>
+    ${credentialHTML}
+    <div class="cert-modal-info-skills">${skillsHTML}</div>
+  `;
+
+  // Show modal
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  // Trigger animation on next frame
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      overlay.classList.add('active');
+      overlay.focus();
     });
   });
 }
