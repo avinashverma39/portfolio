@@ -421,7 +421,7 @@
        ───────────────────────────────────────────────────────────── */
     (function projectCards() {
       const projectsGrid = document.querySelector('.projects-grid');
-      const filterBtns = document.querySelectorAll('.filter-btn');
+      const filterBtns = document.querySelectorAll('.project-filters .filter-btn');
       const cards = document.querySelectorAll('.project-card');
 
       if (projectsGrid) {
