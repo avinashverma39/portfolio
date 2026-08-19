@@ -755,7 +755,7 @@ const achievementsData = [
 
   {
     id: 'Hack-2025',
-    title: 'Hackathon -2025 RR Institute of Modern Technology',
+    title: 'Hackathon -2026 RR Institute of Modern Technology',
     category: 'achievement',
     organization: 'RRGI INNOVATHON - 2026',
     date: 'Apr 2025',
@@ -785,7 +785,7 @@ const achievementsData = [
     category: 'course',
     organization: 'Simplilearn',
     date: 'Nov 2025',
-    description: 'All Basic version control with Git and GitHub including branching strategies, pull requests, collaboration workflows, and CI/CD fundamentals.',
+    description: 'All Basic version control with Git and GitHub including branching strategies, pull requests, collaboration workflows, and CI/CD fundamentals and push code to GitHub repository for real-world project collaboration.',
     skills: ['Git', 'GitHub', 'Version Control'],
     image: null,
     credentialUrl: '#',
@@ -797,7 +797,7 @@ const achievementsData = [
     category: 'achievement',
     organization: 'R R Institute of Modern Technology',
     date: 'Aug 2025',
-    description: 'Recognized for outstanding academic performance and consistent contributions to the Computer Science department through projects and peer mentoring.',
+    description: 'Recognized for outstanding academic performance and consistent contributions to the Computer Science department through projects and Academic Results.',
     skills: ['Computer Science', 'Leadership'],
     image: null,
     credentialUrl: '#',
