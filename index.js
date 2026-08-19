@@ -718,31 +718,31 @@ const achievementsData = [
   },
   {
     id: 'course-webdev',
-    title: 'Web Development Bootcamp',
+    title: 'Web Development Course ',
     category: 'course',
     organization: 'Udemy',
     date: 'Mar 2025',
-    description: 'Mastered full-stack web development fundamentals including HTML5, CSS3, responsive design, and JavaScript ES6+ through 40+ real-world projects.',
-    skills: ['HTML', 'CSS', 'JavaScript'],
+    description: 'Mastered full-stack web development fundamentals including HTML5, CSS3, responsive design, and JavaScript ES6+ With using AI tools for coding and debugging.',
+    skills: ['HTML', 'CSS', 'JavaScript', 'AI Tools'],
     image: null,
     credentialUrl: '#',
     credentialId: 'UC-WEBDEV-2025'
   },
   {
-    id: 'intern-summer',
-    title: 'Summer Internship — Web Developer',
+    id: 'Summer-Internship-JAVA',
+  title: 'Summer Internship — JAVA Development',
     category: 'internship',
     organization: 'TechCorp Solutions',
     date: 'Jun 2025',
-    description: 'Worked as a Web Development Intern building responsive interfaces, collaborating with senior developers, and delivering production-ready UI components.',
-    skills: ['Web Development', 'JavaScript', 'Team Collaboration'],
+    description: 'Worked as a JAVA Development Intern building scalable applications, collaborating with senior developers, and delivering Projects using AI-assisted coding tools to enhance productivity and code quality.',
+    skills: ['JAVA', 'Team Collaboration', 'AI Tools'],
     image: null,
     credentialUrl: '#',
     credentialId: null
   },
-  {
+ /* {
     id: 'course-dsa',
-    title: 'DSA Course Completion',
+    title: 'DSA Course ',
     category: 'course',
     organization: 'GeeksforGeeks',
     date: 'Feb 2025',
@@ -751,20 +751,22 @@ const achievementsData = [
     image: null,
     credentialUrl: '#',
     credentialId: 'GFG-DSA-2025'
-  },
+  },*/
+
   {
-    id: 'hack-2025',
-    title: 'Hackathon Runner-Up',
+    id: 'Hack-2025',
+    title: 'Hackathon -2025 RR Institute of Modern Technology',
     category: 'achievement',
-    organization: 'HackFest 2025',
+    organization: 'RRGI INNOVATHON - 2026',
     date: 'Apr 2025',
-    description: 'Secured 2nd place in a 24-hour hackathon among 50+ teams by building an innovative web application that solved a real-world accessibility challenge.',
+    description: 'Participated in Hackthon RRGI and give our best to solve real-world problems using innovative solutions and collaborative teamwork. Our team developed a web application that addressed a pressing social issue, showcasing our technical skills and creativity.',
     skills: ['Problem Solving', 'Teamwork', 'Web Dev'],
     image: null,
     credentialUrl: '#',
     credentialId: null
   },
-  {
+
+ /* {
     id: 'cert-python',
     title: 'Python Programming Certificate',
     category: 'certificate',
@@ -775,7 +777,7 @@ const achievementsData = [
     image: null,
     credentialUrl: '#',
     credentialId: 'CERT-PY-2024-042'
-  },
+  },*/
   {
     id: 'course-git',
     title: 'Git & GitHub Masterclass',
@@ -1122,4 +1124,4 @@ function openCertModal(achievementId) {
       overlay.focus();
     });
   });
-}
+}
