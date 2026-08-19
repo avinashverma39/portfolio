@@ -778,13 +778,14 @@ const achievementsData = [
     credentialUrl: '#',
     credentialId: 'CERT-PY-2024-042'
   },*/
+
   {
     id: 'course-git',
     title: 'Git & GitHub Masterclass',
     category: 'course',
-    organization: 'LinkedIn Learning',
-    date: 'Nov 2024',
-    description: 'Mastered version control with Git and GitHub including branching strategies, pull requests, collaboration workflows, and CI/CD fundamentals.',
+    organization: 'Simplilearn',
+    date: 'Nov 2025',
+    description: 'All Basic version control with Git and GitHub including branching strategies, pull requests, collaboration workflows, and CI/CD fundamentals.',
     skills: ['Git', 'GitHub', 'Version Control'],
     image: null,
     credentialUrl: '#',
@@ -792,7 +793,7 @@ const achievementsData = [
   },
   {
     id: 'award-academic',
-    title: 'Academic Excellence Award',
+    title: 'Academic Excellence',
     category: 'achievement',
     organization: 'R R Institute of Modern Technology',
     date: 'Aug 2025',
