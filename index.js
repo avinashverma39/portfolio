@@ -709,7 +709,7 @@ const achievementsData = [
     title: 'C++ Programming Certificate',
     category: 'certificate',
     organization: 'Coursera',
-    date: 'Jan 2025',
+    date: 'April 2025',
     description: 'Completed a comprehensive C++ programming course covering OOP, STL, memory management, and modern C++ features with hands-on projects.',
     skills: ['C++', 'OOP', 'STL'],
     image: null, // Replace with actual certificate image path
@@ -721,12 +721,12 @@ const achievementsData = [
     title: 'Web Development Course ',
     category: 'course',
     organization: 'Udemy',
-    date: 'Mar 2025',
+    date: 'Mar 2026',
     description: 'Mastered full-stack web development fundamentals including HTML5, CSS3, responsive design, and JavaScript ES6+ With using AI tools for coding and debugging.',
     skills: ['HTML', 'CSS', 'JavaScript', 'AI Tools'],
     image: null,
     credentialUrl: '#',
-    credentialId: 'UC-WEBDEV-2025'
+    credentialId: 'UC-WEBDEV-2026'
   },
   {
     id: 'Summer-Internship-JAVA',
@@ -754,7 +754,7 @@ const achievementsData = [
   },*/
 
   {
-    id: 'Hack-2025',
+    id: 'Hack-2026',
     title: 'Hackathon -2026 RR Institute of Modern Technology',
     category: 'achievement',
     organization: 'RRGI INNOVATHON - 2026',
