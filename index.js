@@ -15,7 +15,6 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 
 /* ---- Wait for DOM to load ---- */
 document.addEventListener('DOMContentLoaded', async () => {
-  initHamburger();
   initThemeToggle();
   initParticles();       // canvas ambient particles
   initTypingEffect();    // hero typing effect

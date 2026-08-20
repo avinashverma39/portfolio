@@ -1633,6 +1633,11 @@ button {
   /* Nav */
   .hamburger {
     display: flex;
+    z-index: 1002;
+  }
+
+  .nav-actions {
+    z-index: 1002;
   }
 
   .nav-links {
@@ -1640,31 +1645,34 @@ button {
     top: 0;
     right: 0;
     width: 280px;
-    max-width: 85vw;
+    max-width: 82vw;
     height: 100vh;
     height: 100dvh;
     background: var(--bg-card);
     border-left: 1px solid var(--border);
-    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+    box-shadow: -15px 0 45px rgba(0, 0, 0, 0.55);
     flex-direction: column;
     align-items: flex-start;
-    padding: 90px 28px 40px;
-    gap: 8px;
-    transform: translateX(105%);
+    padding: 95px 28px 40px;
+    gap: 12px;
+    display: none;
+    transform: translateX(100%);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
       opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
       visibility 0.35s step-end;
-    z-index: 999;
+    z-index: 1001;
+    overflow-y: auto;
   }
 
   .nav-links.open {
-    transform: translateX(0);
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+    display: flex !important;
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
       opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
       visibility 0s;
@@ -1677,45 +1685,41 @@ button {
     border-bottom: 1px solid var(--border);
   }
 
-  /* Hero */
-  .hero-container {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 40px;
+  /* Hero Mobile Layout */
+  .hero {
+    min-height: auto;
+    padding-top: 110px;
+    padding-bottom: 60px;
   }
 
-  .hero-content {
-    order: 2;
+  .hero-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+    padding: 0 20px;
   }
 
   .hero-image-wrapper {
     order: 1;
-  }
-
-  .hero-description {
-    margin: 0 auto 32px;
-  }
-
-  .hero-buttons {
+    margin: 0 auto;
+    display: flex;
     justify-content: center;
   }
 
-  .social-links {
-    justify-content: center;
-  }
-
-  /* Hero image — scale down rings to prevent overflow */
   .hero-image-frame {
-    width: 280px;
-    height: 280px;
+    width: 220px;
+    height: 220px;
+    margin: 15px auto;
   }
 
   .ring-1 {
-    inset: -12px;
+    inset: -10px;
   }
 
   .ring-2 {
-    inset: -24px;
+    inset: -20px;
   }
 
   .badge-1,
@@ -1723,9 +1727,50 @@ button {
     display: none;
   }
 
-  /* Hero description — center and constrain */
+  .hero-content {
+    order: 2;
+    width: 100%;
+    max-width: 540px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-tag {
+    margin: 0 auto 16px;
+    font-size: 0.82rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 6.5vw, 3rem);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .hero-role {
+    font-size: clamp(1.15rem, 4.5vw, 1.5rem);
+    margin-top: 6px;
+    min-height: 2.2rem;
+  }
+
   .hero-description {
-    max-width: 100%;
+    margin: 0 auto 28px;
+    font-size: 0.98rem;
+    line-height: 1.65;
+    max-width: 480px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .social-links {
+    margin-top: 24px;
+    justify-content: center;
   }
 
   /* About */
@@ -1763,13 +1808,29 @@ button {
    ============================================= */
 @media (max-width: 600px) {
   :root {
-    --section-padding: 60px 0;
+    --section-padding: 55px 0;
+  }
+
+  /* Nav */
+  .nav-container {
+    padding: 0 18px;
+  }
+
+  .nav-links {
+    width: 250px;
+    padding: 85px 22px 35px;
   }
 
   /* Hero */
+  .hero {
+    padding-top: 95px;
+    padding-bottom: 45px;
+  }
+
   .hero-image-frame {
-    width: 200px;
-    height: 200px;
+    width: 175px;
+    height: 175px;
+    margin: 10px auto;
   }
 
   .ring-1 {
@@ -1782,36 +1843,33 @@ button {
 
   .hero-container {
     padding: 0 16px;
-    gap: 28px;
+    gap: 20px;
   }
 
   .hero-title {
-    font-size: clamp(1.8rem, 8vw, 2.5rem);
+    font-size: clamp(1.75rem, 8vw, 2.3rem);
   }
 
   .hero-role {
-    font-size: clamp(1rem, 4.5vw, 1.3rem);
+    font-size: clamp(1.05rem, 4.8vw, 1.35rem);
+    min-height: 2rem;
   }
 
   .hero-description {
     font-size: 0.92rem;
+    margin-bottom: 22px;
   }
 
   .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .btn {
-    width: 100%;
-    max-width: 260px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
     justify-content: center;
   }
 
-  /* Nav drawer */
-  .nav-links {
-    width: 260px;
-    padding: 80px 24px 40px;
+  .btn {
+    padding: 11px 22px;
+    font-size: 0.88rem;
   }
 
   /* Section padding */
@@ -1820,12 +1878,17 @@ button {
   }
 
   .section-title {
-    font-size: clamp(1.5rem, 6vw, 2rem);
+    font-size: clamp(1.6rem, 7vw, 2.1rem);
+  }
+
+  .section-header {
+    margin-bottom: 40px;
   }
 
   /* About */
   .about-stats {
     grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
 
   .about-details {
@@ -1837,13 +1900,29 @@ button {
   }
 
   .stat-card h3 {
-    font-size: 1.4rem;
+    font-size: 1.45rem;
   }
 
   /* Timeline */
+  .timeline::before {
+    left: 12px;
+  }
+
+  .timeline-item {
+    padding-left: 42px;
+    margin-bottom: 30px;
+  }
+
+  .timeline-dot {
+    left: 4px;
+    top: 20px;
+    width: 16px;
+    height: 16px;
+  }
+
   .timeline-header {
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
   }
 
   .timeline-card {
@@ -1855,12 +1934,20 @@ button {
     padding: 24px 18px;
   }
 
+  .tech-icons {
+    gap: 10px;
+  }
+
   .tech-icon-card {
-    min-width: 72px;
-    padding: 14px 10px;
+    min-width: 68px;
+    padding: 14px 8px;
   }
 
   /* Projects */
+  .projects-grid {
+    gap: 18px;
+  }
+
   .project-card {
     padding: 22px 18px;
   }
@@ -1874,25 +1961,27 @@ button {
   .footer-content {
     flex-direction: column;
     text-align: center;
+    gap: 12px;
   }
 
   .footer-links {
     justify-content: center;
     flex-wrap: wrap;
+    gap: 14px;
   }
 
   /* Custom cursor hidden on touch */
   .cursor,
   .cursor-follower {
-    display: none;
+    display: none !important;
   }
 
   body {
-    cursor: auto;
+    cursor: auto !important;
   }
 
-  button {
-    cursor: pointer;
+  button, a {
+    cursor: pointer !important;
   }
 }
 
@@ -1901,8 +1990,8 @@ button {
    ============================================= */
 @media (max-width: 375px) {
   .hero-image-frame {
-    width: 180px;
-    height: 180px;
+    width: 155px;
+    height: 155px;
   }
 
   .hero-container {
@@ -1914,7 +2003,7 @@ button {
   }
 
   .nav-links {
-    width: 240px;
+    width: 230px;
   }
 
   .social-icon {
@@ -1926,6 +2015,10 @@ button {
   .theme-toggle {
     width: 36px;
     height: 36px;
+  }
+
+  .btn {
+    width: 100%;
   }
 }
 
@@ -2851,15 +2944,15 @@ html.theme-transitioning *::after {
 
 
 /* =============================================
-   GSAP ANIMATION SUPPORT STYLES
+   MOTION.DEV ANIMATION SUPPORT STYLES
    ============================================= */
 
-/* ── Allow clip-path on titles ── */
+/* ── Section Title Overflow ── */
 .section-title {
   overflow: visible;
 }
 
-/* ── Animated underline (.hl-line injected by JS) ── */
+/* ── Animated Underline (.hl-line) ── */
 .highlight {
   position: relative;
   display: inline-block;
@@ -2875,33 +2968,9 @@ html.theme-transitioning *::after {
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
   border-radius: 2px;
   transform-origin: left center;
-  /* scaleX animated by GSAP */
 }
 
-/* ── Back-to-top ring pulse ── */
-.btt-ring {
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  border: 2px solid var(--accent);
-  opacity: 0;
-  animation: bttRingPulse 2.2s ease-out infinite;
-  pointer-events: none;
-}
-
-@keyframes bttRingPulse {
-  0% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-
-  100% {
-    transform: scale(1.55);
-    opacity: 0;
-  }
-}
-
-/* ── 3D perspective containers for card tilt ── */
+/* ── 3D Perspective Containers for Card Tilt ── */
 .projects-grid {
   perspective: 1200px;
 }
@@ -2910,137 +2979,72 @@ html.theme-transitioning *::after {
   transform-style: preserve-3d;
 }
 
-/* ── Clip-path reveal base state (GSAP sets these dynamically) ── */
-.section-header .section-title {
-  will-change: transform, opacity, clip-path;
-}
-
-/* ── Social icon float (GSAP overrides y position; keep layout stable) ── */
-.social-links {
-  position: relative;
-}
-
-.social-icon {
-  display: inline-flex;
-  will-change: transform;
-}
-
-/* ── Button ripple container ── */
-.btn {
-  position: relative;
-  overflow: hidden;
-}
-
-/* ── Smooth will-change hints for GSAP targets ── */
-.hero-tag,
-.hero-title,
-.hero-description,
-.hero-buttons,
-.hero-image-wrapper,
-.stat-card,
-.timeline-card,
-.skills-group,
-.project-card,
-.hobby-card,
-.contact-info,
-.contact-form-wrapper {
-  will-change: transform, opacity;
-}
-
-/* ── Section parallax layer ── */
-.hero-grid {
-  will-change: transform;
-}
-
-/* ── Tech card hover 3D ── */
 .tech-icons {
   perspective: 800px;
 }
 
 .tech-icon-card {
   transform-style: preserve-3d;
-  will-change: transform;
 }
 
-/* ── Hobby card hover ── */
 .hobbies-grid {
   perspective: 1000px;
 }
 
-/* ── Stat card spring origin ── */
-.stat-card {
-  transform-origin: center bottom;
+/* ── Button Micro-interaction Baseline ── */
+.btn {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
 }
 
-/* ── GSAP: prevent flash of invisible content before animations run ── */
-.hero-tag,
-.hero-title,
-.hero-description,
-.hero-buttons,
-.social-links,
-.hero-image-wrapper {
-  /* GSAP sets opacity:0 at start; ensure no flash on slow devices */
-  animation-fill-mode: both;
+/* ── Section Header Elements ── */
+.section-header .section-title {
+  will-change: transform, opacity;
 }
 
-/* ── Mobile: disable 3D tilt (too expensive on touch devices) ── */
-@media (hover: none) and (pointer: coarse) {
-
-  .project-card,
-  .tech-icon-card {
-    transform: none !important;
-  }
-}
-
-/* ── Section tag text expand animation ── */
 .section-tag {
   will-change: opacity, letter-spacing;
   overflow: hidden;
 }
 
-/* ── Footer heart pulse ── */
+/* ── Footer Heart Pulse ── */
 .footer-heart {
   display: inline-block;
   animation: heartBeat 1.4s ease-in-out infinite;
 }
 
 @keyframes heartBeat {
-
-  0%,
-  100% {
+  0%, 100% {
     transform: scale(1);
   }
-
   14% {
     transform: scale(1.3);
   }
-
   28% {
     transform: scale(1);
   }
-
   42% {
     transform: scale(1.2);
   }
-
   70% {
     transform: scale(1);
   }
 }
 
-/* ── Scroll-triggered parallax: prevent layout shift ── */
-.hero-image-frame {
-  will-change: transform;
+/* ── Mobile: Disable 3D tilt on touch screens ── */
+@media (hover: none) and (pointer: coarse) {
+  .project-card,
+  .tech-icon-card,
+  .hero-image-frame {
+    transform: none !important;
+  }
 }
 
-/* ── Reduced motion: override GSAP inline styles ── */
+/* ── Reduced Motion Safe Overrides ── */
 @media (prefers-reduced-motion: reduce) {
   .hl-line {
     transform: scaleX(1) !important;
-  }
-
-  .btt-ring {
-    animation: none !important;
   }
 
   .footer-heart {
@@ -3051,30 +3055,8 @@ html.theme-transitioning *::after {
     display: none !important;
   }
 
-  .hero-tag,
-  .hero-title,
-  .hero-description,
-  .hero-buttons,
-  .social-links,
-  .hero-image-wrapper,
-  .stat-card,
-  .timeline-card,
-  .skills-group,
-  .project-card,
-  .hobby-card,
-  .contact-info,
-  .contact-form-wrapper,
-  .section-title,
-  .section-tag,
-  .footer-content,
-  .footer-bottom,
-  .skill-bar-item,
-  .tech-icon-card,
-  .hobby-card,
-  .contact-detail {
+  .reveal {
     opacity: 1 !important;
     transform: none !important;
-    filter: none !important;
-    clip-path: none !important;
   }
 }

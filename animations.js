@@ -12,6 +12,7 @@ const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 
 document.addEventListener('DOMContentLoaded', () => {
   initScrollProgress();
   initNavbarMotion();
+  initMobileDrawerMotion();
   initHeroCinematicSequence();
   initParallaxEffects();
   initSectionHeadings();
@@ -34,11 +35,11 @@ function initScrollProgress() {
   if (!bar) return;
 
   if (reducedMotion) {
-    bar.style.width = '100%';
+    bar.style.transform = 'scaleX(1)';
     return;
   }
 
-  // Bind scroll progress directly to the bar scaleX / width
+  // Bind scroll progress directly to scaleX
   scroll((progress) => {
     bar.style.transform = `scaleX(${progress})`;
   });
@@ -52,16 +53,18 @@ function initNavbarMotion() {
   const navLinksContainer = document.getElementById('navLinks');
   if (!navbar) return;
 
-  // Staggered navbar entrance on load
+  // Staggered navbar entrance on load (desktop only for links)
   if (!reducedMotion) {
     animate('.nav-brand', { opacity: [0, 1], y: [-20, 0] }, { duration: 0.6, easing: spring({ stiffness: 120, damping: 14 }) });
-    animate('.nav-links li', { opacity: [0, 1], y: [-15, 0] }, { delay: stagger(0.06, { start: 0.1 }), duration: 0.5, easing: spring({ stiffness: 140, damping: 16 }) });
+    if (window.innerWidth > 900) {
+      animate('.nav-links li', { opacity: [0, 1], y: [-15, 0] }, { delay: stagger(0.06, { start: 0.1 }), duration: 0.5, easing: spring({ stiffness: 140, damping: 16 }) });
+    }
     animate('.nav-actions', { opacity: [0, 1], y: [-20, 0] }, { delay: 0.3, duration: 0.5 });
   }
 
-  // Active link indicator pill setup
+  // Active link indicator pill setup (desktop only)
   let pill = navLinksContainer ? navLinksContainer.querySelector('.nav-active-pill') : null;
-  if (navLinksContainer && !pill && !isTouchDevice) {
+  if (navLinksContainer && !pill && !isTouchDevice && window.innerWidth > 900) {
     pill = document.createElement('div');
     pill.className = 'nav-active-pill';
     navLinksContainer.appendChild(pill);
@@ -81,16 +84,15 @@ function initNavbarMotion() {
         width: `${targetWidth}px`,
         opacity: 1
       }, {
-        easing: spring({ stiffness: 250, damping: 22 })
+        easing: spring({ stiffness: 260, damping: 24 })
       });
     } else {
       pill.style.opacity = '0';
     }
   }
 
-  // Update on scroll & resize
   window.addEventListener('resize', updateActivePill, { passive: true });
-  setTimeout(updateActivePill, 300);
+  setTimeout(updateActivePill, 400);
 
   // Directional scroll auto-hide navbar
   let lastScrollY = window.scrollY;
@@ -107,13 +109,13 @@ function initNavbarMotion() {
     }
 
     // Auto hide on scroll down (only after passing hero height)
-    if (currentScrollY > 300) {
-      if (currentScrollY > lastScrollY + 10 && !isNavHidden) {
+    if (currentScrollY > 320) {
+      if (currentScrollY > lastScrollY + 12 && !isNavHidden) {
         isNavHidden = true;
-        animate(navbar, { y: '-100%' }, { duration: 0.35, easing: [0.16, 1, 0.3, 1] });
-      } else if (currentScrollY < lastScrollY - 10 && isNavHidden) {
+        animate(navbar, { y: '-100%' }, { duration: 0.3, easing: [0.16, 1, 0.3, 1] });
+      } else if (currentScrollY < lastScrollY - 12 && isNavHidden) {
         isNavHidden = false;
-        animate(navbar, { y: '0%' }, { duration: 0.35, easing: [0.16, 1, 0.3, 1] });
+        animate(navbar, { y: '0%' }, { duration: 0.3, easing: [0.16, 1, 0.3, 1] });
       }
     } else if (isNavHidden) {
       isNavHidden = false;
@@ -126,12 +128,94 @@ function initNavbarMotion() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   3. CINEMATIC HERO ANIMATION
+   3. MOBILE DRAWER MOTION — Smooth Spring & Stagger
+   ───────────────────────────────────────────────────────────── */
+function initMobileDrawerMotion() {
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  const navOverlay = document.getElementById('navOverlay');
+  if (!hamburger || !navLinks) return;
+
+  let isDrawerOpen = false;
+
+  function openDrawer() {
+    isDrawerOpen = true;
+    hamburger.classList.add('open');
+    navLinks.classList.add('open');
+    if (navOverlay) navOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    if (!reducedMotion) {
+      if (navOverlay) {
+        animate(navOverlay, { opacity: [0, 1] }, { duration: 0.3 });
+      }
+      animate(navLinks, { x: ['100%', '0%'], opacity: [0, 1] }, { duration: 0.45, easing: spring({ stiffness: 220, damping: 20 }) });
+      
+      const items = navLinks.querySelectorAll('li');
+      animate(items, { opacity: [0, 1], x: [30, 0] }, { delay: stagger(0.05, { start: 0.1 }), duration: 0.4, easing: spring({ stiffness: 240, damping: 18 }) });
+    }
+  }
+
+  function closeDrawer() {
+    if (!isDrawerOpen) return;
+    isDrawerOpen = false;
+    hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+
+    if (!reducedMotion) {
+      if (navOverlay) {
+        animate(navOverlay, { opacity: [1, 0] }, { duration: 0.25 });
+      }
+      animate(navLinks, { x: ['0%', '100%'], opacity: [1, 0] }, { duration: 0.3, easing: [0.4, 0, 1, 1] }).then(() => {
+        navLinks.classList.remove('open');
+        if (navOverlay) navOverlay.classList.remove('open');
+      });
+    } else {
+      navLinks.classList.remove('open');
+      if (navOverlay) navOverlay.classList.remove('open');
+    }
+  }
+
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (isDrawerOpen) {
+      closeDrawer();
+    } else {
+      openDrawer();
+    }
+  });
+
+  navLinks.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      closeDrawer();
+    });
+  });
+
+  if (navOverlay) {
+    navOverlay.addEventListener('click', () => {
+      closeDrawer();
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    if (isDrawerOpen && !hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+      closeDrawer();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isDrawerOpen) {
+      closeDrawer();
+    }
+  });
+}
+
+/* ─────────────────────────────────────────────────────────────
+   4. CINEMATIC HERO ANIMATION
    ───────────────────────────────────────────────────────────── */
 function initHeroCinematicSequence() {
   if (reducedMotion) return;
 
-  // Staggered clip reveal for hero content
   const heroTag = document.querySelector('.hero-tag');
   const heroTitle = document.querySelector('.hero-title');
   const heroDesc = document.querySelector('.hero-description');
@@ -140,52 +224,52 @@ function initHeroCinematicSequence() {
   const heroImage = document.querySelector('.hero-image-wrapper');
   const scrollIndicator = document.querySelector('.scroll-indicator');
 
+  if (heroImage) {
+    animate(heroImage, 
+      { opacity: [0, 1], scale: [0.88, 1], y: [25, 0] }, 
+      { duration: 0.9, easing: spring({ stiffness: 150, damping: 16 }) }
+    );
+  }
+
   if (heroTag) {
     animate(heroTag, 
-      { opacity: [0, 1], y: [24, 0], scale: [0.92, 1] }, 
-      { duration: 0.7, easing: spring({ stiffness: 150, damping: 15 }) }
+      { opacity: [0, 1], y: [20, 0], scale: [0.92, 1] }, 
+      { delay: 0.15, duration: 0.7, easing: spring({ stiffness: 160, damping: 15 }) }
     );
   }
 
   if (heroTitle) {
     animate(heroTitle, 
-      { opacity: [0, 1], y: [35, 0] }, 
-      { delay: 0.15, duration: 0.85, easing: [0.16, 1, 0.3, 1] }
+      { opacity: [0, 1], y: [28, 0] }, 
+      { delay: 0.25, duration: 0.8, easing: [0.16, 1, 0.3, 1] }
     );
   }
 
   if (heroDesc) {
     animate(heroDesc, 
-      { opacity: [0, 1], y: [20, 0] }, 
-      { delay: 0.3, duration: 0.8, easing: [0.16, 1, 0.3, 1] }
+      { opacity: [0, 1], y: [18, 0] }, 
+      { delay: 0.4, duration: 0.75, easing: [0.16, 1, 0.3, 1] }
     );
   }
 
   if (heroButtons.length) {
     animate(heroButtons, 
-      { opacity: [0, 1], y: [20, 0], scale: [0.95, 1] }, 
-      { delay: stagger(0.12, { start: 0.45 }), duration: 0.6, easing: spring({ stiffness: 180, damping: 16 }) }
+      { opacity: [0, 1], y: [18, 0], scale: [0.94, 1] }, 
+      { delay: stagger(0.1, { start: 0.5 }), duration: 0.6, easing: spring({ stiffness: 190, damping: 16 }) }
     );
   }
 
   if (socialIcons.length) {
     animate(socialIcons, 
-      { opacity: [0, 1], y: [16, 0], scale: [0.8, 1] }, 
-      { delay: stagger(0.08, { start: 0.6 }), duration: 0.5, easing: spring({ stiffness: 200, damping: 15 }) }
-    );
-  }
-
-  if (heroImage) {
-    animate(heroImage, 
-      { opacity: [0, 1], x: [45, 0], scale: [0.92, 1] }, 
-      { delay: 0.25, duration: 1.1, easing: [0.16, 1, 0.3, 1] }
+      { opacity: [0, 1], y: [14, 0], scale: [0.8, 1] }, 
+      { delay: stagger(0.08, { start: 0.65 }), duration: 0.5, easing: spring({ stiffness: 200, damping: 15 }) }
     );
   }
 
   if (scrollIndicator) {
     animate(scrollIndicator, 
-      { opacity: [0, 1], y: [15, 0] }, 
-      { delay: 0.9, duration: 0.8 }
+      { opacity: [0, 1], y: [12, 0] }, 
+      { delay: 0.95, duration: 0.8 }
     );
   }
 
@@ -202,10 +286,10 @@ function initHeroCinematicSequence() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   4. PARALLAX & CURSOR MOTION
+   5. PARALLAX & CURSOR MOTION (Desktop Only)
    ───────────────────────────────────────────────────────────── */
 function initParallaxEffects() {
-  if (reducedMotion || isTouchDevice) return;
+  if (reducedMotion || isTouchDevice || window.innerWidth <= 900) return;
 
   const hero = document.querySelector('.hero');
   if (!hero) return;
@@ -215,32 +299,31 @@ function initParallaxEffects() {
   const heroGrid = document.querySelector('.hero-grid');
   const heroImageFrame = document.querySelector('.hero-image-frame');
 
-  // Mouse tilt parallax on hero
   hero.addEventListener('mousemove', (e) => {
     const rect = hero.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-    if (orb1) animate(orb1, { x: x * 40, y: y * 40 }, { duration: 0.8, easing: [0.16, 1, 0.3, 1] });
-    if (orb2) animate(orb2, { x: -x * 30, y: -y * 30 }, { duration: 0.8, easing: [0.16, 1, 0.3, 1] });
-    if (heroGrid) animate(heroGrid, { x: x * 15, y: y * 15 }, { duration: 1, easing: [0.16, 1, 0.3, 1] });
+    if (orb1) animate(orb1, { x: x * 35, y: y * 35 }, { duration: 0.8, easing: [0.16, 1, 0.3, 1] });
+    if (orb2) animate(orb2, { x: -x * 25, y: -y * 25 }, { duration: 0.8, easing: [0.16, 1, 0.3, 1] });
+    if (heroGrid) animate(heroGrid, { x: x * 12, y: y * 12 }, { duration: 1, easing: [0.16, 1, 0.3, 1] });
     if (heroImageFrame) {
       animate(heroImageFrame, 
-        { rotateY: x * 12, rotateX: -y * 12, x: x * 20, y: y * 20 }, 
-        { duration: 0.5, easing: [0.16, 1, 0.3, 1] }
+        { rotateY: x * 10, rotateX: -y * 10, x: x * 16, y: y * 16 }, 
+        { duration: 0.45, easing: [0.16, 1, 0.3, 1] }
       );
     }
   });
 
   hero.addEventListener('mouseleave', () => {
     if (heroImageFrame) {
-      animate(heroImageFrame, { rotateY: 0, rotateX: 0, x: 0, y: 0 }, { duration: 0.8, easing: spring({ stiffness: 100, damping: 14 }) });
+      animate(heroImageFrame, { rotateY: 0, rotateX: 0, x: 0, y: 0 }, { duration: 0.7, easing: spring({ stiffness: 110, damping: 14 }) });
     }
   });
 }
 
 /* ─────────────────────────────────────────────────────────────
-   5. SECTION HEADINGS — Clip reveal & Underline draw
+   6. SECTION HEADINGS — Clip reveal & Underline draw
    ───────────────────────────────────────────────────────────── */
 function initSectionHeadings() {
   document.querySelectorAll('.section-header').forEach(header => {
@@ -255,17 +338,17 @@ function initSectionHeadings() {
       const title = header.querySelector('.section-title');
 
       if (tag) {
-        animate(tag, { opacity: [0, 1], y: [16, 0], letterSpacing: ['6px', '2px'] }, { duration: 0.6, easing: [0.16, 1, 0.3, 1] });
+        animate(tag, { opacity: [0, 1], y: [16, 0], letterSpacing: ['5px', '2px'] }, { duration: 0.6, easing: [0.16, 1, 0.3, 1] });
       }
       if (title) {
-        animate(title, { opacity: [0, 1], y: [30, 0] }, { delay: 0.1, duration: 0.7, easing: [0.16, 1, 0.3, 1] });
+        animate(title, { opacity: [0, 1], y: [26, 0] }, { delay: 0.1, duration: 0.7, easing: [0.16, 1, 0.3, 1] });
       }
-    }, { amount: 0.3 });
+    }, { amount: 0.25 });
   });
 }
 
 /* ─────────────────────────────────────────────────────────────
-   6. ABOUT SECTION — Editorial stagger & Counter numbers
+   7. ABOUT SECTION — Editorial stagger & Counter numbers
    ───────────────────────────────────────────────────────────── */
 function initAboutSection() {
   const aboutSection = document.getElementById('about');
@@ -283,10 +366,10 @@ function initAboutSection() {
   inView('.about-stats', () => {
     const cards = document.querySelectorAll('.stat-card');
     animate(cards, 
-      { opacity: [0, 1], y: [40, 0], scale: [0.88, 1] }, 
-      { delay: stagger(0.12), duration: 0.7, easing: spring({ stiffness: 160, damping: 15 }) }
+      { opacity: [0, 1], y: [35, 0], scale: [0.9, 1] }, 
+      { delay: stagger(0.1), duration: 0.7, easing: spring({ stiffness: 160, damping: 15 }) }
     );
-  }, { amount: 0.2 });
+  }, { amount: 0.15 });
 
   // Paragraph text reveal
   inView('.about-text', () => {
@@ -295,24 +378,24 @@ function initAboutSection() {
     const ctas = document.querySelectorAll('.about-text .btn');
 
     animate(paragraphs, 
-      { opacity: [0, 1], y: [20, 0] }, 
-      { delay: stagger(0.1), duration: 0.6, easing: [0.16, 1, 0.3, 1] }
+      { opacity: [0, 1], y: [18, 0] }, 
+      { delay: stagger(0.09), duration: 0.6, easing: [0.16, 1, 0.3, 1] }
     );
 
     animate(details, 
-      { opacity: [0, 1], x: [-15, 0] }, 
-      { delay: stagger(0.08, { start: 0.3 }), duration: 0.5, easing: [0.16, 1, 0.3, 1] }
+      { opacity: [0, 1], x: [-12, 0] }, 
+      { delay: stagger(0.07, { start: 0.25 }), duration: 0.5, easing: [0.16, 1, 0.3, 1] }
     );
 
     animate(ctas, 
-      { opacity: [0, 1], y: [15, 0] }, 
-      { delay: stagger(0.1, { start: 0.5 }), duration: 0.5 }
+      { opacity: [0, 1], y: [14, 0] }, 
+      { delay: stagger(0.08, { start: 0.45 }), duration: 0.5 }
     );
-  }, { amount: 0.2 });
+  }, { amount: 0.15 });
 }
 
 /* ─────────────────────────────────────────────────────────────
-   7. EDUCATION TIMELINE — Progressive Line Draw & Alternating Cards
+   8. EDUCATION TIMELINE — Progressive Line Draw & Cards
    ───────────────────────────────────────────────────────────── */
 function initEducationTimeline() {
   const timeline = document.querySelector('.timeline');
@@ -332,25 +415,25 @@ function initEducationTimeline() {
   timeline.prepend(line);
 
   inView(timeline, () => {
-    animate(line, { height: ['0%', '100%'] }, { duration: 1.6, easing: [0.16, 1, 0.3, 1] });
+    animate(line, { height: ['0%', '100%'] }, { duration: 1.5, easing: [0.16, 1, 0.3, 1] });
 
     const items = document.querySelectorAll('.timeline-item');
     items.forEach((item, index) => {
       const dot = item.querySelector('.timeline-dot');
       const card = item.querySelector('.timeline-card');
-      const offsetX = index % 2 === 0 ? -30 : 30;
+      const offsetX = index % 2 === 0 ? -24 : 24;
 
       if (dot) {
         animate(dot, 
           { opacity: [0, 1], scale: [0, 1] }, 
-          { delay: 0.2 + index * 0.25, duration: 0.5, easing: spring({ stiffness: 220, damping: 14 }) }
+          { delay: 0.2 + index * 0.2, duration: 0.5, easing: spring({ stiffness: 220, damping: 14 }) }
         );
       }
 
       if (card) {
         animate(card, 
           { opacity: [0, 1], x: [offsetX, 0] }, 
-          { delay: 0.3 + index * 0.25, duration: 0.75, easing: [0.16, 1, 0.3, 1] }
+          { delay: 0.25 + index * 0.2, duration: 0.7, easing: [0.16, 1, 0.3, 1] }
         );
       }
     });
@@ -358,7 +441,7 @@ function initEducationTimeline() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   8. SKILLS SECTION — Bars, Count-Up & Tech Icon Burst
+   9. SKILLS SECTION — Bars, Count-Up & Tech Icon Burst
    ───────────────────────────────────────────────────────────── */
 function initSkillsSection() {
   const skillsSection = document.getElementById('skills');
@@ -374,8 +457,8 @@ function initSkillsSection() {
   inView('.skills-grid', () => {
     const groups = document.querySelectorAll('.skills-group');
     animate(groups, 
-      { opacity: [0, 1], y: [35, 0], scale: [0.96, 1] }, 
-      { delay: stagger(0.15), duration: 0.75, easing: [0.16, 1, 0.3, 1] }
+      { opacity: [0, 1], y: [30, 0], scale: [0.97, 1] }, 
+      { delay: stagger(0.12), duration: 0.7, easing: [0.16, 1, 0.3, 1] }
     );
 
     // Animate skill bars fill
@@ -396,25 +479,25 @@ function initSkillsSection() {
         });
       }
     });
-  }, { amount: 0.2 });
+  }, { amount: 0.15 });
 
   // Tech Icons staggered radial burst
   inView('.tech-icons', () => {
     const iconCards = document.querySelectorAll('.tech-icon-card');
     animate(iconCards, 
-      { opacity: [0, 1], scale: [0.7, 1], y: [20, 0] }, 
-      { delay: stagger(0.06), duration: 0.5, easing: spring({ stiffness: 180, damping: 15 }) }
+      { opacity: [0, 1], scale: [0.75, 1], y: [16, 0] }, 
+      { delay: stagger(0.05), duration: 0.5, easing: spring({ stiffness: 180, damping: 15 }) }
     );
-  }, { amount: 0.2 });
+  }, { amount: 0.15 });
 
-  // Tech Icon Card hover 3D tilt
-  if (!isTouchDevice && !reducedMotion) {
+  // Tech Icon Card hover 3D tilt (Desktop only)
+  if (!isTouchDevice && !reducedMotion && window.innerWidth > 900) {
     document.querySelectorAll('.tech-icon-card').forEach(card => {
       hover(card, 
         (el) => {
-          animate(el, { y: -6, scale: 1.08, rotateY: 10 }, { duration: 0.25, easing: spring({ stiffness: 250, damping: 15 }) });
+          animate(el, { y: -5, scale: 1.07, rotateY: 8 }, { duration: 0.25, easing: spring({ stiffness: 250, damping: 15 }) });
           return () => {
-            animate(el, { y: 0, scale: 1, rotateY: 0 }, { duration: 0.4, easing: spring({ stiffness: 180, damping: 18 }) });
+            animate(el, { y: 0, scale: 1, rotateY: 0 }, { duration: 0.35, easing: spring({ stiffness: 180, damping: 18 }) });
           };
         }
       );
@@ -423,7 +506,7 @@ function initSkillsSection() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   9. PROJECTS SECTION — Category Filter & 3D Spring Tilt
+   10. PROJECTS SECTION — Category Filter & 3D Spring Tilt
    ───────────────────────────────────────────────────────────── */
 function initProjectsSection() {
   const projectsGrid = document.querySelector('.projects-grid');
@@ -436,13 +519,13 @@ function initProjectsSection() {
   } else {
     inView(projectsGrid, () => {
       animate(cards, 
-        { opacity: [0, 1], y: [45, 0], scale: [0.94, 1] }, 
-        { delay: stagger(0.12), duration: 0.8, easing: spring({ stiffness: 140, damping: 15 }) }
+        { opacity: [0, 1], y: [35, 0], scale: [0.95, 1] }, 
+        { delay: stagger(0.1), duration: 0.75, easing: spring({ stiffness: 150, damping: 16 }) }
       );
     }, { amount: 0.1 });
   }
 
-  // Category Filtering with Motion layout transitions
+  // Category Filtering with Motion transitions
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
@@ -458,8 +541,7 @@ function initProjectsSection() {
         return;
       }
 
-      // Smooth animate out -> toggle display -> animate in
-      animate(cards, { opacity: 0, scale: 0.9, y: 15 }, { duration: 0.2, easing: [0.4, 0, 1, 1] }).then(() => {
+      animate(cards, { opacity: 0, scale: 0.92, y: 12 }, { duration: 0.2, easing: [0.4, 0, 1, 1] }).then(() => {
         cards.forEach(card => {
           const cat = card.getAttribute('data-category') || '';
           if (filterVal === 'all' || cat.includes(filterVal)) {
@@ -471,15 +553,15 @@ function initProjectsSection() {
 
         const visibleCards = Array.from(cards).filter(c => c.style.display !== 'none');
         animate(visibleCards, 
-          { opacity: [0, 1], scale: [0.92, 1], y: [20, 0] }, 
-          { delay: stagger(0.08), duration: 0.6, easing: spring({ stiffness: 160, damping: 16 }) }
+          { opacity: [0, 1], scale: [0.94, 1], y: [16, 0] }, 
+          { delay: stagger(0.07), duration: 0.55, easing: spring({ stiffness: 170, damping: 16 }) }
         );
       });
     });
   });
 
-  // Project Card 3D Tilt with Spring Reset on Mouse Move
-  if (!isTouchDevice && !reducedMotion) {
+  // Project Card 3D Tilt with Spring Reset on Mouse Move (Desktop only)
+  if (!isTouchDevice && !reducedMotion && window.innerWidth > 900) {
     cards.forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
@@ -487,9 +569,9 @@ function initProjectsSection() {
         const y = (e.clientY - rect.top) / rect.height - 0.5;
 
         animate(card, {
-          rotateX: -y * 12,
-          rotateY: x * 12,
-          y: -8,
+          rotateX: -y * 10,
+          rotateY: x * 10,
+          y: -6,
           scale: 1.02
         }, { duration: 0.2, easing: [0.16, 1, 0.3, 1] });
       });
@@ -500,14 +582,14 @@ function initProjectsSection() {
           rotateY: 0,
           y: 0,
           scale: 1
-        }, { duration: 0.6, easing: spring({ stiffness: 150, damping: 15 }) });
+        }, { duration: 0.5, easing: spring({ stiffness: 160, damping: 15 }) });
       });
     });
   }
 }
 
 /* ─────────────────────────────────────────────────────────────
-   10. HOBBIES SECTION — Floating & Staggered Reveal
+   11. HOBBIES SECTION — Floating & Staggered Reveal
    ───────────────────────────────────────────────────────────── */
 function initHobbiesSection() {
   const grid = document.querySelector('.hobbies-grid');
@@ -521,18 +603,18 @@ function initHobbiesSection() {
   inView(grid, () => {
     const hobbyCards = document.querySelectorAll('.hobby-card');
     animate(hobbyCards, 
-      { opacity: [0, 1], scale: [0.82, 1], y: [30, 0] }, 
-      { delay: stagger(0.09), duration: 0.7, easing: spring({ stiffness: 160, damping: 15 }) }
+      { opacity: [0, 1], scale: [0.86, 1], y: [25, 0] }, 
+      { delay: stagger(0.08), duration: 0.65, easing: spring({ stiffness: 160, damping: 15 }) }
     );
-  }, { amount: 0.15 });
+  }, { amount: 0.1 });
 
-  // Hover float interaction
-  if (!isTouchDevice && !reducedMotion) {
+  // Hover float interaction (Desktop only)
+  if (!isTouchDevice && !reducedMotion && window.innerWidth > 900) {
     document.querySelectorAll('.hobby-card').forEach(card => {
       hover(card, (el) => {
-        animate(el, { y: -8, scale: 1.04 }, { duration: 0.3, easing: spring({ stiffness: 200, damping: 14 }) });
+        animate(el, { y: -6, scale: 1.03 }, { duration: 0.25, easing: spring({ stiffness: 200, damping: 14 }) });
         return () => {
-          animate(el, { y: 0, scale: 1 }, { duration: 0.4, easing: spring({ stiffness: 150, damping: 16 }) });
+          animate(el, { y: 0, scale: 1 }, { duration: 0.35, easing: spring({ stiffness: 150, damping: 16 }) });
         };
       });
     });
@@ -540,7 +622,7 @@ function initHobbiesSection() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   11. CONTACT SECTION — Split Entrance & Form Interaction
+   12. CONTACT SECTION — Split Entrance & Form Interaction
    ───────────────────────────────────────────────────────────── */
 function initContactSection() {
   const contactGrid = document.querySelector('.contact-grid');
@@ -556,24 +638,24 @@ function initContactSection() {
 
   inView(contactGrid, () => {
     animate('.contact-info', 
-      { opacity: [0, 1], x: [-40, 0] }, 
-      { duration: 0.8, easing: [0.16, 1, 0.3, 1] }
+      { opacity: [0, 1], x: [-30, 0] }, 
+      { duration: 0.75, easing: [0.16, 1, 0.3, 1] }
     );
 
     animate('.contact-form-wrapper', 
-      { opacity: [0, 1], x: [40, 0] }, 
-      { delay: 0.15, duration: 0.8, easing: [0.16, 1, 0.3, 1] }
+      { opacity: [0, 1], x: [30, 0] }, 
+      { delay: 0.12, duration: 0.75, easing: [0.16, 1, 0.3, 1] }
     );
 
     animate('.contact-detail', 
-      { opacity: [0, 1], x: [-15, 0] }, 
-      { delay: stagger(0.08, { start: 0.3 }), duration: 0.5, easing: [0.16, 1, 0.3, 1] }
+      { opacity: [0, 1], x: [-12, 0] }, 
+      { delay: stagger(0.07, { start: 0.25 }), duration: 0.5, easing: [0.16, 1, 0.3, 1] }
     );
-  }, { amount: 0.2 });
+  }, { amount: 0.15 });
 }
 
 /* ─────────────────────────────────────────────────────────────
-   12. BUTTON MICRO-INTERACTIONS — Magnetic Hover & Press Feedback
+   13. BUTTON MICRO-INTERACTIONS — Magnetic Hover & Press Feedback
    ───────────────────────────────────────────────────────────── */
 function initButtonMicroInteractions() {
   const buttons = document.querySelectorAll('.btn, .social-icon, .filter-btn, .theme-toggle, .back-to-top');
@@ -581,32 +663,32 @@ function initButtonMicroInteractions() {
   buttons.forEach(btn => {
     // Press tactile spring feedback
     press(btn, (el) => {
-      animate(el, { scale: 0.94 }, { duration: 0.1 });
+      animate(el, { scale: 0.95 }, { duration: 0.08 });
       return () => {
-        animate(el, { scale: 1 }, { duration: 0.3, easing: spring({ stiffness: 300, damping: 15 }) });
+        animate(el, { scale: 1 }, { duration: 0.25, easing: spring({ stiffness: 320, damping: 16 }) });
       };
     });
 
-    // Magnetic cursor pull (desktop only)
-    if (!isTouchDevice && !reducedMotion && (btn.classList.contains('btn') || btn.classList.contains('social-icon'))) {
+    // Magnetic cursor pull (Desktop only)
+    if (!isTouchDevice && !reducedMotion && window.innerWidth > 900 && (btn.classList.contains('btn') || btn.classList.contains('social-icon'))) {
       btn.addEventListener('mousemove', (e) => {
         const rect = btn.getBoundingClientRect();
-        const dx = (e.clientX - (rect.left + rect.width / 2)) * 0.25;
-        const dy = (e.clientY - (rect.top + rect.height / 2)) * 0.25;
+        const dx = (e.clientX - (rect.left + rect.width / 2)) * 0.22;
+        const dy = (e.clientY - (rect.top + rect.height / 2)) * 0.22;
 
-        animate(btn, { x: dx, y: dy }, { duration: 0.2, easing: [0.16, 1, 0.3, 1] });
+        animate(btn, { x: dx, y: dy }, { duration: 0.15, easing: [0.16, 1, 0.3, 1] });
 
         const icon = btn.querySelector('i');
         if (icon) {
-          animate(icon, { x: dx * 0.3, y: dy * 0.3 }, { duration: 0.2 });
+          animate(icon, { x: dx * 0.25, y: dy * 0.25 }, { duration: 0.15 });
         }
       });
 
       btn.addEventListener('mouseleave', () => {
-        animate(btn, { x: 0, y: 0 }, { duration: 0.5, easing: spring({ stiffness: 180, damping: 14 }) });
+        animate(btn, { x: 0, y: 0 }, { duration: 0.45, easing: spring({ stiffness: 180, damping: 14 }) });
         const icon = btn.querySelector('i');
         if (icon) {
-          animate(icon, { x: 0, y: 0 }, { duration: 0.5, easing: spring({ stiffness: 180, damping: 14 }) });
+          animate(icon, { x: 0, y: 0 }, { duration: 0.45, easing: spring({ stiffness: 180, damping: 14 }) });
         }
       });
     }
@@ -614,7 +696,7 @@ function initButtonMicroInteractions() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   13. FOOTER REVEAL
+   14. FOOTER REVEAL
    ───────────────────────────────────────────────────────────── */
 function initFooterReveal() {
   const footer = document.querySelector('.footer');
@@ -629,18 +711,18 @@ function initFooterReveal() {
   }
 
   inView(footer, () => {
-    animate('.footer-content', { opacity: [0, 1], y: [25, 0] }, { duration: 0.7, easing: [0.16, 1, 0.3, 1] });
-    animate('.footer-bottom', { opacity: [0, 1] }, { delay: 0.2, duration: 0.6 });
-  }, { amount: 0.2 });
+    animate('.footer-content', { opacity: [0, 1], y: [20, 0] }, { duration: 0.65, easing: [0.16, 1, 0.3, 1] });
+    animate('.footer-bottom', { opacity: [0, 1] }, { delay: 0.15, duration: 0.55 });
+  }, { amount: 0.15 });
 }
 
 /* ─────────────────────────────────────────────────────────────
-   14. CUSTOM CURSOR MOTION — Smooth Spring Ring & States
+   15. CUSTOM CURSOR MOTION — Smooth Spring Ring & States (Desktop Only)
    ───────────────────────────────────────────────────────────── */
 function initCustomCursorMotion() {
   const cursor = document.getElementById('cursor');
   const follower = document.getElementById('cursorFollower');
-  if (!cursor || !follower || isTouchDevice || reducedMotion) return;
+  if (!cursor || !follower || isTouchDevice || reducedMotion || window.innerWidth <= 900) return;
 
   let mouseX = window.innerWidth / 2;
   let mouseY = window.innerHeight / 2;
@@ -656,8 +738,8 @@ function initCustomCursorMotion() {
 
   // RAF spring physics follower
   function updateCursorFollower() {
-    followerX += (mouseX - followerX) * 0.15;
-    followerY += (mouseY - followerY) * 0.15;
+    followerX += (mouseX - followerX) * 0.16;
+    followerY += (mouseY - followerY) * 0.16;
 
     follower.style.left = `${followerX}px`;
     follower.style.top = `${followerY}px`;
