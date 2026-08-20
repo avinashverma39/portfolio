@@ -15,27 +15,27 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 
 /* ---- Wait for DOM to load ---- */
 document.addEventListener('DOMContentLoaded', async () => {
-  initCustomCursor();
-  initNavbar();
   initHamburger();
-  initScrollProgress();
   initThemeToggle();
-  initParticles();       // canvas particles (not a GSAP animation)
+  initParticles();       // canvas ambient particles
   initTypingEffect();    // hero typing effect
-  initSkillBars();       // fills progress bar widths via IntersectionObserver
-  initActiveNavLink();   // active pill indicator
-  initBackToTop();       // back to top button visibility
+  initActiveNavLink();   // active section observer
+  initBackToTop();       // back to top button click
 
-  /* NOTE: Hero entrance, scroll reveal, count-up, timeline animation,
-     and magnetic buttons are all handled by animations.js (GSAP) */
+  /* NOTE: Animations, Motion scroll progress, custom cursor, magnetic buttons, 
+     timeline, project tilt & filters are all powered by Motion.js in animations.js */
 
-  // Check auth and update nav link (kept for safety)
+  // Check auth and update nav link
   const authNavLink = document.getElementById('authNavLink');
   if (authNavLink) {
-    const { data: { user } } = await insforge.auth.getCurrentUser();
-    if (user) {
-      authNavLink.textContent = 'Dashboard';
-      authNavLink.href = 'dashboard.html';
+    try {
+      const { data: { user } } = await insforge.auth.getCurrentUser();
+      if (user) {
+        authNavLink.textContent = 'Dashboard';
+        authNavLink.href = 'dashboard.html';
+      }
+    } catch (e) {
+      console.warn('Auth check error:', e);
     }
   }
 });
