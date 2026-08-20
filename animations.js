@@ -466,17 +466,20 @@ function initSkillsSection() {
       const targetPct = parseInt(fill.getAttribute('data-width') || '0', 10);
       animate(fill, { width: [0, `${targetPct}%`] }, { duration: 1.2, easing: [0.16, 1, 0.3, 1] });
 
-      // Animate percentage label counter
+      // Animate percentage label counter with rAF
       const pctEl = fill.closest('.skill-bar-item')?.querySelector('.skill-percent');
       if (pctEl) {
-        const obj = { val: 0 };
-        animate(obj, { val: targetPct }, {
-          duration: 1.2,
-          easing: [0.16, 1, 0.3, 1],
-          onUpdate: () => {
-            pctEl.textContent = `${Math.round(obj.val)}%`;
-          }
-        });
+        const duration = 1200;
+        const start = performance.now();
+        function countUp(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          // Ease out cubic
+          const eased = 1 - Math.pow(1 - progress, 3);
+          pctEl.textContent = `${Math.round(eased * targetPct)}%`;
+          if (progress < 1) requestAnimationFrame(countUp);
+        }
+        requestAnimationFrame(countUp);
       }
     });
   }, { amount: 0.15 });
