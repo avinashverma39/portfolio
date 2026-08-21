@@ -72,7 +72,7 @@ function initCustomCursor() {
   animateFollower();
 
   // Expand cursor on hover
-  const interactives = document.querySelectorAll('a, button, input, textarea, .project-card, .hobby-card, .stat-card, .tech-icon-card, .achievement-card');
+  const interactives = document.querySelectorAll('a, button, input, textarea, .project-card, .hobby-card, .stat-card, .tech-icon-card, .achievement-card, .detail-item, .timeline-card, .filter-btn');
   interactives.forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursor.classList.add('cursor-hover');
