@@ -1475,21 +1475,21 @@ button { cursor: none; border: none; background: none; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 16px;
   flex-wrap: wrap;
-  margin-bottom: 36px;
+  margin-bottom: 44px;
 }
 
 .achievement-counter-pill {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   background: rgba(50, 205, 50, 0.08);
   border: 1px solid var(--border);
   border-radius: 50px;
-  padding: 8px 18px;
+  padding: 10px 22px;
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   color: var(--accent);
   font-weight: 600;
   transition: var(--transition);
@@ -1502,7 +1502,7 @@ button { cursor: none; border: none; background: none; }
 }
 
 .achievement-counter-pill i {
-  font-size: 0.9rem;
+  font-size: 1rem;
   opacity: 0.8;
 }
 
@@ -1522,8 +1522,8 @@ button { cursor: none; border: none; background: none; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 44px;
+  gap: 12px;
+  margin-bottom: 52px;
   flex-wrap: wrap;
 }
 
@@ -1535,8 +1535,8 @@ button { cursor: none; border: none; background: none; }
 /* Achievements Grid */
 .achievements-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 32px;
   perspective: 1200px;
 }
 
@@ -1607,7 +1607,7 @@ button { cursor: none; border: none; background: none; }
 .achievement-card-image {
   position: relative;
   width: 100%;
-  height: 180px;
+  height: 220px;
   overflow: hidden;
   background: var(--bg-secondary);
 }
@@ -1626,21 +1626,21 @@ button { cursor: none; border: none; background: none; }
 /* Category badge on image */
 .achievement-card-badge {
   position: absolute;
-  top: 14px;
-  left: 14px;
+  top: 16px;
+  left: 16px;
   background: rgba(10, 10, 15, 0.85);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--border);
   border-radius: 50px;
-  padding: 5px 14px;
-  font-size: 0.72rem;
+  padding: 6px 16px;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--accent);
   font-family: var(--font-mono);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   z-index: 3;
   transition: var(--transition);
 }
@@ -1650,15 +1650,15 @@ button { cursor: none; border: none; background: none; }
 }
 
 .achievement-card-badge i {
-  font-size: 0.7rem;
+  font-size: 0.76rem;
 }
 
 /* Card Body */
 .achievement-card-body {
-  padding: 24px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   flex-grow: 1;
   position: relative;
   z-index: 2;
@@ -1672,7 +1672,7 @@ button { cursor: none; border: none; background: none; }
 }
 
 .achievement-card-title {
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: var(--text-primary);
   line-height: 1.4;
@@ -1683,8 +1683,8 @@ button { cursor: none; border: none; background: none; }
   color: var(--accent);
   border: 1px solid var(--border);
   border-radius: 50px;
-  padding: 3px 12px;
-  font-size: 0.72rem;
+  padding: 4px 14px;
+  font-size: 0.78rem;
   font-family: var(--font-mono);
   white-space: nowrap;
   flex-shrink: 0;
@@ -1693,8 +1693,8 @@ button { cursor: none; border: none; background: none; }
 .achievement-card-org {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.85rem;
+  gap: 9px;
+  font-size: 0.9rem;
   color: var(--accent);
   font-family: var(--font-mono);
 }
@@ -1706,13 +1706,13 @@ button { cursor: none; border: none; background: none; }
 
 .achievement-card-desc {
   color: var(--text-secondary);
-  font-size: 0.88rem;
-  line-height: 1.7;
+  font-size: 0.92rem;
+  line-height: 1.75;
   flex-grow: 1;
 }
 
 .achievement-card-credential {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   font-family: var(--font-mono);
 }
@@ -1725,16 +1725,17 @@ button { cursor: none; border: none; background: none; }
 .achievement-card-skills {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
+  margin-top: 4px;
 }
 
 .achievement-card-skills span {
   background: rgba(50, 205, 50, 0.1);
   color: var(--accent);
   border: 1px solid var(--border);
-  padding: 2px 10px;
+  padding: 4px 14px;
   border-radius: 50px;
-  font-size: 0.7rem;
+  font-size: 0.76rem;
   font-family: var(--font-mono);
   transition: var(--transition);
 }
@@ -1745,7 +1746,7 @@ button { cursor: none; border: none; background: none; }
 
 /* Card Footer Actions */
 .achievement-card-actions {
-  padding: 0 24px 20px;
+  padding: 0 28px 24px;
   position: relative;
   z-index: 2;
 }
@@ -1753,9 +1754,9 @@ button { cursor: none; border: none; background: none; }
 .achievement-card-actions .btn {
   width: 100%;
   justify-content: center;
-  padding: 10px 20px;
-  font-size: 0.85rem;
-  gap: 8px;
+  padding: 12px 22px;
+  font-size: 0.9rem;
+  gap: 9px;
 }
 
 .achievement-card-actions .btn i {
@@ -1816,7 +1817,7 @@ button { cursor: none; border: none; background: none; }
 }
 
 .achievement-placeholder-img .placeholder-icon {
-  font-size: 3rem;
+  font-size: 3.5rem;
   color: var(--accent);
   opacity: 0.35;
 }
@@ -2065,7 +2066,8 @@ button { cursor: none; border: none; background: none; }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
 
   /* Achievements */
-  .achievements-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .achievements-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 26px; }
+  .achievement-card-image { height: 200px; }
   .cert-modal { max-width: 95vw; }
   .cert-modal-image { max-height: 40vh; }
 }
@@ -2121,17 +2123,20 @@ button { cursor: none; border: none; background: none; }
   .footer-links { justify-content: center; }
 
   /* Achievements */
-  .achievements-grid { grid-template-columns: 1fr; }
-  .achievement-counters { gap: 8px; }
-  .achievement-counter-pill { padding: 6px 12px; font-size: 0.75rem; }
+  .achievements-grid { grid-template-columns: 1fr; gap: 24px; }
+  .achievement-card-image { height: 200px; }
+  .achievement-card-body { padding: 22px; gap: 12px; }
+  .achievement-card-actions { padding: 0 22px 20px; }
+  .achievement-counters { gap: 10px; }
+  .achievement-counter-pill { padding: 8px 14px; font-size: 0.8rem; }
   .achievement-counter-separator { display: none; }
-  .achievement-filters { gap: 6px; }
-  .achievement-filters .filter-btn { padding: 6px 14px; font-size: 0.82rem; }
+  .achievement-filters { gap: 8px; }
+  .achievement-filters .filter-btn { padding: 8px 16px; font-size: 0.85rem; }
   .cert-modal-overlay { padding: 12px; }
-  .cert-modal-image-wrap { padding: 12px; min-height: 200px; }
+  .cert-modal-image-wrap { padding: 14px; min-height: 220px; }
   .cert-modal-image { max-height: 35vh; }
-  .cert-modal-info { padding: 20px; }
-  .cert-modal-controls { padding: 8px; }
+  .cert-modal-info { padding: 22px; }
+  .cert-modal-controls { padding: 10px; }
 
   /* Custom cursor hidden on touch */
   .cursor, .cursor-follower { display: none; }
