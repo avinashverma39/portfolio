@@ -836,10 +836,27 @@ button { cursor: none; border: none; background: none; }
   gap: 10px;
   font-size: 0.88rem;
   color: var(--text-secondary);
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+
+.detail-item:hover {
+  background: rgba(50, 205, 50, 0.05);
+  color: var(--text-primary);
 }
 
 .detail-item i { color: var(--accent); font-size: 0.9rem; flex-shrink: 0; }
 .detail-item strong { color: var(--text-primary); }
+
+/* About Buttons */
+.about-buttons {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
 
 /* =============================================
    EDUCATION / TIMELINE
@@ -2058,6 +2075,8 @@ button { cursor: none; border: none; background: none; }
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .about-stats { grid-template-columns: repeat(4, 1fr); }
   .about-details { grid-template-columns: 1fr; }
+  .about-buttons { justify-content: center; }
+  .about-text { text-align: center; }
 
   /* Skills */
   .skills-grid { grid-template-columns: 1fr; }
@@ -2114,6 +2133,10 @@ button { cursor: none; border: none; background: none; }
 
   /* About */
   .about-stats { grid-template-columns: 1fr 1fr; }
+  .about-details { grid-template-columns: 1fr; padding: 16px; gap: 8px; }
+  .about-buttons { flex-direction: column; align-items: center; }
+  .about-text { text-align: center; }
+  .detail-item { justify-content: center; text-align: center; }
 
   /* Timeline */
   .timeline-header { flex-direction: column; gap: 8px; }
