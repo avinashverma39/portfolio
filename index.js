@@ -112,25 +112,38 @@ function initHamburger() {
 
   if (!hamburger || !navLinks) return;
 
+  function toggleMenu(open) {
+    const isOpen = open ?? !hamburger.classList.contains('open');
+    hamburger.classList.toggle('open', isOpen);
+    navLinks.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    if (isOpen) {
+      // Focus first nav link when menu opens
+      const firstLink = navLinks.querySelector('.nav-link');
+      if (firstLink) firstLink.focus();
+    }
+  }
+
   // Toggle menu open/close
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    navLinks.classList.toggle('open');
-  });
+  hamburger.addEventListener('click', () => toggleMenu());
 
   // Close menu when a link is clicked
   navLinks.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('open');
-      navLinks.classList.remove('open');
-    });
+    link.addEventListener('click', () => toggleMenu(false));
   });
 
   // Close menu when clicking outside
   document.addEventListener('click', (e) => {
     if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-      hamburger.classList.remove('open');
-      navLinks.classList.remove('open');
+      toggleMenu(false);
+    }
+  });
+
+  // Close menu on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && hamburger.classList.contains('open')) {
+      toggleMenu(false);
+      hamburger.focus();
     }
   });
 }
@@ -253,73 +266,106 @@ function initTypingEffect() {
 /* =============================================
    9. CONTACT FORM SUBMIT HANDLER
    ============================================= */
-window.handleFormSubmit = async function() {
-  const name = document.getElementById('name').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const subject = document.getElementById('subject').value.trim();
-  const message = document.getElementById('message').value.trim();
+(function initContactForm() {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
 
-  if (!name) { alert('Please enter your name.'); return; }
-  if (!email || !validateEmail(email)) { alert('Please enter a valid email address.'); return; }
-  if (!message) { alert('Please enter a message.'); return; }
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-  const sendBtn = document.getElementById('sendBtn');
-  sendBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
-  sendBtn.disabled = true;
+    // Clear previous errors
+    clearFormErrors();
 
-  try {
-    let aiResponse = null;
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const subject = document.getElementById('subject').value.trim();
+    const message = document.getElementById('message').value.trim();
 
-    // Call InsForge Edge Function
+    // Validate
+    let hasError = false;
+    if (!name) { showFieldError('name', 'nameError', 'Please enter your name.'); hasError = true; }
+    if (!email || !validateEmail(email)) { showFieldError('email', 'emailError', 'Please enter a valid email address.'); hasError = true; }
+    if (!message) { showFieldError('message', 'messageError', 'Please enter a message.'); hasError = true; }
+    if (hasError) return;
+
+    const sendBtn = document.getElementById('sendBtn');
+    sendBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+    sendBtn.disabled = true;
+
     try {
-      const response = await fetch('https://n9cxde66.function2.insforge.app/handle-contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, subject, message })
-      });
+      let aiResponse = null;
 
-      if (response.ok) {
-        const data = await response.json();
-        aiResponse = data.ai_response;
-      }
-    } catch (fnErr) {
-      console.warn('Edge Function fallback:', fnErr);
-    }
-
-    // Direct Database Backup if edge function was unavailable
-    if (!aiResponse) {
+      // Call InsForge Edge Function
       try {
-        const { error: dbErr } = await insforge
-          .database
-          .from('messages')
-          .insert([{ name, email, message }]);
-        if (dbErr) console.error('Database insert fallback error:', dbErr);
-      } catch (e) {
-        console.error('Direct database insert exception:', e);
+        const response = await fetch('https://n9cxde66.function2.insforge.app/handle-contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, subject, message })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          aiResponse = data.ai_response;
+        }
+      } catch (fnErr) {
+        console.warn('Edge Function fallback:', fnErr);
       }
+
+      // Direct Database Backup if edge function was unavailable
+      if (!aiResponse) {
+        try {
+          const { error: dbErr } = await insforge
+            .database
+            .from('messages')
+            .insert([{ name, email, message }]);
+          if (dbErr) console.error('Database insert fallback error:', dbErr);
+        } catch (e) {
+          console.error('Direct database insert exception:', e);
+        }
+      }
+
+      // Display success feedback
+      form.style.display = 'none';
+      const formSuccess = document.getElementById('formSuccess');
+
+      const successH3 = formSuccess.querySelector('h3');
+      const successP  = formSuccess.querySelector('p');
+      if (successH3) successH3.innerText = 'Message Sent Successfully!';
+      if (successP)  successP.innerText  = aiResponse || "Thank you for reaching out! Avinash will get back to you shortly.";
+
+      formSuccess.style.display = 'block';
+
+    } catch (err) {
+      console.error(err);
+      showFieldError('message', 'messageError', 'Sorry, there was an error. Please check your network and try again.');
+      sendBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
+      sendBtn.disabled = false;
     }
-
-    // Display success feedback
-    document.getElementById('contactForm').style.display = 'none';
-    const formSuccess = document.getElementById('formSuccess');
-
-    const successH3 = formSuccess.querySelector('h3');
-    const successP  = formSuccess.querySelector('p');
-    if (successH3) successH3.innerText = 'Message Sent Successfully!';
-    if (successP)  successP.innerText  = aiResponse || "Thank you for reaching out! Avinash will get back to you shortly.";
-
-    formSuccess.style.display = 'block';
-
-  } catch (err) {
-    console.error(err);
-    alert('Sorry, there was an error sending your message. Please check your network and try again.');
-    sendBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
-    sendBtn.disabled = false;
-  }
-};
+  });
+})();
 
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function showFieldError(fieldId, errorId, message) {
+  const field = document.getElementById(fieldId);
+  const errorEl = document.getElementById(errorId);
+  if (field) field.classList.add('input-error');
+  if (errorEl) {
+    errorEl.textContent = message;
+    errorEl.style.display = 'block';
+  }
+}
+
+function clearFormErrors() {
+  document.querySelectorAll('.form-error').forEach(el => {
+    el.textContent = '';
+    el.style.display = 'none';
+  });
+  document.querySelectorAll('.input-error').forEach(el => {
+    el.classList.remove('input-error');
+  });
 }
 
 
@@ -387,44 +433,7 @@ function initThemeToggle() {
 }
 
 
-/* =============================================
-   13. HERO CINEMATIC ENTRANCE
-   ============================================= */
-function initHeroEntrance() {
-  const items = document.querySelectorAll('[data-entrance]');
-  const delays = { tag: 0, title: 200, desc: 420, buttons: 620, social: 780 };
-
-  items.forEach(el => {
-    const key = el.getAttribute('data-entrance');
-    const delay = delays[key] ?? 0;
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-
-    if (prefersReducedMotion) {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-      return;
-    }
-
-    setTimeout(() => {
-      el.style.transition = 'opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)';
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-    }, delay + 200);
-  });
-
-  // Hero image — enter from right
-  const heroImg = document.querySelector('.hero-image-wrapper');
-  if (heroImg && !prefersReducedMotion) {
-    heroImg.style.opacity = '0';
-    heroImg.style.transform = 'translateX(48px) scale(0.95)';
-    setTimeout(() => {
-      heroImg.style.transition = 'opacity 1s cubic-bezier(0.16,1,0.3,1), transform 1s cubic-bezier(0.16,1,0.3,1)';
-      heroImg.style.opacity = '1';
-      heroImg.style.transform = 'translateX(0) scale(1)';
-    }, 400);
-  }
-}
+/* initHeroEntrance — REMOVED: handled by animations.js */
 
 
 /* =============================================
@@ -493,46 +502,7 @@ function initParticles() {
 }
 
 
-/* =============================================
-   15. ADVANCED SCROLL REVEAL
-   ============================================= */
-function initScrollReveal() {
-  if (prefersReducedMotion) {
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-    return;
-  }
-
-  const configs = [
-    { sel: '.stat-card',            type: 'scale-in',    stagger: 90  },
-    { sel: '.timeline-card',        type: 'fade-left',   stagger: 120 },
-    { sel: '.project-card',         type: 'fade-up',     stagger: 80  },
-    { sel: '.hobby-card',           type: 'scale-in',    stagger: 70  },
-    { sel: '.tech-icon-card',       type: 'fade-up',     stagger: 50  },
-    { sel: '.skills-group',         type: 'fade-right',  stagger: 150 },
-    { sel: '.about-text',           type: 'fade-right',  stagger: 0   },
-    { sel: '.contact-info',         type: 'fade-left',   stagger: 0   },
-    { sel: '.contact-form-wrapper', type: 'fade-right',  stagger: 0   },
-    { sel: '.section-header',       type: 'fade-up',     stagger: 0   },
-  ];
-
-  configs.forEach(({ sel, type, stagger }) => {
-    document.querySelectorAll(sel).forEach((el, i) => {
-      el.classList.add('reveal', `reveal-${type}`);
-      if (stagger && i > 0) el.style.transitionDelay = `${i * stagger}ms`;
-    });
-  });
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-}
+/* initScrollReveal — REMOVED: handled by animations.js */
 
 
 /* =============================================
@@ -576,24 +546,7 @@ function countUp(from, to, duration, cb) {
   requestAnimationFrame(frame);
 }
 
-function initCountUpNumbers() {
-  const cards = document.querySelectorAll('.stat-card');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const h3 = entry.target.querySelector('h3');
-      if (!h3) return;
-      const text = h3.textContent.trim();
-      const match = text.match(/^(\d+)/);
-      if (!match) return;
-      const num = parseInt(match[1], 10);
-      const suffix = text.slice(match[1].length);
-      countUp(0, num, 1400, v => { h3.textContent = v + suffix; });
-      observer.unobserve(entry.target);
-    });
-  }, { threshold: 0.5 });
-  cards.forEach(c => observer.observe(c));
-}
+/* initCountUpNumbers — REMOVED: handled by animations.js */
 
 
 /* =============================================
@@ -653,49 +606,9 @@ function initBackToTop() {
 }
 
 
-/* =============================================
-   20. TIMELINE ANIMATED LINE
-   ============================================= */
-function initTimelineAnimation() {
-  const timeline = document.querySelector('.timeline');
-  if (!timeline || prefersReducedMotion) return;
+/* initTimelineAnimation — REMOVED: handled by animations.js */
 
-  // Inject a real element to animate (can't animate ::before)
-  const line = document.createElement('div');
-  line.className = 'timeline-line-animated';
-  timeline.prepend(line);
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        line.classList.add('animate');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.05 });
-
-  observer.observe(timeline);
-}
-
-
-/* =============================================
-   21. MAGNETIC BUTTONS
-   ============================================= */
-function initMagneticButtons() {
-  if (prefersReducedMotion) return;
-
-  document.querySelectorAll('.btn-primary, .btn-outline').forEach(btn => {
-    btn.addEventListener('mousemove', e => {
-      const r = btn.getBoundingClientRect();
-      const dx = (e.clientX - (r.left + r.width / 2)) * 0.22;
-      const dy = (e.clientY - (r.top + r.height / 2)) * 0.22;
-      btn.style.transform = `translate(${dx}px,${dy}px) translateY(-2px)`;
-    });
-    btn.addEventListener('mouseleave', () => {
-      btn.style.transform = '';
-    });
-  });
-}
+/* initMagneticButtons — REMOVED: handled by animations.js */
 
 
 /* =============================================

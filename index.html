@@ -1,509 +1,564 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Avinash Verma — Web Developer</title>
-    <link rel="stylesheet" href="index.css" />
-    <!-- Google Fonts: Clash Display + Poppins -->
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Avinash Verma — Web Developer & CS Student</title>
+        <meta name="description" content="Portfolio of Avinash Verma — a BTech Computer Science student and web developer skilled in HTML, CSS, JavaScript, C++, and Java. Open to opportunities." />
+        <meta property="og:title" content="Avinash Verma — Web Developer" />
+        <meta property="og:description" content="BTech CS student building clean, efficient, and user-friendly web experiences. Check out my projects and skills." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="IMG_20250921_0254421.jpg" />
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+        <link rel="stylesheet" href="index.css" />
+        <!-- Google Fonts: Clash Display + Poppins -->
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
-        rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+            rel="stylesheet" />
 
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <!-- Anime.js Engine & GSAP + ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-</head>
+        <!-- Anime.js Engine & GSAP + ScrollTrigger -->
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+            defer></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+            defer></script>
+    </head>
 
-<body>
+    <body>
 
-    <!-- ========== SCROLL PROGRESS BAR ========== -->
-    <div class="scroll-progress-bar" id="scrollProgress"></div>
+        <!-- ========== SCROLL PROGRESS BAR ========== -->
+        <div class="scroll-progress-bar" id="scrollProgress"></div>
 
-    <!-- ========== CURSOR ========== -->
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-follower" id="cursorFollower"><span class="cursor-text">VIEW</span></div>
+        <!-- ========== CURSOR ========== -->
+        <div class="cursor" id="cursor"></div>
+        <div class="cursor-follower" id="cursorFollower"><span
+                class="cursor-text">VIEW</span></div>
 
-    <!-- ========== NAVIGATION ========== -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <!-- Brand: Radar Pulse + Logo -->
-            <div class="nav-brand">
-                <div class="nav-status-pulse" title="Available for opportunities">
-                    <span class="pulse-ring"></span>
-                    <span class="pulse-dot"></span>
+        <!-- ========== NAVIGATION ========== -->
+        <nav class="navbar" id="navbar">
+            <div class="nav-container">
+                <!-- Brand: Radar Pulse + Logo -->
+                <div class="nav-brand">
+                    <div class="nav-status-pulse"
+                        title="Available for opportunities">
+                        <span class="pulse-ring"></span>
+                        <span class="pulse-dot"></span>
+                    </div>
+                    <a href="#home" class="nav-logo">
+                        <span class="logo-bracket">&lt;</span><span
+                            class="logo-text">AV</span><span
+                            class="logo-bracket"> /&gt;</span>
+                    </a>
                 </div>
-                <a href="#home" class="nav-logo">
-                    <span class="logo-bracket">&lt;</span><span class="logo-text">AV</span><span class="logo-bracket"> /&gt;</span>
-                </a>
+
+                <!-- Nav Links -->
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#education" class="nav-link">Education</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#achievements"
+                            class="nav-link">Achievements</a></li>
+                    <li><a href="#hobbies" class="nav-link">Hobbies</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" id="themeToggle"
+                    aria-label="Toggle theme">
+                    <span class="theme-icon-wrap">
+                        <i class="fa-solid fa-sun sun-icon"></i>
+                        <i class="fa-solid fa-moon moon-icon"></i>
+                    </span>
+                </button>
+
+                <!-- Hamburger Menu (Mobile) -->
+                <button class="hamburger" id="hamburger"
+                    aria-label="Toggle menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
+        </nav>
 
-            <!-- Nav Links -->
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#education" class="nav-link">Education</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#achievements" class="nav-link">Achievements</a></li>
-                <li><a href="#hobbies" class="nav-link">Hobbies</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
+        <!-- ========== HERO SECTION ========== -->
+        <section class="hero" id="home">
+            <!-- Animated background grid -->
+            <div class="hero-grid"></div>
+            <!-- Extra ambient orbs -->
+            <div class="hero-orb hero-orb-1"></div>
+            <div class="hero-orb hero-orb-2"></div>
+            <!-- Particle canvas -->
+            <canvas class="hero-particles" id="particleCanvas"></canvas>
 
-            <!-- Theme Toggle -->
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                <span class="theme-icon-wrap">
-                    <i class="fa-solid fa-sun sun-icon"></i>
-                    <i class="fa-solid fa-moon moon-icon"></i>
-                </span>
-            </button>
-
-            <!-- Hamburger Menu (Mobile) -->
-            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
-
-    <!-- ========== HERO SECTION ========== -->
-    <section class="hero" id="home">
-        <!-- Animated background grid -->
-        <div class="hero-grid"></div>
-        <!-- Extra ambient orbs -->
-        <div class="hero-orb hero-orb-1"></div>
-        <div class="hero-orb hero-orb-2"></div>
-        <!-- Particle canvas -->
-        <canvas class="hero-particles" id="particleCanvas"></canvas>
-
-        <div class="hero-container">
-            <!-- Left: Text Content -->
-            <div class="hero-content">
-                <div class="hero-tag" data-entrance="tag">
-                    <span class="dot"></span> Available for opportunities
-                </div>
-                <h1 class="hero-title" data-entrance="title">
-                    <span id="typedGreeting"></span><br />
-                    <span class="hero-role" id="typedRole"></span>
-                </h1>
-                <p class="hero-description" id="heroDesc" data-entrance="desc" style="min-height:3.5rem;"></p>
-
-                <!-- CTA Buttons -->
-                <div class="hero-buttons" data-entrance="buttons">
-                    <a href="#contact" class="btn btn-primary">
-                        <i class="fa-solid fa-paper-plane"></i> Hire Me
-                    </a>
-                    <a href="cv.html" class="btn btn-outline" target="_blank">
-                        <i class="fa-solid fa-download"></i> Download CV
-                    </a>
-                </div>
-
-                <!-- Social Links -->
-                <div class="social-links" data-entrance="social">
-                    <a href="https://github.com/avinashverma39" target="_blank" class="social-icon" aria-label="GitHub">
-                        <i class="fa-brands fa-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/avinash39/" target="_blank" class="social-icon" aria-label="LinkedIn">
-                        <i class="fa-brands fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://x.com/avinashverma39" target="_blank" class="social-icon" aria-label="Twitter">
-                        <i class="fa-brands fa-x-twitter"></i>
-                    </a>
-                    <a href="mailto:avinashverma3939@gmail.com" class="social-icon" aria-label="Email">
-                        <i class="fa-solid fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Right: Profile Image -->
-            <div class="hero-image-wrapper">
-                <div class="hero-image-frame">
-                    <!-- Decorative rings -->
-                    <div class="ring ring-1"></div>
-                    <div class="ring ring-2"></div>
-                    <!-- Profile image placeholder (replace src with actual photo) -->
-                    <div class="profile-avatar">
-                        <span><img src="IMG_20250921_0254421.jpg" alt="AV"></span>
+            <div class="hero-container">
+                <!-- Left: Text Content -->
+                <div class="hero-content">
+                    <div class="hero-tag" data-entrance="tag">
+                        <span class="dot"></span> Available for opportunities
                     </div>
-                    <!-- Floating badges -->
-                    <div class="badge badge-1">
-                        <i class="fa-solid fa-code"></i>
-                        <span>Web Dev</span>
-                    </div>
-                    <div class="badge badge-2">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                        <span>BTech CS</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    <h1 class="hero-title" data-entrance="title">
+                        <span id="typedGreeting"></span><br />
+                        <span class="hero-role" id="typedRole"></span>
+                    </h1>
+                    <p class="hero-description" id="heroDesc"
+                        data-entrance="desc" style="min-height:3.5rem;"></p>
 
-        <!-- Scroll indicator -->
-        <div class="scroll-indicator">
-            <span>Scroll Down</span>
-            <div class="scroll-line"></div>
-        </div>
-    </section>
-
-    <!-- ========== ABOUT SECTION ========== -->
-    <section class="section about-section" id="about">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag"> who am i</span>
-                <h2 class="section-title">About <span class="highlight">Me</span></h2>
-            </div>
-
-            <div class="about-grid">
-                <!-- Left: Info cards -->
-                <div class="about-stats">
-                    <div class="stat-card reveal">
-                        <i class="fa-solid fa-laptop-code"></i>
-                        <h3>3+</h3>
-                        <p>Projects Built</p>
-                    </div>
-                    <div class="stat-card reveal">
-                        <i class="fa-solid fa-code-branch"></i>
-                        <h3>5+</h3>
-                        <p>Technologies</p>
-                    </div>
-                    <div class="stat-card reveal">
-                        <i class="fa-solid fa-certificate"></i>
-                        <h3>2+</h3>
-                        <p>Certifications</p>
-                    </div>
-                    <div class="stat-card reveal">
-                        <i class="fa-solid fa-mug-hot"></i>
-                        <h3>∞</h3>
-                        <p>Cups of Tea</p>
-                    </div>
-                </div>
-
-                <!-- Right: Text -->
-                <div class="about-text">
-                    <p>
-                        I'm <strong>Avinash Verma</strong>, a driven and
-                        curious Computer Science undergraduate
-                        with a strong foundation in both systems programming
-                        and modern web technologies.
-                    </p>
-                    <p>
-                        My journey began with low-level languages like
-                        <strong>C and C++</strong>, which gave me
-                        a deep understanding of how computers think. I then
-                        moved into the world of the web,
-                        where I discovered my passion for building
-                        interfaces that are both beautiful and functional.
-                    </p>
-                    <p>
-                        I'm constantly learning, currently exploring
-                        JavaScript frameworks and modern CSS techniques
-                        to level up my craft. When I'm not coding, you'll
-                        find me reading tech blogs, solving
-                        logic puzzles, or experimenting with new project
-                        ideas.
-                    </p>
-
-                    <div class="about-details">
-                        <div class="detail-item">
-                            <i class="fa-solid fa-user"></i>
-                            <span><strong>Name:</strong> Avinash
-                                Verma</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                            <span><strong>Course:</strong> BTech Computer
-                                Science</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fa-solid fa-location-dot"></i>
-                            <span><strong>Location:</strong> India</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fa-solid fa-circle-check"></i>
-                            <span><strong>Status:</strong> Open to
-                                Work</span>
-                        </div>
-                    </div>
-
-                    <div class="about-buttons">
+                    <!-- CTA Buttons -->
+                    <div class="hero-buttons" data-entrance="buttons">
                         <a href="#contact" class="btn btn-primary">
-                            <i class="fa-solid fa-handshake"></i> Let's Connect
+                            <i class="fa-solid fa-paper-plane"></i> Hire Me
                         </a>
-                        <a href="cv.html" class="btn btn-outline" target="_blank">
-                            <i class="fa-solid fa-file-invoice"></i> View CV
+                        <a href="cv.html" class="btn btn-outline"
+                            target="_blank" rel="noopener noreferrer">
+                            <i class="fa-solid fa-download"></i> Download CV
+                        </a>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="social-links" data-entrance="social">
+                        <a href="https://github.com/avinashverma39"
+                            target="_blank" rel="noopener noreferrer" class="social-icon"
+                            aria-label="GitHub">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/avinash39/"
+                            target="_blank" rel="noopener noreferrer" class="social-icon"
+                            aria-label="LinkedIn">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://x.com/avinashverma39" target="_blank"
+                            rel="noopener noreferrer" class="social-icon" aria-label="Twitter">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                        <a href="mailto:avinashverma3939@gmail.com"
+                            class="social-icon" aria-label="Email">
+                            <i class="fa-solid fa-envelope"></i>
                         </a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- ========== EDUCATION SECTION ========== -->
-    <section class="section education-section" id="education">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag"> my journey</span>
-                <h2 class="section-title">Education &amp; <span class="highlight">Learning</span></h2>
-            </div>
-
-            <div class="timeline">
-                <!-- Timeline Item 1 -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-header">
-                            <div>
-                                <h3>Bachelor of Technology — Computer
-                                    Science</h3>
-                                <span class="timeline-org">R R Institute of
-                                    Modern Technology</span>
-                            </div>
-                            <span class="timeline-year">2025 –
-                                Pursuing</span>
+                <!-- Right: Profile Image -->
+                <div class="hero-image-wrapper">
+                    <div class="hero-image-frame">
+                        <!-- Decorative rings -->
+                        <div class="ring ring-1"></div>
+                        <div class="ring ring-2"></div>
+                        <!-- Profile image placeholder (replace src with actual photo) -->
+                        <div class="profile-avatar">
+                            <span><img src="IMG_20250921_0254421.jpg"
+                                    alt="Avinash Verma — Web Developer and CS Student" loading="lazy"></span>
                         </div>
+                        <!-- Floating badges -->
+                        <div class="badge badge-1">
+                            <i class="fa-solid fa-code"></i>
+                            <span>Web Dev</span>
+                        </div>
+                        <div class="badge badge-2">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <span>BTech CS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="scroll-indicator">
+                <span>Scroll Down</span>
+                <div class="scroll-line"></div>
+            </div>
+        </section>
+
+        <!-- ========== ABOUT SECTION ========== -->
+        <section class="section about-section" id="about">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag"> who am i</span>
+                    <h2 class="section-title">About <span
+                            class="highlight">Me</span></h2>
+                </div>
+
+                <div class="about-grid">
+                    <!-- Left: Info cards -->
+                    <div class="about-stats">
+                        <div class="stat-card reveal">
+                            <i class="fa-solid fa-laptop-code"></i>
+                            <h3>3+</h3>
+                            <p>Projects Built</p>
+                        </div>
+                        <div class="stat-card reveal">
+                            <i class="fa-solid fa-code-branch"></i>
+                            <h3>5+</h3>
+                            <p>Technologies</p>
+                        </div>
+                        <div class="stat-card reveal">
+                            <i class="fa-solid fa-certificate"></i>
+                            <h3>2+</h3>
+                            <p>Certifications</p>
+                        </div>
+                        <div class="stat-card reveal">
+                            <i class="fa-solid fa-mug-hot"></i>
+                            <h3>∞</h3>
+                            <p>Cups of Tea</p>
+                        </div>
+                    </div>
+
+                    <!-- Right: Text -->
+                    <div class="about-text">
                         <p>
-                            Pursuing a BTech in Computer Science with a
-                            focus on software development,
-                            data structures, algorithms, and web
-                            technologies. Actively participating
-                            in hackathons and coding clubs.
+                            I'm <strong>Avinash Verma</strong>, a driven and
+                            curious Computer Science undergraduate
+                            with a strong foundation in both systems programming
+                            and modern web technologies.
                         </p>
-                        <div class="timeline-tags">
-                            <span>DSA</span><span>DBMS</span><span>OS</span><span>Web
-                                Dev</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Timeline Item 2 -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-header">
-                            <div>
-                                <h3>Higher Secondary Education (12th
-                                    Grade)</h3>
-                                <span class="timeline-org">B R M S PUBLIC
-                                    INTER COLLEGE</span>
-                            </div>
-                            <span class="timeline-year">2023 – 2025</span>
-                        </div>
                         <p>
-                            Completed 12th grade with Science stream (PCM +
-                            Computer Science).
-                            Developed a strong analytical mindset and first
-                            exposure to programming.
+                            My journey began with low-level languages like
+                            <strong>C and C++</strong>, which gave me
+                            a deep understanding of how computers think. I then
+                            moved into the world of the web,
+                            where I discovered my passion for building
+                            interfaces that are both beautiful and functional.
                         </p>
-                        <div class="timeline-tags">
-                            <span>Physics</span><span>Mathematics</span><span>C++</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Timeline Item 3 -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-header">
-                            <div>
-                                <h3>Secondary Education (10th Grade)</h3>
-                                <span class="timeline-org">B R M S PUBLIC
-                                    INTER COLLEGE</span>
-                            </div>
-                            <span class="timeline-year">2022 – 2023</span>
-                        </div>
                         <p>
-                            Completed 10th grade with distinction.
-                            Discovered my passion for
-                            computers and logical problem-solving during
-                            this period.
+                            I'm constantly learning, currently exploring
+                            JavaScript frameworks and modern CSS techniques
+                            to level up my craft. When I'm not coding, you'll
+                            find me reading tech blogs, solving
+                            logic puzzles, or experimenting with new project
+                            ideas.
                         </p>
-                        <div class="timeline-tags">
-                            <span>Science</span><span>Mathematics</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- ========== SKILLS SECTION ========== -->
-    <section class="section skills-section" id="skills">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag"> what i know</span>
-                <h2 class="section-title">My <span class="highlight">Skills</span></h2>
-            </div>
+                        <div class="about-details">
+                            <div class="detail-item">
+                                <i class="fa-solid fa-user"></i>
+                                <span><strong>Name:</strong> Avinash
+                                    Verma</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                                <span><strong>Course:</strong> BTech Computer
+                                    Science</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <span><strong>Location:</strong> India</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span><strong>Status:</strong> Open to
+                                    Work</span>
+                            </div>
+                        </div>
 
-            <div class="skills-grid">
-                <!-- Programming Languages -->
-                <div class="skills-group">
-                    <h3 class="skills-group-title">
-                        <i class="fa-solid fa-terminal"></i> Languages
-                    </h3>
-                    <div class="skill-bar-list">
-                        <div class="skill-bar-item">
-                            <div class="skill-bar-info">
-                                <span>C</span><span class="skill-percent">80%</span>
-                            </div>
-                            <div class="skill-bar-track">
-                                <div class="skill-bar-fill" data-width="80"></div>
-                            </div>
-                        </div>
-                        <div class="skill-bar-item">
-                            <div class="skill-bar-info">
-                                <span>C++</span><span class="skill-percent">75%</span>
-                            </div>
-                            <div class="skill-bar-track">
-                                <div class="skill-bar-fill" data-width="75"></div>
-                            </div>
-                        </div>
-                        <div class="skill-bar-item">
-                            <div class="skill-bar-info">
-                                <span>JavaScript</span><span class="skill-percent">70%</span>
-                            </div>
-                            <div class="skill-bar-track">
-                                <div class="skill-bar-fill" data-width="70"></div>
-                            </div>
-                        </div>
-                        <div class="skill-bar-item">
-                            <div class="skill-bar-info">
-                                <span>Java</span><span class="skill-percent">75%</span>
-                            </div>
-                            <div class="skill-bar-track">
-                                <div class="skill-bar-fill" data-width="75"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Web Technologies -->
-                <div class="skills-group">
-                    <h3 class="skills-group-title">
-                        <i class="fa-solid fa-globe"></i> Web Technologies
-                    </h3>
-                    <div class="skill-bar-list">
-                        <div class="skill-bar-item">
-                            <div class="skill-bar-info">
-                                <span>HTML5</span><span class="skill-percent">90%</span>
-                            </div>
-                            <div class="skill-bar-track">
-                                <div class="skill-bar-fill" data-width="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-bar-item">
-                            <div class="skill-bar-info">
-                                <span>CSS3</span><span class="skill-percent">85%</span>
-                            </div>
-                            <div class="skill-bar-track">
-                                <div class="skill-bar-fill" data-width="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-bar-item">
-                            <div class="skill-bar-info">
-                                <span>Responsive Design</span><span class="skill-percent">80%</span>
-                            </div>
-                            <div class="skill-bar-track">
-                                <div class="skill-bar-fill" data-width="80"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tech Icons Row -->
-            <div class="tech-icons">
-                <div class="tech-icon-card" title="C">
-                    <i class="fa-solid fa-c"></i>
-                    <span>C</span>
-                </div>
-                <div class="tech-icon-card" title="C++">
-                    <span class="tech-text-icon">C++</span>
-                    <span>C++</span>
-                </div>
-                <div class="tech-icon-card" title="JavaScript">
-                    <i class="fa-brands fa-js"></i>
-                    <span>JavaScript</span>
-                </div>
-                <div class="tech-icon-card" title="HTML5">
-                    <i class="fa-brands fa-html5"></i>
-                    <span>HTML5</span>
-                </div>
-                <div class="tech-icon-card" title="CSS3">
-                    <i class="fa-brands fa-css3-alt"></i>
-                    <span>CSS3</span>
-                </div>
-                <div class="tech-icon-card" title="Git">
-                    <i class="fa-brands fa-git-alt"></i>
-                    <span>Git</span>
-                </div>
-                <div class="tech-icon-card" title="GitHub">
-                    <i class="fa-brands fa-github"></i>
-                    <span>GitHub</span>
-                </div>
-                <div class="tech-icon-card" title="VS Code">
-                    <i class="fa-solid fa-code"></i>
-                    <span>VS Code</span>
-                </div>
-                <div class="tech-icon-card" title="Java">
-                    <i class="fa-brands fa-java"></i>
-                    <span>Java</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== PROJECTS SECTION ========== -->
-    <section class="section projects-section" id="projects">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag"> what i've built</span>
-                <h2 class="section-title">My <span class="highlight">Projects</span></h2>
-            </div>
-
-            <div class="project-filters">
-                <button class="filter-btn active" data-filter="all">All Projects</button>
-                <button class="filter-btn" data-filter="web">Web Apps</button>
-                <button class="filter-btn" data-filter="software">Software / Java</button>
-                <button class="filter-btn" data-filter="api">API & Tools</button>
-            </div>
-
-            <div class="projects-grid">
-                <!-- Project Card 1 -->
-                <div class="project-card" data-category="web">
-                    <div class="project-card-top">
-                        <div class="project-icon-wrap">
-                            <i class="fa-solid fa-list-check"></i>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/avinashverma39/CPP_Project" target="_blank" aria-label="View Code">
-                                <i class="fa-brands fa-github"></i>
+                        <div class="about-buttons">
+                            <a href="#contact" class="btn btn-primary">
+                                <i class="fa-solid fa-handshake"></i> Let's
+                                Connect
                             </a>
-                            <a href="https://github.com/avinashverma39/CPP_Project" target="_blank" aria-label="Live Demo">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <a href="cv.html" class="btn btn-outline"
+                                target="_blank" rel="noopener noreferrer">
+                                <i class="fa-solid fa-file-invoice"></i> View CV
                             </a>
                         </div>
                     </div>
-                    <h3>Number Guessing Game</h3>
-                    <p>
-                        A fun and interactive number guessing game where players try to guess a randomly generated number within a limited number of attempts. Built using C++ core concepts and console-based UI , This project demonstrates the use of loops, conditionals, and user input handling.
-                    </p>
-                    <div class="project-tags">
-                        <span>C++</span><span>Console UI</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== EDUCATION SECTION ========== -->
+        <section class="section education-section" id="education">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag"> my journey</span>
+                    <h2 class="section-title">Education &amp; <span
+                            class="highlight">Learning</span></h2>
+                </div>
+
+                <div class="timeline">
+                    <!-- Timeline Item 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <div>
+                                    <h3>Bachelor of Technology — Computer
+                                        Science</h3>
+                                    <span class="timeline-org">R R Institute of
+                                        Modern Technology</span>
+                                </div>
+                                <span class="timeline-year">2025 –
+                                    Pursuing</span>
+                            </div>
+                            <p>
+                                Pursuing a BTech in Computer Science with a
+                                focus on software development,
+                                data structures, algorithms, and web
+                                technologies. Actively participating
+                                in hackathons and coding clubs.
+                            </p>
+                            <div class="timeline-tags">
+                                <span>DSA</span><span>DBMS</span><span>OS</span><span>Web
+                                    Dev</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <div>
+                                    <h3>Higher Secondary Education (12th
+                                        Grade)</h3>
+                                    <span class="timeline-org">B R M S PUBLIC
+                                        INTER COLLEGE</span>
+                                </div>
+                                <span class="timeline-year">2023 – 2025</span>
+                            </div>
+                            <p>
+                                Completed 12th grade with Science stream (PCM +
+                                Computer Science).
+                                Developed a strong analytical mindset and first
+                                exposure to programming.
+                            </p>
+                            <div class="timeline-tags">
+                                <span>Physics</span><span>Mathematics</span><span>C++</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 3 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <div class="timeline-header">
+                                <div>
+                                    <h3>Secondary Education (10th Grade)</h3>
+                                    <span class="timeline-org">B R M S PUBLIC
+                                        INTER COLLEGE</span>
+                                </div>
+                                <span class="timeline-year">2022 – 2023</span>
+                            </div>
+                            <p>
+                                Completed 10th grade with distinction.
+                                Discovered my passion for
+                                computers and logical problem-solving during
+                                this period.
+                            </p>
+                            <div class="timeline-tags">
+                                <span>Science</span><span>Mathematics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SKILLS SECTION ========== -->
+        <section class="section skills-section" id="skills">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag"> what i know</span>
+                    <h2 class="section-title">My <span
+                            class="highlight">Skills</span></h2>
+                </div>
+
+                <div class="skills-grid">
+                    <!-- Programming Languages -->
+                    <div class="skills-group">
+                        <h3 class="skills-group-title">
+                            <i class="fa-solid fa-terminal"></i> Languages
+                        </h3>
+                        <div class="skill-bar-list">
+                            <div class="skill-bar-item">
+                                <div class="skill-bar-info">
+                                    <span>C</span><span
+                                        class="skill-percent">80%</span>
+                                </div>
+                                <div class="skill-bar-track">
+                                    <div class="skill-bar-fill"
+                                        data-width="80"></div>
+                                </div>
+                            </div>
+                            <div class="skill-bar-item">
+                                <div class="skill-bar-info">
+                                    <span>C++</span><span
+                                        class="skill-percent">75%</span>
+                                </div>
+                                <div class="skill-bar-track">
+                                    <div class="skill-bar-fill"
+                                        data-width="75"></div>
+                                </div>
+                            </div>
+                            <div class="skill-bar-item">
+                                <div class="skill-bar-info">
+                                    <span>JavaScript</span><span
+                                        class="skill-percent">70%</span>
+                                </div>
+                                <div class="skill-bar-track">
+                                    <div class="skill-bar-fill"
+                                        data-width="70"></div>
+                                </div>
+                            </div>
+                            <div class="skill-bar-item">
+                                <div class="skill-bar-info">
+                                    <span>Java</span><span
+                                        class="skill-percent">75%</span>
+                                </div>
+                                <div class="skill-bar-track">
+                                    <div class="skill-bar-fill"
+                                        data-width="75"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Web Technologies -->
+                    <div class="skills-group">
+                        <h3 class="skills-group-title">
+                            <i class="fa-solid fa-globe"></i> Web Technologies
+                        </h3>
+                        <div class="skill-bar-list">
+                            <div class="skill-bar-item">
+                                <div class="skill-bar-info">
+                                    <span>HTML5</span><span
+                                        class="skill-percent">90%</span>
+                                </div>
+                                <div class="skill-bar-track">
+                                    <div class="skill-bar-fill"
+                                        data-width="90"></div>
+                                </div>
+                            </div>
+                            <div class="skill-bar-item">
+                                <div class="skill-bar-info">
+                                    <span>CSS3</span><span
+                                        class="skill-percent">85%</span>
+                                </div>
+                                <div class="skill-bar-track">
+                                    <div class="skill-bar-fill"
+                                        data-width="85"></div>
+                                </div>
+                            </div>
+                            <div class="skill-bar-item">
+                                <div class="skill-bar-info">
+                                    <span>Responsive Design</span><span
+                                        class="skill-percent">80%</span>
+                                </div>
+                                <div class="skill-bar-track">
+                                    <div class="skill-bar-fill"
+                                        data-width="80"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Project Card 2 -->
-                <!-- <div class="project-card" data-category="web">
+                <!-- Tech Icons Row -->
+                <div class="tech-icons">
+                    <div class="tech-icon-card" title="C">
+                        <i class="fa-solid fa-c"></i>
+                        <span>C</span>
+                    </div>
+                    <div class="tech-icon-card" title="C++">
+                        <span class="tech-text-icon">C++</span>
+                        <span>C++</span>
+                    </div>
+                    <div class="tech-icon-card" title="JavaScript">
+                        <i class="fa-brands fa-js"></i>
+                        <span>JavaScript</span>
+                    </div>
+                    <div class="tech-icon-card" title="HTML5">
+                        <i class="fa-brands fa-html5"></i>
+                        <span>HTML5</span>
+                    </div>
+                    <div class="tech-icon-card" title="CSS3">
+                        <i class="fa-brands fa-css3-alt"></i>
+                        <span>CSS3</span>
+                    </div>
+                    <div class="tech-icon-card" title="Git">
+                        <i class="fa-brands fa-git-alt"></i>
+                        <span>Git</span>
+                    </div>
+                    <div class="tech-icon-card" title="GitHub">
+                        <i class="fa-brands fa-github"></i>
+                        <span>GitHub</span>
+                    </div>
+                    <div class="tech-icon-card" title="VS Code">
+                        <i class="fa-solid fa-code"></i>
+                        <span>VS Code</span>
+                    </div>
+                    <div class="tech-icon-card" title="Java">
+                        <i class="fa-brands fa-java"></i>
+                        <span>Java</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== PROJECTS SECTION ========== -->
+        <section class="section projects-section" id="projects">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag"> what i've built</span>
+                    <h2 class="section-title">My <span
+                            class="highlight">Projects</span></h2>
+                </div>
+
+                <div class="project-filters">
+                    <button class="filter-btn active" data-filter="all">All
+                        Projects</button>
+                    <button class="filter-btn" data-filter="web">Web
+                        Apps</button>
+                    <button class="filter-btn" data-filter="software">Software /
+                        Java</button>
+                    <button class="filter-btn" data-filter="api">API &
+                        Tools</button>
+                </div>
+
+                <div class="projects-grid">
+                    <!-- Project Card 1 -->
+                    <div class="project-card" data-category="software">
+                        <div class="project-card-top">
+                            <div class="project-icon-wrap">
+                                <i class="fa-solid fa-list-check"></i>
+                            </div>
+                            <div class="project-links">
+                                <a
+                                    href="https://github.com/avinashverma39/CPP_Project"
+                                    target="_blank" rel="noopener noreferrer" aria-label="View Code">
+                                    <i class="fa-brands fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3>Number Guessing Game</h3>
+                        <p>
+                            A fun and interactive number guessing game where
+                            players try to guess a randomly generated number
+                            within a limited number of attempts. Built using C++
+                            core concepts and console-based UI. Demonstrates
+                            loops, conditionals, and user input handling.
+                        </p>
+                        <div class="project-tags">
+                            <span>C++</span><span>Console UI</span>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 2 -->
+                    <!-- <div class="project-card" data-category="web">
                     <div class="project-card-top">
                         <div class="project-icon-wrap">
                             <i class="fa-solid fa-calculator"></i>
@@ -530,8 +585,8 @@
                     </div>
                 </div> -->
 
-                <!-- Project Card 3 -->
-                <!-- <div class="project-card" data-category="web api">
+                    <!-- Project Card 3 -->
+                    <!-- <div class="project-card" data-category="web api">
                     <div class="project-card-top">
                         <div class="project-icon-wrap">
                             <i class="fa-solid fa-cloud-sun"></i>
@@ -558,297 +613,361 @@
                     </div>
                 </div> -->
 
-                <!-- Project Card 4 -->
-                <div class="project-card" data-category="web">
-                    <div class="project-card-top">
-                        <div class="project-icon-wrap">
-                            <i class="fa-solid fa-user-tie"></i>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/avinashverma39/portfolio" target="_blank" aria-label="View Code">
-                                <i class="fa-brands fa-github"></i>
-                            </a>
-                            <a href="https://avinashverma39.github.io/portfolio/" target="_blank" aria-label="Live Demo">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <h3>Portfolio Website</h3>
-                    <p>
-                        This very portfolio — a responsive personal website
-                        showcasing
-                        projects, skills, and experience. Built with
-                        semantic HTML,
-                        modern CSS, and smooth JavaScript interactions.
-                    </p>
-                    <div class="project-tags">
-                        <span>HTML</span><span>CSS</span><span>JavaScript</span>
-                    </div>
-                </div>
-
-                <!-- Project Card 5 -->
-                <div class="project-card" data-category="software">
-                    <div class="project-card-top">
-                        <div class="project-icon-wrap">
-                            <i class="fa-solid fa-building-columns"></i>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/avinashverma39/JAVA_PROJECT" target="_blank" aria-label="View Code">
-                                <i class="fa-brands fa-github"></i>
-                            </a>
-                            <a href="https://github.com/avinashverma39/JAVA_PROJECT" target="_blank" aria-label="Live Demo">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <h3>Bankmanagement System</h3>
-                    <p>
-                        A comprehensive desktop/console-based application for managing banking operations, transactions, and user accounts securely. Developed using Java.
-                    </p>
-                    <div class="project-tags">
-                        <span>Java</span><span>OOP</span><span>SQL</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== ACHIEVEMENTS & CERTIFICATIONS SECTION ========== -->
-    <section class="section achievements-section" id="achievements">
-        <div class="container">
-            <!-- Subtle animated background particles -->
-            <div class="achievements-bg-glow"></div>
-
-            <div class="section-header">
-                <span class="section-tag">my credentials</span>
-                <h2 class="section-title">Achievements & <span class="highlight">Certifications</span></h2>
-            </div>
-
-            <!-- Achievement Counters -->
-            <div class="achievement-counters" id="achievementCounters">
-                <!-- Populated by JS -->
-            </div>
-
-            <!-- Category Filters -->
-            <div class="achievement-filters" id="achievementFilters">
-                <button class="filter-btn active" data-achievement-filter="all">All</button>
-                <button class="filter-btn" data-achievement-filter="certificate"><i class="fa-solid fa-certificate"></i> Certificates</button>
-                <button class="filter-btn" data-achievement-filter="course"><i class="fa-solid fa-book"></i> Courses</button>
-                <button class="filter-btn" data-achievement-filter="internship"><i class="fa-solid fa-briefcase"></i> Internships</button>
-                <button class="filter-btn" data-achievement-filter="achievement"><i class="fa-solid fa-trophy"></i> Achievements</button>
-            </div>
-
-            <!-- Achievement Cards Grid -->
-            <div class="achievements-grid" id="achievementsGrid">
-                <!-- Cards rendered dynamically by JavaScript -->
-            </div>
-
-            <!-- View All Button -->
-            <div class="achievements-view-all-wrap" id="achievementsViewAllWrap" style="display:none;">
-                <button class="btn btn-outline achievements-view-all-btn" id="achievementsViewAllBtn">
-                    <i class="fa-solid fa-layer-group"></i> <span>View All Achievements</span>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certificate Preview Modal -->
-    <div class="cert-modal-overlay" id="certModalOverlay" role="dialog" aria-modal="true" aria-label="Certificate Preview" tabindex="-1">
-        <div class="cert-modal">
-            <button class="cert-modal-close" id="certModalClose" aria-label="Close preview">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="cert-modal-body">
-                <div class="cert-modal-image-wrap">
-                    <img class="cert-modal-image" id="certModalImage" src="" alt="Certificate Preview" />
-                </div>
-                <div class="cert-modal-info" id="certModalInfo">
-                    <!-- Populated dynamically -->
-                </div>
-            </div>
-            <div class="cert-modal-controls">
-                <button class="cert-modal-zoom-btn" id="certModalZoomIn" aria-label="Zoom in"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
-                <button class="cert-modal-zoom-btn" id="certModalZoomOut" aria-label="Zoom out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
-                <button class="cert-modal-zoom-btn" id="certModalZoomReset" aria-label="Reset zoom"><i class="fa-solid fa-expand"></i></button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========== HOBBIES SECTION ========== -->
-    <section class="section hobbies-section" id="hobbies">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag"> beyond the screen</span>
-                <h2 class="section-title">My <span class="highlight">Hobbies</span></h2>
-            </div>
-
-            <div class="hobbies-grid">
-                <div class="hobby-card">
-                    <div class="hobby-icon"><i class="fa-solid fa-book-open"></i></div>
-                    <h3>Reading</h3>
-                    <p>Tech blogs, programming books, and science fiction
-                        novels fuel my curiosity and creativity.</p>
-                </div>
-                <div class="hobby-card">
-                    <div class="hobby-icon"><i class="fa-solid fa-music"></i></div>
-                    <h3>Music</h3>
-                    <p>Listening to lo-fi beats and instrumental tracks
-                        keeps me focused and in the flow state.</p>
-                </div>
-
-                <div class="hobby-card">
-                    <div class="hobby-icon"><i class="fa-solid fa-gamepad"></i></div>
-                    <h3>Gaming</h3>
-                    <p>Exploring game worlds gives me design inspiration and
-                        a healthy break from coding sessions.</p>
-                </div>
-                <div class="hobby-card">
-                    <div class="hobby-icon"><i class="fa-solid fa-dumbbell"></i></div>
-                    <h3>Fitness</h3>
-                    <p>Regular exercise keeps my mind sharp and energy
-                        levels high throughout the day.</p>
-                </div>
-                <div class="hobby-card">
-                    <div class="hobby-icon"><i class="fa-solid fa-lightbulb"></i></div>
-                    <h3>Problem Solving</h3>
-                    <p>Competitive programming challenges and logic puzzles
-                        are my favourite mental workouts.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== CONTACT SECTION ========== -->
-    <section class="section contact-section" id="contact">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">let's talk</span>
-                <h2 class="section-title">Get In <span class="highlight">Touch</span></h2>
-            </div>
-
-            <div class="contact-grid">
-                <!-- Left: Info -->
-                <div class="contact-info">
-                    <p class="contact-intro">
-                        I'm always open to exciting opportunities,
-                        collaborations, or
-                        just a friendly chat about tech. Drop me a message!
-                    </p>
-
-                    <div class="contact-detail-list">
-                        <div class="contact-detail">
-                            <div class="contact-detail-icon">
-                                <i class="fa-solid fa-envelope"></i>
+                    <!-- Project Card 4 -->
+                    <div class="project-card" data-category="web">
+                        <div class="project-card-top">
+                            <div class="project-icon-wrap">
+                                <i class="fa-solid fa-user-tie"></i>
                             </div>
-                            <div>
-                                <span>Email</span>
-                                <a href="mailto:avinashverma3939@gmail.com">avinashverma3939@gmail.com</a>
-                            </div>
-                        </div>
-                        <div class="contact-detail">
-                            <div class="contact-detail-icon">
-                                <i class="fa-solid fa-phone"></i>
-                            </div>
-                            <div>
-                                <span>Phone</span>
-                                <a href="tel:+919838683260">+91 98386 83260
+                            <div class="project-links">
+                                <a
+                                    href="https://github.com/avinashverma39/portfolio"
+                                    target="_blank" rel="noopener noreferrer" aria-label="View Code">
+                                    <i class="fa-brands fa-github"></i>
+                                </a>
+                                <a
+                                    href="https://avinashverma39.github.io/portfolio/"
+                                    target="_blank" rel="noopener noreferrer" aria-label="Live Demo">
+                                    <i
+                                        class="fa-solid fa-arrow-up-right-from-square"></i>
                                 </a>
                             </div>
                         </div>
-                        <div class="contact-detail">
-                            <div class="contact-detail-icon">
-                                <i class="fa-solid fa-location-dot"></i>
-                            </div>
-                            <div>
-                                <span>Location</span>
-                                <p>India</p>
-                            </div>
+                        <h3>Portfolio Website</h3>
+                        <p>
+                            This very portfolio — a responsive personal website
+                            showcasing
+                            projects, skills, and experience. Built with
+                            semantic HTML,
+                            modern CSS, and smooth JavaScript interactions.
+                        </p>
+                        <div class="project-tags">
+                            <span>HTML</span><span>CSS</span><span>JavaScript</span>
                         </div>
                     </div>
 
-                    <!-- Social Links -->
-                    <div class="contact-socials">
-                        <a href="https://github.com/avinashverma39" target="_blank" class="social-icon" aria-label="GitHub">
-                            <i class="fa-brands fa-github"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/avinash39/" target="_blank" class="social-icon" aria-label="LinkedIn">
-                            <i class="fa-brands fa-linkedin-in"></i>
-                        </a>
-                        <a href="https://x.com/avinashverma39" target="_blank" class="social-icon" aria-label="Twitter">
-                            <i class="fa-brands fa-x-twitter"></i>
-                        </a>
+                    <!-- Project Card 5 -->
+                    <div class="project-card" data-category="software">
+                        <div class="project-card-top">
+                            <div class="project-icon-wrap">
+                                <i class="fa-solid fa-building-columns"></i>
+                            </div>
+                            <div class="project-links">
+                                <a
+                                    href="https://github.com/avinashverma39/JAVA_PROJECT"
+                                    target="_blank" rel="noopener noreferrer" aria-label="View Code">
+                                    <i class="fa-brands fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3>Bankmanagement System</h3>
+                        <p>
+                            A comprehensive desktop/console-based application
+                            for managing banking operations, transactions, and
+                            user accounts securely. Developed using Java.
+                        </p>
+                        <div class="project-tags">
+                            <span>Java</span><span>OOP</span><span>SQL</span>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Right: Form -->
-                <div class="contact-form-wrapper">
-                    <div class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" placeholder="Your full name" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" placeholder="your@email.com" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" placeholder="What's this about?" />
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" rows="5" placeholder="Tell me about your project or idea..."
-                                required></textarea>
-                        </div>
-                        <button type="button" class="btn btn-primary btn-full" id="sendBtn"
-                            onclick="handleFormSubmit()">
-                            <i class="fa-solid fa-paper-plane"></i> Send
-                            Message
-                        </button>
+        <!-- ========== ACHIEVEMENTS & CERTIFICATIONS SECTION ========== -->
+        <section class="section achievements-section" id="achievements">
+            <div class="container">
+                <!-- Subtle animated background particles -->
+                <div class="achievements-bg-glow"></div>
+
+                <div class="section-header">
+                    <span class="section-tag">my credentials</span>
+                    <h2 class="section-title">Achievements & <span
+                            class="highlight">Certifications</span></h2>
+                </div>
+
+                <!-- Achievement Counters -->
+                <div class="achievement-counters" id="achievementCounters">
+                    <!-- Populated by JS -->
+                </div>
+
+                <!-- Category Filters -->
+                <div class="achievement-filters" id="achievementFilters">
+                    <button class="filter-btn active"
+                        data-achievement-filter="all">All</button>
+                    <button class="filter-btn"
+                        data-achievement-filter="certificate"><i
+                            class="fa-solid fa-certificate"></i>
+                        Certificates</button>
+                    <button class="filter-btn"
+                        data-achievement-filter="course"><i
+                            class="fa-solid fa-book"></i> Courses</button>
+                    <button class="filter-btn"
+                        data-achievement-filter="internship"><i
+                            class="fa-solid fa-briefcase"></i>
+                        Internships</button>
+                    <button class="filter-btn"
+                        data-achievement-filter="achievement"><i
+                            class="fa-solid fa-trophy"></i>
+                        Achievements</button>
+                </div>
+
+                <!-- Achievement Cards Grid -->
+                <div class="achievements-grid" id="achievementsGrid">
+                    <!-- Cards rendered dynamically by JavaScript -->
+                </div>
+
+                <!-- View All Button -->
+                <div class="achievements-view-all-wrap"
+                    id="achievementsViewAllWrap" style="display:none;">
+                    <button class="btn btn-outline achievements-view-all-btn"
+                        id="achievementsViewAllBtn">
+                        <i class="fa-solid fa-layer-group"></i> <span>View All
+                            Achievements</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certificate Preview Modal -->
+        <div class="cert-modal-overlay" id="certModalOverlay" role="dialog"
+            aria-modal="true" aria-label="Certificate Preview" tabindex="-1">
+            <div class="cert-modal">
+                <button class="cert-modal-close" id="certModalClose"
+                    aria-label="Close preview">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="cert-modal-body">
+                    <div class="cert-modal-image-wrap">
+                        <img class="cert-modal-image" id="certModalImage" src
+                            alt="Certificate Preview" />
                     </div>
-                    <!-- Success message (hidden by default) -->
-                    <div class="form-success" id="formSuccess" style="display:none;">
-                        <i class="fa-solid fa-circle-check"></i>
-                        <h3>Message Sent!</h3>
-                        <p>Thanks for reaching out. I'll get back to you
-                            shortly.</p>
+                    <div class="cert-modal-info" id="certModalInfo">
+                        <!-- Populated dynamically -->
                     </div>
+                </div>
+                <div class="cert-modal-controls">
+                    <button class="cert-modal-zoom-btn" id="certModalZoomIn"
+                        aria-label="Zoom in"><i
+                            class="fa-solid fa-magnifying-glass-plus"></i></button>
+                    <button class="cert-modal-zoom-btn" id="certModalZoomOut"
+                        aria-label="Zoom out"><i
+                            class="fa-solid fa-magnifying-glass-minus"></i></button>
+                    <button class="cert-modal-zoom-btn" id="certModalZoomReset"
+                        aria-label="Reset zoom"><i
+                            class="fa-solid fa-expand"></i></button>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- ========== FOOTER ========== -->
-    <footer class="footer">
-        <div class="footer-glow"></div>
-        <div class="container">
-            <div class="footer-content">
-                <a href="#home" class="nav-logo">
-                    <span class="logo-bracket">&lt;</span>AV<span class="logo-bracket">/&gt;</span>
-                </a>
-                <p>Designed &amp; Built by <strong>Avinash Verma</strong> — 2024</p>
-                <div class="footer-links">
-                    <a href="#home">Home</a>
-                    <a href="#about">About</a>
-                    <a href="#projects">Projects</a>
-                    <a href="#achievements">Achievements</a>
-                    <a href="#contact">Contact</a>
+        <!-- ========== HOBBIES SECTION ========== -->
+        <section class="section hobbies-section" id="hobbies">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag"> beyond the screen</span>
+                    <h2 class="section-title">My <span
+                            class="highlight">Hobbies</span></h2>
+                </div>
+
+                <div class="hobbies-grid">
+                    <div class="hobby-card">
+                        <div class="hobby-icon"><i
+                                class="fa-solid fa-book-open"></i></div>
+                        <h3>Reading</h3>
+                        <p>Tech blogs, programming books, and science fiction
+                            novels fuel my curiosity and creativity.</p>
+                    </div>
+                    <div class="hobby-card">
+                        <div class="hobby-icon"><i
+                                class="fa-solid fa-music"></i></div>
+                        <h3>Music</h3>
+                        <p>Listening to lo-fi beats and instrumental tracks
+                            keeps me focused and in the flow state.</p>
+                    </div>
+
+                    <div class="hobby-card">
+                        <div class="hobby-icon"><i
+                                class="fa-solid fa-gamepad"></i></div>
+                        <h3>Gaming</h3>
+                        <p>Exploring game worlds gives me design inspiration and
+                            a healthy break from coding sessions.</p>
+                    </div>
+                    <div class="hobby-card">
+                        <div class="hobby-icon"><i
+                                class="fa-solid fa-dumbbell"></i></div>
+                        <h3>Fitness</h3>
+                        <p>Regular exercise keeps my mind sharp and energy
+                            levels high throughout the day.</p>
+                    </div>
+                    <div class="hobby-card">
+                        <div class="hobby-icon"><i
+                                class="fa-solid fa-lightbulb"></i></div>
+                        <h3>Problem Solving</h3>
+                        <p>Competitive programming challenges and logic puzzles
+                            are my favourite mental workouts.</p>
+                    </div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>Made with <span class="footer-heart">❤</span> &amp; a lot of <span class="footer-code">&lt;code/&gt;</span></p>
+        </section>
+
+        <!-- ========== CONTACT SECTION ========== -->
+        <section class="section contact-section" id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">let's talk</span>
+                    <h2 class="section-title">Get In <span
+                            class="highlight">Touch</span></h2>
+                </div>
+
+                <div class="contact-grid">
+                    <!-- Left: Info -->
+                    <div class="contact-info">
+                        <p class="contact-intro">
+                            I'm always open to exciting opportunities,
+                            collaborations, or
+                            just a friendly chat about tech. Drop me a message!
+                        </p>
+
+                        <div class="contact-detail-list">
+                            <div class="contact-detail">
+                                <div class="contact-detail-icon">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <span>Email</span>
+                                    <a
+                                        href="mailto:avinashverma3939@gmail.com">avinashverma3939@gmail.com</a>
+                                </div>
+                            </div>
+                            <div class="contact-detail">
+                                <div class="contact-detail-icon">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <span>Phone</span>
+                                    <a href="tel:+919838683260">+91 98386 83260
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="contact-detail">
+                                <div class="contact-detail-icon">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <span>Location</span>
+                                    <p>India</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="contact-socials">
+                            <a href="https://github.com/avinashverma39"
+                                target="_blank" rel="noopener noreferrer" class="social-icon"
+                                aria-label="GitHub">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/avinash39/"
+                                target="_blank" rel="noopener noreferrer" class="social-icon"
+                                aria-label="LinkedIn">
+                                <i class="fa-brands fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://x.com/avinashverma39"
+                                target="_blank" rel="noopener noreferrer" class="social-icon"
+                                aria-label="Twitter">
+                                <i class="fa-brands fa-x-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right: Form -->
+                    <div class="contact-form-wrapper">
+                        <form class="contact-form" id="contactForm" novalidate>
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name"
+                                    placeholder="Your full name" required />
+                                <span class="form-error" id="nameError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email"
+                                    placeholder="your@email.com" required />
+                                <span class="form-error" id="emailError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject"
+                                    placeholder="What's this about?" />
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" rows="5"
+                                    placeholder="Tell me about your project or idea..."
+                                    required></textarea>
+                                <span class="form-error" id="messageError"></span>
+                            </div>
+                            <button type="submit"
+                                class="btn btn-primary btn-full" id="sendBtn">
+                                <i class="fa-solid fa-paper-plane"></i> Send
+                                Message
+                            </button>
+                        </form>
+                        <!-- Success message (hidden by default) -->
+                        <div class="form-success" id="formSuccess"
+                            style="display:none;" aria-live="polite">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <h3>Message Sent!</h3>
+                            <p>Thanks for reaching out. I'll get back to you
+                                shortly.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </footer>
+        </section>
 
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="backToTop" aria-label="Back to top">
-        <i class="fa-solid fa-arrow-up"></i>
-    </button>
+        <!-- ========== FOOTER ========== -->
+        <footer class="footer">
+            <div class="footer-glow"></div>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <a href="#home" class="nav-logo">
+                            <span class="logo-bracket">&lt;</span>AV<span
+                                class="logo-bracket">/&gt;</span>
+                        </a>
+                        <p class="footer-tagline">Building clean web experiences, one line at a time.</p>
+                    </div>
+                    <div class="footer-nav">
+                        <div class="footer-links">
+                            <a href="#home">Home</a>
+                            <a href="#about">About</a>
+                            <a href="#projects">Projects</a>
+                            <a href="#achievements">Achievements</a>
+                            <a href="#contact">Contact</a>
+                        </div>
+                        <div class="footer-socials">
+                            <a href="https://github.com/avinashverma39" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/avinash39/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="https://x.com/avinashverma39" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                            <a href="mailto:avinashverma3939@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Avinash Verma. Made with <span class="footer-heart">❤</span> &amp; <span class="footer-code">&lt;code/&gt;</span></p>
+                </div>
+            </div>
+        </footer>
 
-    <!-- JavaScript -->
-    <script type="module" src="index.js"></script>
-    <script src="animations.js" defer></script>
-</body>
+        <!-- Back to Top Button -->
+        <button class="back-to-top" id="backToTop" aria-label="Back to top">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
+
+        <!-- JavaScript -->
+        <script type="module" src="index.js"></script>
+        <script src="animations.js" defer></script>
+    </body>
 
 </html>

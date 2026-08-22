@@ -27,28 +27,7 @@
   --section-padding: 100px 0;
 }
 
-[data-theme="light"] {
-  --bg-primary: #f8fafc;
-  --bg-secondary: #f1f5f9;
-  --bg-card: #ffffff;
-  --bg-card-hover: #ffffff;
-  --accent: #16a34a;
-  --accent-glow: rgba(22, 163, 74, 0.25);
-  --accent-2: #0284c7;
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
-  --border: rgba(22, 163, 74, 0.2);
-  --border-hover: rgba(22, 163, 74, 0.5);
-  --shadow: 0 4px 20px rgba(0,0,0,0.08);
-}
-
-html.theme-transitioning,
-html.theme-transitioning *,
-html.theme-transitioning *::before,
-html.theme-transitioning *::after {
-  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease !important;
-}
+/* Light theme variables defined in the consolidated block below (L2623+) */
 
 /* ---- Reset & Base ---- */
 *, *::before, *::after {
@@ -68,13 +47,12 @@ body {
   color: var(--text-primary);
   line-height: 1.7;
   overflow-x: hidden;
-  cursor: none; /* Custom cursor */
 }
 
 a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
 ul { list-style: none; }
-button { cursor: none; border: none; background: none; }
+button { border: none; background: none; }
 
 /* ---- Custom Scrollbar ---- */
 ::-webkit-scrollbar { width: 6px; }
@@ -204,12 +182,12 @@ button { cursor: none; border: none; background: none; }
 .btn-primary {
   background: var(--accent);
   color: #fff;
-  box-shadow: 0 0 20px var(--accent-glow);
+  box-shadow: 0 4px 16px var(--accent-glow);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 35px var(--accent-glow);
+  box-shadow: 0 6px 24px var(--accent-glow);
 }
 
 .btn-outline {
@@ -530,7 +508,7 @@ button { cursor: none; border: none; background: none; }
   border-color: var(--accent);
   color: #fff;
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px var(--accent-glow);
+  box-shadow: 0 6px 16px var(--accent-glow);
 }
 
 /* Hero Image */
@@ -787,7 +765,7 @@ button { cursor: none; border: none; background: none; }
 .stat-card:hover {
   border-color: var(--accent);
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px var(--accent-glow);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .stat-card i {
@@ -1081,7 +1059,7 @@ button { cursor: none; border: none; background: none; }
 .tech-icon-card:hover {
   border-color: var(--accent);
   transform: translateY(-5px);
-  box-shadow: 0 12px 25px var(--accent-glow);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   color: var(--text-primary);
 }
 
@@ -1203,7 +1181,7 @@ button { cursor: none; border: none; background: none; }
 .hobby-card:hover {
   border-color: var(--accent);
   transform: translateY(-5px);
-  box-shadow: 0 12px 30px var(--accent-glow);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .hobby-icon {
@@ -1375,29 +1353,57 @@ button { cursor: none; border: none; background: none; }
 .form-success h3 { font-size: 1.3rem; margin-bottom: 8px; }
 .form-success p { color: var(--text-secondary); }
 
+/* ---- Form Validation Styles ---- */
+.form-error {
+  display: none;
+  font-size: 0.78rem;
+  color: #ef4444;
+  font-weight: 500;
+  margin-top: 4px;
+  font-family: var(--font-mono);
+}
+
+.input-error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+}
+
 /* =============================================
    FOOTER
    ============================================= */
 .footer {
   background: var(--bg-secondary);
   border-top: 1px solid var(--border);
-  padding: 32px 0;
+  padding: 40px 0 24px;
 }
 
 .footer-content {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-tagline {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
+  align-items: flex-end;
 }
-
-.footer-content p {
-  color: var(--text-secondary);
-  font-size: 0.88rem;
-}
-
-.footer-content p strong { color: var(--text-primary); }
 
 .footer-links {
   display: flex;
@@ -1408,9 +1414,47 @@ button { cursor: none; border: none; background: none; }
   font-size: 0.85rem;
   color: var(--text-secondary);
   transition: color 0.3s;
+  position: relative;
+}
+
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--accent);
+  transition: width 0.3s ease;
 }
 
 .footer-links a:hover { color: var(--accent); }
+.footer-links a:hover::after { width: 100%; }
+
+.footer-socials {
+  display: flex;
+  gap: 10px;
+}
+
+.footer-socials a {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.footer-socials a:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
 
 /* =============================================
    BACK TO TOP BUTTON
@@ -2224,8 +2268,11 @@ button { cursor: none; border: none; background: none; }
   .hobby-card p { font-size: 0.82rem; }
 
   /* Footer */
-  .footer-content { flex-direction: column; text-align: center; }
+  .footer-content { flex-direction: column; text-align: center; align-items: center; }
+  .footer-nav { align-items: center; }
+  .footer-tagline { text-align: center; }
   .footer-links { justify-content: center; flex-wrap: wrap; gap: 12px; }
+  .footer-socials { justify-content: center; }
 
   /* Contact */
   .contact-detail { flex-direction: column; text-align: center; align-items: center; }
@@ -2246,11 +2293,6 @@ button { cursor: none; border: none; background: none; }
   .cert-modal-image { max-height: 35vh; }
   .cert-modal-info { padding: 22px; }
   .cert-modal-controls { padding: 10px; }
-
-  /* Custom cursor hidden on touch */
-  .cursor, .cursor-follower { display: none; }
-  body { cursor: auto; }
-  button { cursor: pointer; }
 }
 
 /* =============================================
@@ -2453,10 +2495,9 @@ button { cursor: none; border: none; background: none; }
   100% { transform: rotate(0deg) scale(1); }
 }
 
-/* ---- Tech icon card glow on hover ---- */
+/* ---- Tech icon card subtle bg on hover ---- */
 .tech-icon-card:hover {
   background: rgba(50, 205, 50, 0.06);
-  box-shadow: 0 0 20px rgba(50, 205, 50, 0.2), 0 12px 25px var(--accent-glow);
 }
 
 /* ---- Timeline card left accent bar ---- */
@@ -2557,16 +2598,8 @@ button { cursor: none; border: none; background: none; }
 
 .footer-heart {
   color: #ff6b6b;
-  animation: heartbeat 1.4s ease-in-out infinite;
+  animation: heartBeat 1.4s ease-in-out infinite;
   display: inline-block;
-}
-
-@keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  14% { transform: scale(1.3); }
-  28% { transform: scale(1); }
-  42% { transform: scale(1.2); }
-  70% { transform: scale(1); }
 }
 
 .footer-code {
@@ -2635,16 +2668,16 @@ button { cursor: none; border: none; background: none; }
   --border-hover:    rgba(26, 138, 26, 0.5);
 }
 
-/* Smooth theme transition on html */
+/* Smooth theme transition */
 html.theme-transitioning,
 html.theme-transitioning *,
 html.theme-transitioning *::before,
 html.theme-transitioning *::after {
   transition:
-    background-color 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    background-color 0.4s ease,
+    color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease !important;
 }
 
 /* Light mode hero grid */
@@ -2975,6 +3008,67 @@ html.theme-transitioning *::after {
 
 
 /* =============================================
+   🖱️ CUSTOM CURSOR — DESKTOP ONLY
+   ============================================= */
+@media (hover: hover) and (pointer: fine) {
+  body { cursor: none; }
+  button { cursor: none; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor, .cursor-follower { display: none !important; }
+  body { cursor: auto; }
+  button { cursor: pointer; }
+}
+
+
+/* =============================================
+   ⌨️ FOCUS VISIBLE — KEYBOARD NAVIGATION
+   ============================================= */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px var(--accent-glow);
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.social-icon:focus-visible,
+.footer-socials a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+
+/* =============================================
+   🖥️ LARGE SCREEN ADJUSTMENTS
+   ============================================= */
+@media (min-width: 1440px) {
+  .container { max-width: 1320px; }
+  .hero-container { max-width: 1320px; }
+}
+
+
+/* =============================================
+   📱 TABLET PORTRAIT
+   ============================================= */
+@media (max-width: 768px) and (min-width: 601px) {
+  .about-stats { grid-template-columns: repeat(4, 1fr); }
+  .hobbies-grid { grid-template-columns: repeat(3, 1fr); }
+  .hero-image-frame { width: 260px; height: 260px; }
+}
+
+
+/* =============================================
    ♿ REDUCED MOTION — SAFE FALLBACKS
    ============================================= */
 @media (prefers-reduced-motion: reduce) {
@@ -3135,25 +3229,16 @@ html.theme-transitioning *::after {
   overflow: hidden;
 }
 
-/* ── Smooth will-change hints for GSAP targets ── */
+/* ── will-change hints — applied sparingly ── */
 .hero-tag,
 .hero-title,
-.hero-description,
-.hero-buttons,
-.hero-image-wrapper,
-.stat-card,
-.timeline-card,
-.skills-group,
-.project-card,
-.hobby-card,
-.contact-info,
-.contact-form-wrapper {
+.hero-image-wrapper {
   will-change: transform, opacity;
 }
 
 /* ── Section parallax layer ── */
 .hero-grid {
-  will-change: transform;
+  will-change: auto;
 }
 
 /* ── Tech card hover 3D ── */
@@ -3163,7 +3248,6 @@ html.theme-transitioning *::after {
 
 .tech-icon-card {
   transform-style: preserve-3d;
-  will-change: transform;
 }
 
 /* ── Hobby card hover ── */
@@ -3183,7 +3267,6 @@ html.theme-transitioning *::after {
 .hero-buttons,
 .social-links,
 .hero-image-wrapper {
-  /* GSAP sets opacity:0 at start; ensure no flash on slow devices */
   animation-fill-mode: both;
 }
 
@@ -3197,7 +3280,6 @@ html.theme-transitioning *::after {
 
 /* ── Section tag text expand animation ── */
 .section-tag {
-  will-change: opacity, letter-spacing;
   overflow: hidden;
 }
 
@@ -3215,9 +3297,9 @@ html.theme-transitioning *::after {
   70%       { transform: scale(1);   }
 }
 
-/* ── Scroll-triggered parallax: prevent layout shift ── */
+/* ── Scroll-triggered parallax ── */
 .hero-image-frame {
-  will-change: transform;
+  /* will-change set dynamically by GSAP when animating */
 }
 
 /* ── Reduced motion: override GSAP inline styles ── */

@@ -500,10 +500,10 @@
           const y = (e.clientY - r.top) / r.height - 0.5;
           anime({
             targets: card,
-            rotateX: -y * 14,
-            rotateY: x * 14,
-            translateZ: 16,
-            translateY: -8,
+            rotateX: -y * 8,
+            rotateY: x * 8,
+            translateZ: 10,
+            translateY: -6,
             duration: 400,
             easing: 'easeOutQuad'
           });
@@ -554,9 +554,9 @@
             const y = (e.clientY - r.top) / r.height - 0.5;
             anime({
               targets: card,
-              rotateX: -y * 10,
-              rotateY: x * 10,
-              translateZ: 12,
+              rotateX: -y * 6,
+              rotateY: x * 6,
+              translateZ: 8,
               duration: 400,
               easing: 'easeOutQuad'
             });
