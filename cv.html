@@ -665,12 +665,16 @@
   <div class="cursor" id="cursor"></div>
   <div class="cursor-follower" id="cursorFollower"></div>
 
-  <!-- ========== NAVIGATION ========== -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-container">
-      <!-- Logo -->
-      <a href="index.html" class="nav-logo">
-        <span class="logo-bracket">&lt;</span>AV<span class="logo-bracket">/&gt;</span>
+  <!-- ========== NAVIGATION (DYNAMIC NOTCH NAVBAR) ========== -->
+  <header class="navbar-wrapper">
+    <nav class="nav-notch" id="navbar">
+      <!-- Brand: Glossy Icon + Logo -->
+      <a href="index.html" class="nav-brand-notch" aria-label="Avinash Verma - Home">
+        <div class="nav-glossy-badge">
+          <span class="badge-gloss"></span>
+          <i class="fa-solid fa-bolt"></i>
+        </div>
+        <span class="nav-brand-text">Avinash<span class="nav-brand-dot">.</span></span>
       </a>
 
       <!-- Nav Links -->
@@ -680,26 +684,34 @@
         <li><a href="index.html#education" class="nav-link">Education</a></li>
         <li><a href="index.html#skills" class="nav-link">Skills</a></li>
         <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+        <li><a href="index.html#achievements" class="nav-link">Achievements</a></li>
         <li><a href="index.html#hobbies" class="nav-link">Hobbies</a></li>
         <li><a href="index.html#contact" class="nav-link">Contact</a></li>
       </ul>
 
-      <!-- Theme Toggle -->
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <span class="theme-icon-wrap">
-          <i class="fa-solid fa-sun sun-icon"></i>
-          <i class="fa-solid fa-moon moon-icon"></i>
-        </span>
-      </button>
+      <!-- Right Actions: CTA Button + Theme Toggle + Mobile Hamburger -->
+      <div class="nav-actions">
+        <a href="index.html#contact" class="nav-cta-btn">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>Hire Me</span>
+        </a>
+        
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="theme-icon-wrap">
+            <i class="fa-solid fa-sun sun-icon"></i>
+            <i class="fa-solid fa-moon moon-icon"></i>
+          </span>
+        </button>
 
-      <!-- Hamburger Menu (Mobile) -->
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </nav>
+        <!-- Hamburger Menu (Mobile) -->
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
 
   <!-- ACTIONS BAR -->
   <div class="actions-bar anim-fade-up">

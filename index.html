@@ -49,22 +49,17 @@
         <div class="cursor-follower" id="cursorFollower"><span
                 class="cursor-text">VIEW</span></div>
 
-        <!-- ========== NAVIGATION ========== -->
-        <nav class="navbar" id="navbar">
-            <div class="nav-container">
-                <!-- Brand: Radar Pulse + Logo -->
-                <div class="nav-brand">
-                    <div class="nav-status-pulse"
-                        title="Available for opportunities">
-                        <span class="pulse-ring"></span>
-                        <span class="pulse-dot"></span>
+        <!-- ========== NAVIGATION (DYNAMIC NOTCH NAVBAR) ========== -->
+        <header class="navbar-wrapper">
+            <nav class="nav-notch" id="navbar">
+                <!-- Brand: Glossy Icon + Logo -->
+                <a href="#home" class="nav-brand-notch" aria-label="Avinash Verma - Home">
+                    <div class="nav-glossy-badge">
+                        <span class="badge-gloss"></span>
+                        <i class="fa-solid fa-bolt"></i>
                     </div>
-                    <a href="#home" class="nav-logo">
-                        <span class="logo-bracket">&lt;</span><span
-                            class="logo-text">AV</span><span
-                            class="logo-bracket"> /&gt;</span>
-                    </a>
-                </div>
+                    <span class="nav-brand-text">Avinash<span class="nav-brand-dot">.</span></span>
+                </a>
 
                 <!-- Nav Links -->
                 <ul class="nav-links" id="navLinks">
@@ -73,30 +68,34 @@
                     <li><a href="#education" class="nav-link">Education</a></li>
                     <li><a href="#skills" class="nav-link">Skills</a></li>
                     <li><a href="#projects" class="nav-link">Projects</a></li>
-                    <li><a href="#achievements"
-                            class="nav-link">Achievements</a></li>
+                    <li><a href="#achievements" class="nav-link">Achievements</a></li>
                     <li><a href="#hobbies" class="nav-link">Hobbies</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
 
-                <!-- Theme Toggle -->
-                <button class="theme-toggle" id="themeToggle"
-                    aria-label="Toggle theme">
-                    <span class="theme-icon-wrap">
-                        <i class="fa-solid fa-sun sun-icon"></i>
-                        <i class="fa-solid fa-moon moon-icon"></i>
-                    </span>
-                </button>
+                <!-- Right Actions: CTA Button + Theme Toggle + Mobile Hamburger -->
+                <div class="nav-actions">
+                    <a href="cv.html" target="_blank" rel="noopener noreferrer" class="nav-cta-btn">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Resume</span>
+                    </a>
+                    
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <span class="theme-icon-wrap">
+                            <i class="fa-solid fa-sun sun-icon"></i>
+                            <i class="fa-solid fa-moon moon-icon"></i>
+                        </span>
+                    </button>
 
-                <!-- Hamburger Menu (Mobile) -->
-                <button class="hamburger" id="hamburger"
-                    aria-label="Toggle menu" aria-expanded="false">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </nav>
+                    <!-- Hamburger Menu (Mobile) -->
+                    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </nav>
+        </header>
 
         <!-- ========== HERO SECTION ========== -->
         <section class="hero" id="home">
