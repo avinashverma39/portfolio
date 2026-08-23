@@ -2357,6 +2357,9 @@ button { border: none; background: none; }
   .project-filters { gap: 8px; }
   .filter-btn { padding: 6px 14px; font-size: 0.82rem; }
   .projects-grid { grid-template-columns: 1fr; }
+  .project-card-preview { height: 150px; }
+  .project-card-body { padding: 20px; }
+  .project-card-actions { padding: 0 20px 20px; }
 
   /* Hobbies */
   .hobbies-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
