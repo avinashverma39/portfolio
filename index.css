@@ -341,8 +341,7 @@ button { border: none; background: none; }
   font-weight: 700;
 }
 
-.nav-link:hover::after,
-.nav-link.active::after { 
+.nav-link:hover::after { 
   width: 100%; 
 }
 

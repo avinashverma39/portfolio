@@ -550,42 +550,135 @@ function countUp(from, to, duration, cb) {
 
 
 /* =============================================
-   18. ACTIVE NAV LINK ON SCROLL
+   18. ACTIVE NAV LINK ON SCROLL & CLICK
    ============================================= */
 function initActiveNavLink() {
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-link');
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      navLinks.forEach(l => l.classList.remove('active'));
-      const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
-      if (active) {
-        active.classList.add('active');
-        // Slide the active pill indicator
-        const pill = document.querySelector('.nav-active-pill');
-        if (pill) {
-          const rect = active.getBoundingClientRect();
-          const parentRect = active.closest('.nav-links')?.getBoundingClientRect();
-          if (parentRect) {
-            pill.style.left = (rect.left - parentRect.left) + 'px';
-            pill.style.width = rect.width + 'px';
-          }
-        }
-      }
-    });
-  }, { threshold: 0.35, rootMargin: '-60px 0px -60px 0px' });
-
-  sections.forEach(s => observer.observe(s));
-
-  // Create pill element
+  const sections = Array.from(document.querySelectorAll('section[id]'));
+  const navLinks = Array.from(document.querySelectorAll('.nav-link'));
   const navLinksList = document.querySelector('.nav-links');
-  if (navLinksList) {
-    const pill = document.createElement('div');
+
+  if (!sections.length || !navLinks.length) return;
+
+  // Create or retrieve sliding pill element
+  let pill = document.querySelector('.nav-active-pill');
+  if (!pill && navLinksList) {
+    pill = document.createElement('div');
     pill.className = 'nav-active-pill';
     navLinksList.appendChild(pill);
   }
+
+  let isClickScrolling = false;
+  let clickTimeout = null;
+
+  function updatePill(activeLink) {
+    if (!pill || !activeLink || !navLinksList) return;
+    const linkRect = activeLink.getBoundingClientRect();
+    const parentRect = navLinksList.getBoundingClientRect();
+    if (parentRect.width > 0 && linkRect.width > 0) {
+      pill.style.left = (linkRect.left - parentRect.left) + 'px';
+      pill.style.width = linkRect.width + 'px';
+      pill.style.opacity = '1';
+    }
+  }
+
+  function setActive(targetId) {
+    if (!targetId) return;
+    let currentActive = null;
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href') || '';
+      if (href === `#${targetId}` || href.endsWith(`#${targetId}`)) {
+        link.classList.add('active');
+        currentActive = link;
+      } else {
+        link.classList.remove('active');
+      }
+    });
+
+    if (currentActive) {
+      updatePill(currentActive);
+    }
+  }
+
+  // Handle immediate click selection and lock scroll spy during smooth scroll
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      const href = link.getAttribute('href') || '';
+      const hashIndex = href.indexOf('#');
+      if (hashIndex !== -1) {
+        const id = href.slice(hashIndex + 1);
+        if (id) {
+          isClickScrolling = true;
+          setActive(id);
+          clearTimeout(clickTimeout);
+          clickTimeout = setTimeout(() => {
+            isClickScrolling = false;
+            determineActiveSection();
+          }, 850);
+        }
+      }
+    });
+  });
+
+  function determineActiveSection() {
+    if (isClickScrolling) return;
+
+    const scrollY = window.scrollY || window.pageYOffset;
+    const winHeight = window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight;
+    const navbarHeight = document.getElementById('navbar')?.offsetHeight || 70;
+    const offset = navbarHeight + 80;
+
+    // Top of page
+    if (scrollY < 120) {
+      setActive('home');
+      return;
+    }
+
+    // Bottom of page
+    if (scrollY + winHeight >= docHeight - 60) {
+      const lastSection = sections[sections.length - 1];
+      if (lastSection) setActive(lastSection.id);
+      return;
+    }
+
+    // Check which section encompasses the offset line
+    let activeId = 'home';
+    for (let i = 0; i < sections.length; i++) {
+      const sec = sections[i];
+      const rect = sec.getBoundingClientRect();
+      if (rect.top <= offset && rect.bottom > offset) {
+        activeId = sec.id;
+        break;
+      } else if (rect.top <= offset) {
+        activeId = sec.id;
+      }
+    }
+
+    setActive(activeId);
+  }
+
+  let scrollTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!scrollTicking) {
+      window.requestAnimationFrame(() => {
+        determineActiveSection();
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    const active = document.querySelector('.nav-link.active');
+    if (active) updatePill(active);
+  });
+
+  // Initial update
+  setTimeout(() => {
+    determineActiveSection();
+    const initialActive = document.querySelector('.nav-link.active') || navLinks[0];
+    if (initialActive) updatePill(initialActive);
+  }, 100);
 }
 
 
