@@ -295,33 +295,56 @@ function initTypingEffect() {
     try {
       let aiResponse = null;
 
-      // Call InsForge Edge Function
-      try {
-        const response = await fetch('https://n9cxde66.function2.insforge.app/handle-contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, subject, message })
-        });
+      // 1. Call InsForge AI Edge Function
+      const edgeFunctionUrls = [
+        'https://r4s69m7b.function2.insforge.app/handle-contact',
+        'https://n9cxde66.function2.insforge.app/handle-contact'
+      ];
 
-        if (response.ok) {
-          const data = await response.json();
-          aiResponse = data.ai_response;
+      for (const url of edgeFunctionUrls) {
+        try {
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, subject, message })
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            aiResponse = data.ai_response;
+            if (aiResponse) break;
+          }
+        } catch (fnErr) {
+          console.warn(`Edge function at ${url} unavailable:`, fnErr);
         }
-      } catch (fnErr) {
-        console.warn('Edge Function fallback:', fnErr);
       }
 
-      // Direct Database Backup if edge function was unavailable
-      if (!aiResponse) {
-        try {
-          const { error: dbErr } = await insforge
-            .database
-            .from('messages')
-            .insert([{ name, email, message }]);
-          if (dbErr) console.error('Database insert fallback error:', dbErr);
-        } catch (e) {
-          console.error('Direct database insert exception:', e);
-        }
+      // 2. Direct InsForge Database Backup
+      try {
+        const { error: dbErr } = await insforge
+          .database
+          .from('messages')
+          .insert([{ name, email, message }]);
+        if (dbErr) console.warn('InsForge database direct insert notice:', dbErr);
+      } catch (e) {
+        console.warn('InsForge database direct insert exception:', e);
+      }
+
+      // 3. Direct Email Notification via FormSubmit
+      try {
+        await fetch('https://formsubmit.co/ajax/avinashverma3939@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            name,
+            email,
+            subject: subject || 'New Message from Portfolio',
+            message,
+            _captcha: 'false'
+          })
+        });
+      } catch (e) {
+        console.warn('Direct email notification notice:', e);
       }
 
       // Display success feedback

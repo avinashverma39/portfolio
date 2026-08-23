@@ -23,32 +23,42 @@ export default async function(req) {
       });
     }
 
-    // 1. Generate AI Response
-    let aiResponse = "Thank you for reaching out! Avinash will get back to you shortly.";
+    // 1. Generate AI Response via OpenAI / OpenRouter / InsForge AI Gateway
+    let aiResponse = `Thank you for reaching out, ${name}! Avinash has received your message regarding "${subject || 'Portfolio Inquiry'}" and will get back to you shortly.`;
+    
     try {
-      const openai = new OpenAI({
-        baseURL: 'https://openrouter.ai/api/v1',
-        apiKey: Deno.env.get('OPENROUTER_API_KEY'),
-      });
+      const apiKey = Deno.env.get('OPENROUTER_API_KEY') || Deno.env.get('OPENAI_API_KEY');
+      if (apiKey) {
+        const openai = new OpenAI({
+          baseURL: Deno.env.get('AI_BASE_URL') || 'https://openrouter.ai/api/v1',
+          apiKey: apiKey,
+        });
 
-      const prompt = `You are a friendly and professional assistant for a web developer named Avinash Verma. \nA user named ${name} (${email}) has just submitted a contact form on his portfolio with the following message:\n"${message}"\n\nWrite a short, polite, and enthusiastic reply acknowledging their message. Keep it under 3 sentences. Thank them for reaching out and assure them Avinash will get back to them soon.`;
+        const prompt = `You are an intelligent, polite, and enthusiastic virtual assistant for Avinash Verma, a talented Web Developer & CS Student.
+A user named ${name} (${email}) has just sent a message from his portfolio:
+Subject: "${subject || 'General Inquiry'}"
+Message: "${message}"
 
-      const completion = await openai.chat.completions.create({
-        model: 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: prompt }],
-      });
+Write a friendly, professional, 2-sentence response acknowledging their message, thanking them on behalf of Avinash, and assuring them Avinash will review their note and respond soon.`;
 
-      aiResponse = completion.choices[0]?.message?.content || aiResponse;
+        const completion = await openai.chat.completions.create({
+          model: Deno.env.get('AI_MODEL') || 'openai/gpt-4o-mini',
+          messages: [{ role: 'user', content: prompt }],
+          max_tokens: 150,
+        });
+
+        aiResponse = completion.choices[0]?.message?.content || aiResponse;
+      }
     } catch (aiErr) {
-      console.error("OpenAI Error:", aiErr);
+      console.warn("AI Generation Error (using template fallback):", aiErr);
     }
 
-    // 2. Save to Database
+    // 2. Save Message to InsForge Database
     try {
-      const insforge = createClient({
-        baseUrl: Deno.env.get('INSFORGE_BASE_URL'),
-        anonKey: Deno.env.get('ANON_KEY')
-      });
+      const baseUrl = Deno.env.get('INSFORGE_BASE_URL') || 'https://r4s69m7b.ap-southeast.insforge.app';
+      const anonKey = Deno.env.get('ANON_KEY') || 'anon_e477484020cb5f6036d7fa05715227a98204ee6b293d38ad446f77bf4dde73a2';
+
+      const insforge = createClient({ baseUrl, anonKey });
 
       const { error: dbError } = await insforge
         .database
@@ -58,13 +68,13 @@ export default async function(req) {
         ]);
 
       if (dbError) {
-        console.error('Database Error:', dbError);
+        console.error('InsForge DB Insert Error:', dbError);
       }
     } catch (dbErr) {
       console.error("Database connection error:", dbErr);
     }
 
-    // 3. Send Email to Avinash via FormSubmit (Server-to-Server, bypasses CORS)
+    // 3. Send Direct Email Notification to Avinash via FormSubmit (Server-to-Server)
     try {
       await fetch("https://formsubmit.co/ajax/avinashverma3939@gmail.com", {
         method: "POST",
@@ -77,14 +87,15 @@ export default async function(req) {
           email: email,
           subject: subject || "New Message from Portfolio",
           message: message,
+          ai_acknowledgment: aiResponse,
           _captcha: "false"
         })
       });
     } catch (emailErr) {
-      console.error("Error sending email via FormSubmit:", emailErr);
+      console.error("Email notification error:", emailErr);
     }
 
-    // 4. Return response to user
+    // 4. Return success with AI response to frontend
     return new Response(JSON.stringify({ success: true, ai_response: aiResponse }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' }
     });
