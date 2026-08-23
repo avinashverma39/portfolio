@@ -1068,25 +1068,102 @@ button { border: none; background: none; }
    ============================================= */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
 }
 
 .project-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 28px;
-  transition: var(--transition);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+  position: relative;
 }
 
 .project-card:hover {
   border-color: var(--border-hover);
   transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3),
+              0 0 0 1px var(--border-hover);
+}
+
+/* Preview image / placeholder area */
+.project-card-preview {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(50, 205, 50, 0.04) 50%, var(--bg-card) 100%);
+  border-bottom: 1px solid var(--border);
+}
+
+.project-card-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover .project-card-preview img {
+  transform: scale(1.06);
+}
+
+/* Placeholder when no screenshot available */
+.project-preview-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(160deg, var(--bg-secondary), rgba(50, 205, 50, 0.06), var(--bg-card));
+  position: relative;
+}
+
+.project-preview-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.3;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 80%);
+}
+
+.project-preview-placeholder i {
+  font-size: 2.2rem;
+  color: var(--accent);
+  opacity: 0.4;
+  position: relative;
+  z-index: 1;
+}
+
+.project-preview-placeholder span {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+/* Card body */
+.project-card-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
 }
 
 .project-card-top {
@@ -1096,20 +1173,20 @@ button { border: none; background: none; }
 }
 
 .project-icon-wrap {
-  width: 48px; height: 48px;
-  background: rgba(50, 205, 50, 0.12);
+  width: 44px; height: 44px;
+  background: rgba(50, 205, 50, 0.1);
   border: 1px solid var(--border);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: var(--accent);
 }
 
 .project-links {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 .project-links a {
@@ -1132,9 +1209,10 @@ button { border: none; background: none; }
 }
 
 .project-card h3 {
-  font-size: 1.05rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
   color: var(--text-primary);
+  line-height: 1.35;
 }
 
 .project-card p {
@@ -1151,13 +1229,32 @@ button { border: none; background: none; }
 }
 
 .project-tags span {
-  background: rgba(50, 205, 50, 0.1);
+  background: rgba(50, 205, 50, 0.08);
   color: var(--accent);
   border: 1px solid var(--border);
-  padding: 3px 12px;
+  padding: 4px 14px;
   border-radius: 50px;
   font-size: 0.72rem;
   font-family: var(--font-mono);
+}
+
+/* Card action buttons */
+.project-card-actions {
+  display: flex;
+  gap: 12px;
+  padding: 0 24px 24px;
+}
+
+.project-card-actions .btn {
+  flex: 1;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-sm {
+  padding: 10px 18px;
+  font-size: 0.85rem;
+  border-radius: 10px;
 }
 
 /* =============================================
