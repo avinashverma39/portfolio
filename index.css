@@ -2917,11 +2917,11 @@ html.theme-transitioning *::after {
 }
 
 .project-card:hover {
-  transform: translateY(-8px) rotate3d(1, 0.5, 0, 3deg);
+  transform: translateY(-8px);
   box-shadow:
-    0 24px 48px rgba(0, 0, 0, 0.45),
-    0 0 0 1px var(--border-hover),
-    0 0 40px var(--accent-glow);
+    0 24px 48px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(168, 85, 247, 0.4),
+    0 0 35px rgba(168, 85, 247, 0.18);
 }
 
 /* Project card gradient border reveal */
@@ -2930,7 +2930,7 @@ html.theme-transitioning *::after {
   position: absolute;
   inset: 0;
   border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, transparent 40%, rgba(50, 205, 50, 0.06) 60%, transparent 80%);
+  background: linear-gradient(135deg, transparent 40%, rgba(168, 85, 247, 0.08) 60%, transparent 80%);
   opacity: 0;
   transition: opacity 0.4s;
   pointer-events: none;
