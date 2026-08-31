@@ -3442,6 +3442,218 @@ html.theme-transitioning *::after {
 
 
 /* =============================================
+   RESPONSIVE NAVBAR — TABLET & MOBILE
+   ============================================= */
+
+/* ── Tablet: ≤ 1024px — Hide nav links, show hamburger ── */
+@media (max-width: 1024px) {
+  .nav-notch {
+    width: 100%;
+    border-radius: 0 0 18px 18px;
+    padding: 10px 20px;
+    gap: 16px;
+  }
+
+  /* Hide the inverted corner fillets on mobile */
+  .nav-notch::before,
+  .nav-notch::after {
+    display: none;
+  }
+
+  /* Hide desktop nav links */
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: #08080e;
+    border-radius: 0 0 18px 18px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+    padding: 12px 20px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 999;
+  }
+
+  /* Show mobile menu when open */
+  .nav-links.open {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    animation: navSlideDown 0.3s ease forwards;
+  }
+
+  @keyframes navSlideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    border-radius: 10px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .nav-link:hover {
+    background: rgba(50, 205, 50, 0.08);
+  }
+
+  .nav-link.active {
+    background: rgba(50, 205, 50, 0.1);
+    color: var(--accent);
+  }
+
+  /* Remove the underline indicator on mobile */
+  .nav-link::after {
+    display: none;
+  }
+
+  /* Show hamburger */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Light theme mobile menu */
+  [data-theme="light"] .nav-links {
+    background: #ffffff;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  [data-theme="light"] .nav-link:hover {
+    background: rgba(50, 205, 50, 0.06);
+  }
+
+  [data-theme="light"] .nav-link.active {
+    background: rgba(50, 205, 50, 0.08);
+    color: var(--accent);
+  }
+}
+
+/* ── Smaller tablet: ≤ 768px ── */
+@media (max-width: 768px) {
+  .nav-notch {
+    padding: 8px 16px;
+    border-radius: 0 0 14px 14px;
+  }
+
+  .nav-brand-text {
+    font-size: 1rem;
+  }
+
+  .nav-glossy-badge {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+  }
+
+  .nav-glossy-badge i {
+    font-size: 0.8rem;
+  }
+
+  .nav-cta-btn span {
+    display: none;
+  }
+
+  .nav-cta-btn {
+    padding: 7px 10px;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    justify-content: center;
+  }
+
+  .nav-cta-btn i {
+    margin: 0;
+  }
+
+  .theme-toggle {
+    width: 30px;
+    height: 30px;
+  }
+
+  .nav-links {
+    border-radius: 0 0 14px 14px;
+    padding: 8px 16px 16px;
+  }
+}
+
+/* ── Phone: ≤ 480px ── */
+@media (max-width: 480px) {
+  .navbar-wrapper {
+    padding: 0;
+  }
+
+  .nav-notch {
+    padding: 8px 12px;
+    border-radius: 0 0 12px 12px;
+    gap: 8px;
+  }
+
+  .nav-brand-notch {
+    gap: 7px;
+  }
+
+  .nav-brand-text {
+    font-size: 0.92rem;
+  }
+
+  .nav-glossy-badge {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+  }
+
+  .nav-actions {
+    gap: 6px;
+  }
+
+  .nav-cta-btn {
+    width: 30px;
+    height: 30px;
+    padding: 6px;
+  }
+
+  .theme-toggle {
+    width: 28px;
+    height: 28px;
+  }
+
+  .hamburger span {
+    width: 18px;
+  }
+
+  .nav-links {
+    padding: 8px 12px 14px;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .nav-link {
+    padding: 11px 14px;
+    font-size: 0.9rem;
+  }
+}
+
+
+/* =============================================
    GSAP ANIMATION SUPPORT STYLES
    ============================================= */
 
