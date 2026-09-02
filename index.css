@@ -3965,6 +3965,25 @@ html.theme-transitioning *::after {
   box-shadow: 0 32px 80px rgba(0, 0, 0, 0.15), 0 0 40px var(--accent-glow);
 }
 
+[data-theme="light"] .resources-bg-glow {
+  background: radial-gradient(circle, rgba(26, 138, 26, 0.05) 0%, transparent 70%);
+}
+
+[data-theme="light"] .resource-card:hover {
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.12),
+    0 0 0 1px var(--border-hover),
+    0 0 30px var(--accent-glow);
+}
+
+[data-theme="light"] .resource-modal-overlay {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+[data-theme="light"] .resource-modal {
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.15), 0 0 40px var(--accent-glow);
+}
+
 [data-theme="light"] .timeline-card:hover {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
