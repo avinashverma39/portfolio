@@ -506,11 +506,13 @@ button { border: none; background: none; }
    ============================================= */
 .hero {
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
   padding-top: 80px;
+  padding-bottom: 40px;
 }
 
 /* Animated grid background */
@@ -1747,7 +1749,7 @@ button { border: none; background: none; }
 .achievements-section {
   background: var(--bg-secondary);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* Subtle background glow */
@@ -1761,6 +1763,7 @@ button { border: none; background: none; }
   background: radial-gradient(circle, rgba(50, 205, 50, 0.06) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
+  overflow: hidden;
 }
 
 .achievements-section .container {
@@ -2366,7 +2369,7 @@ button { border: none; background: none; }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
 
   /* Achievements */
-  .achievements-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 26px; }
+  .achievements-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 26px; }
   .achievement-card-image { height: 200px; }
   .cert-modal { max-width: 95vw; }
   .cert-modal-image { max-height: 40vh; }
@@ -2805,7 +2808,7 @@ button { border: none; background: none; }
 /* ---- Contact form wrapper glow border ---- */
 .contact-form-wrapper {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .contact-form-wrapper::before {
@@ -2855,6 +2858,10 @@ button { border: none; background: none; }
 /* ---- Footer enhancements ---- */
 .footer {
   position: relative;
+  overflow: visible;
+}
+
+.footer-glow {
   overflow: hidden;
 }
 
