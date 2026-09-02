@@ -2877,6 +2877,10 @@ button { border: none; background: none; }
   .achievement-card-image { height: 200px; }
   .cert-modal { max-width: 95vw; }
   .cert-modal-image { max-height: 40vh; }
+
+  /* Resources */
+  .resources-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+  .resource-modal { max-width: 95vw; }
 }
 
 /* =============================================
@@ -3082,6 +3086,20 @@ button { border: none; background: none; }
   .cert-modal-image { max-height: 35vh; }
   .cert-modal-info { padding: 22px; }
   .cert-modal-controls { padding: 10px; }
+
+  /* Resources */
+  .resources-grid { grid-template-columns: 1fr; gap: 20px; }
+  .resource-card-icon-header { height: 100px; }
+  .resource-card-body { padding: 20px; gap: 10px; }
+  .resource-card-action { padding: 0 20px 18px; }
+  .resource-filters { gap: 8px; }
+  .resource-filters .filter-btn { padding: 8px 16px; font-size: 0.85rem; }
+  .resource-modal-overlay { padding: 12px; }
+  .resource-modal-header { padding: 24px 20px 0; gap: 14px; }
+  .resource-modal-content { padding: 20px; }
+  .resource-modal-actions { padding: 0 20px 22px; }
+  .resource-modal-icon { width: 48px; height: 48px; font-size: 1.3rem; border-radius: 12px; }
+  .resource-modal-title { font-size: 1.1rem; }
 }
 
 /* =============================================
@@ -3112,6 +3130,10 @@ button { border: none; background: none; }
 
   .achievement-counter-pill { padding: 6px 10px; font-size: 0.72rem; }
   .achievement-filters .filter-btn { padding: 6px 12px; font-size: 0.78rem; }
+
+  /* Resources */
+  .resource-filters .filter-btn { padding: 6px 12px; font-size: 0.78rem; }
+  .resource-card-icon-header { height: 90px; }
 }
 
 /* =============================================
