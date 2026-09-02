@@ -678,6 +678,94 @@
 
 
     /* ─────────────────────────────────────────────────────────────
+       17. RESOURCES — SCROLL ENTRANCE, 3D TILT & FILTER ANIMATION
+       ───────────────────────────────────────────────────────────── */
+    (function resourcesSection() {
+      const grid = document.querySelector('.resources-grid');
+      const filters = document.querySelector('.resource-filters');
+
+      /* Entrance animation for resource cards (called on initial load + filter) */
+      function animateCards() {
+        const cards = grid?.querySelectorAll('.resource-card');
+        if (!cards || cards.length === 0) return;
+
+        anime({
+          targets: Array.from(cards),
+          opacity: [0, 1],
+          translateY: [50, 0],
+          scale: [0.92, 1],
+          delay: anime.stagger(100),
+          duration: 800,
+          easing: 'spring(1, 78, 10, 0)'
+        });
+
+        /* 3D Tilt physics on hover */
+        cards.forEach(card => {
+          card.addEventListener('mousemove', e => {
+            const r = card.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - 0.5;
+            const y = (e.clientY - r.top) / r.height - 0.5;
+            anime({
+              targets: card,
+              rotateX: -y * 6,
+              rotateY: x * 6,
+              translateZ: 8,
+              duration: 400,
+              easing: 'easeOutQuad'
+            });
+          });
+
+          card.addEventListener('mouseleave', () => {
+            anime({
+              targets: card,
+              rotateX: 0,
+              rotateY: 0,
+              translateZ: 0,
+              duration: 800,
+              easing: 'spring(1, 75, 10, 0)'
+            });
+          });
+        });
+      }
+
+      /* Initial scroll-triggered entrance */
+      if (grid) {
+        ScrollTrigger.create({
+          trigger: grid,
+          start: 'top 82%',
+          once: true,
+          onEnter: animateCards
+        });
+
+        /* Watch for DOM changes (filter re-renders cards) */
+        const observer = new MutationObserver(() => {
+          animateCards();
+        });
+        observer.observe(grid, { childList: true });
+      }
+
+      /* Filter buttons entrance */
+      if (filters) {
+        ScrollTrigger.create({
+          trigger: filters,
+          start: 'top 85%',
+          once: true,
+          onEnter: () => {
+            anime({
+              targets: '.resource-filters .filter-btn',
+              opacity: [0, 1],
+              translateY: [12, 0],
+              delay: anime.stagger(60),
+              duration: 600,
+              easing: 'easeOutCubic'
+            });
+          }
+        });
+      }
+    })();
+
+
+    /* ─────────────────────────────────────────────────────────────
        9. HOBBIES SECTION — STAGGER & HOVER FLOAT
        ───────────────────────────────────────────────────────────── */
     (function hobbiesSection() {
