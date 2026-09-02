@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initActiveNavLink();   // active pill indicator
   initBackToTop();       // back to top button visibility
   initAchievements();    // achievements & certifications section
+  initResources();       // notes, books & important questions section
 
   /* NOTE: Hero entrance, scroll reveal, count-up, timeline animation,
      and magnetic buttons are all handled by animations.js (GSAP) */
@@ -1148,6 +1149,315 @@ function openCertModal(achievementId) {
   overlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
   // Trigger animation on next frame
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      overlay.classList.add('active');
+      overlay.focus();
+    });
+  });
+}
+
+
+/* =============================================
+   24. RESOURCES — NOTES, BOOKS & IMPORTANT QUESTIONS
+   ============================================= */
+
+/* ── Resource Data — Add your own entries here ─── */
+const resourcesData = [
+  {
+    id: 'res-dsa-notes',
+    title: 'Data Structures & Algorithms Notes',
+    category: 'notes',
+    icon: 'fa-solid fa-laptop-code',
+    description: 'Comprehensive handwritten and typed notes covering arrays, linked lists, stacks, queues, trees, graphs, sorting, searching, and dynamic programming.',
+    content: [
+      'Arrays & Strings — sliding window, two pointers, prefix sums',
+      'Linked Lists — reversal, cycle detection, merge techniques',
+      'Trees & Graphs — BFS, DFS, shortest path, MST',
+      'Dynamic Programming — memoization, tabulation, classic problems',
+      'Sorting & Searching — quicksort, mergesort, binary search variants'
+    ],
+    tags: ['DSA', 'C++', 'Algorithms', 'Competitive Programming'],
+    actionLabel: 'Read Notes',
+    actionIcon: 'fa-solid fa-book-open-reader',
+    actionUrl: '#'
+  },
+  {
+    id: 'res-os-notes',
+    title: 'Operating Systems Concepts',
+    category: 'notes',
+    icon: 'fa-solid fa-server',
+    description: 'Detailed notes on OS fundamentals including process management, memory management, file systems, CPU scheduling, and synchronization primitives.',
+    content: [
+      'Process Management — states, PCB, context switching',
+      'CPU Scheduling — FCFS, SJF, Round Robin, Priority',
+      'Memory Management — paging, segmentation, virtual memory',
+      'Deadlocks — prevention, avoidance, detection, recovery',
+      'File Systems — allocation methods, directory structures'
+    ],
+    tags: ['OS', 'Systems', 'Theory', 'BTech CS'],
+    actionLabel: 'Read Notes',
+    actionIcon: 'fa-solid fa-book-open-reader',
+    actionUrl: '#'
+  },
+  {
+    id: 'res-clrs-book',
+    title: 'Introduction to Algorithms (CLRS)',
+    category: 'books',
+    icon: 'fa-solid fa-book',
+    description: 'The gold-standard textbook for algorithms. Covers algorithm design, analysis, and a broad range of data structures used in computer science.',
+    content: [
+      'Foundations — growth of functions, recurrences, probabilistic analysis',
+      'Sorting & Order Statistics — heapsort, quicksort, linear-time sorting',
+      'Data Structures — hash tables, BSTs, red-black trees, B-trees',
+      'Advanced Design — dynamic programming, greedy algorithms, amortized analysis',
+      'Graph Algorithms — BFS, DFS, MST, shortest paths, network flow'
+    ],
+    tags: ['Algorithms', 'Textbook', 'CS Fundamentals'],
+    actionLabel: 'View Book',
+    actionIcon: 'fa-solid fa-arrow-up-right-from-square',
+    actionUrl: '#'
+  },
+  {
+    id: 'res-clean-code',
+    title: 'Clean Code by Robert C. Martin',
+    category: 'books',
+    icon: 'fa-solid fa-broom',
+    description: 'A handbook of agile software craftsmanship. Learn how to write readable, maintainable, and elegant code through real-world examples and principles.',
+    content: [
+      'Meaningful Names — choosing intention-revealing names',
+      'Functions — small, focused, single-responsibility functions',
+      'Comments — good comments vs bad comments',
+      'Error Handling — exceptions over return codes',
+      'Code Smells — identifying and refactoring bad patterns'
+    ],
+    tags: ['Software Engineering', 'Best Practices', 'Clean Code'],
+    actionLabel: 'View Book',
+    actionIcon: 'fa-solid fa-arrow-up-right-from-square',
+    actionUrl: '#'
+  },
+  {
+    id: 'res-dsa-interview',
+    title: 'Top 50 DSA Interview Questions',
+    category: 'questions',
+    icon: 'fa-solid fa-code',
+    description: 'Curated collection of the most frequently asked Data Structures & Algorithms questions in technical interviews at top tech companies.',
+    content: [
+      'Array — two sum, maximum subarray, merge intervals',
+      'String — longest palindrome, anagram grouping, pattern matching',
+      'Tree — level order traversal, LCA, diameter of binary tree',
+      'Graph — number of islands, course schedule, detect cycle',
+      'DP — longest common subsequence, coin change, 0/1 knapsack'
+    ],
+    tags: ['Interview Prep', 'DSA', 'Problem Solving'],
+    actionLabel: 'Practice Questions',
+    actionIcon: 'fa-solid fa-pen-to-square',
+    actionUrl: '#'
+  },
+  {
+    id: 'res-oop-practice',
+    title: 'OOP Concepts Practice Set',
+    category: 'questions',
+    icon: 'fa-solid fa-cubes',
+    description: 'Practice problems and conceptual questions on Object-Oriented Programming including inheritance, polymorphism, abstraction, and design patterns.',
+    content: [
+      'Encapsulation — access modifiers, getters/setters, data hiding',
+      'Inheritance — types, method overriding, super keyword',
+      'Polymorphism — compile-time vs runtime, virtual functions',
+      'Abstraction — abstract classes, interfaces, real-world modeling',
+      'Design Patterns — singleton, factory, observer, strategy'
+    ],
+    tags: ['OOP', 'Java', 'C++', 'Design Patterns'],
+    actionLabel: 'Practice Questions',
+    actionIcon: 'fa-solid fa-pen-to-square',
+    actionUrl: '#'
+  }
+];
+
+function initResources() {
+  const grid = document.getElementById('resourcesGrid');
+  const filterBtns = document.querySelectorAll('[data-resource-filter]');
+
+  if (!grid) return;
+
+  let currentFilter = 'all';
+
+  /* ── Render Cards ─── */
+  renderResourceCards();
+
+  /* ── Setup Filters ─── */
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.getAttribute('data-resource-filter');
+      renderResourceCards();
+    });
+  });
+
+  /* ── Setup Modal ─── */
+  initResourceModal();
+
+  /* ── Render resource cards ─── */
+  function renderResourceCards() {
+    const filtered = currentFilter === 'all'
+      ? resourcesData
+      : resourcesData.filter(r => r.category === currentFilter);
+
+    grid.innerHTML = filtered.map(r => createResourceCardHTML(r)).join('');
+
+    // Attach card click handlers for modal
+    grid.querySelectorAll('.resource-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        // Don't open modal if clicking the action button link directly
+        if (e.target.closest('.resource-action-link')) return;
+        const id = card.getAttribute('data-resource-id');
+        openResourceModal(id);
+      });
+    });
+
+    // Re-register custom cursor interactives on new cards
+    const cursor = document.getElementById('cursor');
+    const follower = document.getElementById('cursorFollower');
+    if (cursor && follower && !prefersReducedMotion) {
+      grid.querySelectorAll('.resource-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          cursor.classList.add('cursor-hover');
+          follower.classList.add('cursor-hover');
+        });
+        card.addEventListener('mouseleave', () => {
+          cursor.classList.remove('cursor-hover');
+          follower.classList.remove('cursor-hover');
+        });
+      });
+    }
+  }
+
+  /* ── Create card HTML ─── */
+  function createResourceCardHTML(r) {
+    const categoryMeta = {
+      notes: { icon: 'fa-sticky-note', label: 'Notes', bgClass: 'notes-bg' },
+      books: { icon: 'fa-book-open', label: 'Book', bgClass: 'books-bg' },
+      questions: { icon: 'fa-circle-question', label: 'Questions', bgClass: 'questions-bg' }
+    };
+    const meta = categoryMeta[r.category] || { icon: 'fa-file', label: 'Resource', bgClass: 'notes-bg' };
+
+    const tagsHTML = r.tags.map(t => `<span>${t}</span>`).join('');
+
+    return `
+      <article class="resource-card" data-resource-category="${r.category}" data-resource-id="${r.id}">
+        <div class="resource-card-icon-header ${meta.bgClass}">
+          <i class="${r.icon}"></i>
+          <div class="resource-card-badge">
+            <i class="fa-solid ${meta.icon}"></i>
+            ${meta.label}
+          </div>
+        </div>
+        <div class="resource-card-body">
+          <h3 class="resource-card-title">${r.title}</h3>
+          <p class="resource-card-desc">${r.description}</p>
+          <div class="resource-card-tags">${tagsHTML}</div>
+        </div>
+        <div class="resource-card-action">
+          <button class="btn btn-outline">
+            <i class="${r.actionIcon}"></i> ${r.actionLabel}
+          </button>
+        </div>
+      </article>
+    `;
+  }
+}
+
+
+/* =============================================
+   25. RESOURCE PREVIEW MODAL
+   ============================================= */
+function initResourceModal() {
+  const overlay = document.getElementById('resourceModalOverlay');
+  const closeBtn = document.getElementById('resourceModalClose');
+
+  if (!overlay) return;
+
+  /* ── Close modal ─── */
+  function closeModal() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      if (!overlay.classList.contains('active')) {
+        overlay.style.display = 'none';
+      }
+    }, 400);
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+  // Click outside modal to close
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModal();
+  });
+
+  // Keyboard Esc to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) {
+      closeModal();
+    }
+  });
+}
+
+/* ── Open modal with resource data ─── */
+function openResourceModal(resourceId) {
+  const overlay = document.getElementById('resourceModalOverlay');
+  const modalBody = document.getElementById('resourceModalBody');
+
+  if (!overlay || !modalBody) return;
+
+  const resource = resourcesData.find(r => r.id === resourceId);
+  if (!resource) return;
+
+  const categoryMeta = {
+    notes: { icon: 'fa-sticky-note', label: 'Notes', bgClass: 'notes-bg' },
+    books: { icon: 'fa-book-open', label: 'Book', bgClass: 'books-bg' },
+    questions: { icon: 'fa-circle-question', label: 'Questions', bgClass: 'questions-bg' }
+  };
+  const meta = categoryMeta[resource.category] || { icon: 'fa-file', label: 'Resource', bgClass: 'notes-bg' };
+
+  const tagsHTML = resource.tags.map(t => `<span>${t}</span>`).join('');
+  const contentHTML = resource.content.map(item => `<li>${item}</li>`).join('');
+
+  modalBody.innerHTML = `
+    <div class="resource-modal-header">
+      <div class="resource-modal-icon ${meta.bgClass}">
+        <i class="${resource.icon}"></i>
+      </div>
+      <div class="resource-modal-header-text">
+        <h3 class="resource-modal-title">${resource.title}</h3>
+        <span class="resource-modal-category">
+          <i class="fa-solid ${meta.icon}"></i>
+          ${meta.label}
+        </span>
+      </div>
+    </div>
+    <div class="resource-modal-content">
+      <p class="resource-modal-desc">${resource.description}</p>
+      <div class="resource-modal-preview">
+        <h4><i class="fa-solid fa-list-check"></i> Contents Overview</h4>
+        <ul>${contentHTML}</ul>
+      </div>
+      <div class="resource-modal-tags">${tagsHTML}</div>
+    </div>
+    <div class="resource-modal-actions">
+      <a href="${resource.actionUrl}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+        <i class="${resource.actionIcon}"></i> ${resource.actionLabel}
+      </a>
+      <button class="btn btn-outline" onclick="document.getElementById('resourceModalOverlay').classList.remove('active'); document.body.style.overflow=''; setTimeout(()=>{document.getElementById('resourceModalOverlay').style.display='none'},400)">
+        <i class="fa-solid fa-xmark"></i> Close
+      </button>
+    </div>
+  `;
+
+  // Show modal
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       overlay.classList.add('active');
