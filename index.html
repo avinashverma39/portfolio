@@ -69,6 +69,7 @@
                     <li><a href="#skills" class="nav-link">Skills</a></li>
                     <li><a href="#projects" class="nav-link">Projects</a></li>
                     <li><a href="#achievements" class="nav-link">Achievements</a></li>
+                    <li><a href="#resources" class="nav-link">Resources</a></li>
                     <li><a href="#hobbies" class="nav-link">Hobbies</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
@@ -757,6 +758,57 @@
             </div>
         </div>
 
+        <!-- ========== RESOURCES SECTION (Notes, Books & Important Questions) ========== -->
+        <section class="section resources-section" id="resources">
+            <div class="container">
+                <!-- Subtle animated background glow -->
+                <div class="resources-bg-glow"></div>
+
+                <div class="section-header">
+                    <span class="section-tag">study materials</span>
+                    <h2 class="section-title">Notes, Books & <span
+                            class="highlight">Questions</span></h2>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="resource-filters" id="resourceFilters">
+                    <button class="filter-btn active"
+                        data-resource-filter="all">All</button>
+                    <button class="filter-btn"
+                        data-resource-filter="notes"><i
+                            class="fa-solid fa-sticky-note"></i>
+                        Notes</button>
+                    <button class="filter-btn"
+                        data-resource-filter="books"><i
+                            class="fa-solid fa-book-open"></i>
+                        Important Books</button>
+                    <button class="filter-btn"
+                        data-resource-filter="questions"><i
+                            class="fa-solid fa-circle-question"></i>
+                        Important Questions</button>
+                </div>
+
+                <!-- Resource Cards Grid -->
+                <div class="resources-grid" id="resourcesGrid">
+                    <!-- Cards rendered dynamically by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Resource Preview Modal -->
+        <div class="resource-modal-overlay" id="resourceModalOverlay" role="dialog"
+            aria-modal="true" aria-label="Resource Preview" tabindex="-1">
+            <div class="resource-modal">
+                <button class="resource-modal-close" id="resourceModalClose"
+                    aria-label="Close preview">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="resource-modal-body" id="resourceModalBody">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+
         <!-- ========== HOBBIES SECTION ========== -->
         <section class="section hobbies-section" id="hobbies">
             <div class="container">
@@ -941,6 +993,7 @@
                             <a href="#about">About</a>
                             <a href="#projects">Projects</a>
                             <a href="#achievements">Achievements</a>
+                            <a href="#resources">Resources</a>
                             <a href="#contact">Contact</a>
                         </div>
                         <div class="footer-socials">
