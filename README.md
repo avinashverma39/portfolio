@@ -243,7 +243,8 @@ The project includes a `vercel.json` configuration file, making it suitable for 
 
 A deployed version can be added here:
 
-> 🔗 Live Portfolio: avinash.insforge.site
+>  <a href="avinash.insforge.site">🔗 Live Portfolio:</a>
+
 
 ---
 
