@@ -1,7 +1,7 @@
-/* =============================================
+/* 
    AVINASH VERMA PORTFOLIO — JAVASCRIPT
-   Premium Enhanced Edition
-   ============================================= */
+
+    */
 
 import { createClient } from 'https://esm.sh/@insforge/sdk@latest';
 
@@ -10,7 +10,6 @@ const insforge = createClient({
   anonKey: 'anon_e477484020cb5f6036d7fa05715227a98204ee6b293d38ad446f77bf4dde73a2'
 });
 
-/* Respect user motion preferences globally */
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---- Wait for DOM to load ---- */
@@ -20,16 +19,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   initHamburger();
   initScrollProgress();
   initThemeToggle();
-  initParticles();       // canvas particles (not a GSAP animation)
-  initTypingEffect();    // hero typing effect
-  initSkillBars();       // fills progress bar widths via IntersectionObserver
-  initActiveNavLink();   // active pill indicator
-  initBackToTop();       // back to top button visibility
-  initAchievements();    // achievements & certifications section
-  initResources();       // notes, books & important questions section
+  initParticles();       
+  initTypingEffect();    
+  initSkillBars();       
+  initActiveNavLink();   
+  initBackToTop();       
+  initAchievements();   
+  initResources();       
 
-  /* NOTE: Hero entrance, scroll reveal, count-up, timeline animation,
-     and magnetic buttons are all handled by animations.js (GSAP) */
 
   // Check auth and update nav link (kept for safety)
   const authNavLink = document.getElementById('authNavLink');
@@ -43,9 +40,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
-/* =============================================
+/* 
    1. CUSTOM CURSOR — ENHANCED MAGNETIC
-   ============================================= */
+ */
 function initCustomCursor() {
   const cursor = document.getElementById('cursor');
   const follower = document.getElementById('cursorFollower');
@@ -72,7 +69,6 @@ function initCustomCursor() {
   }
   animateFollower();
 
-  // Expand cursor on hover
   const interactives = document.querySelectorAll('a, button, input, textarea, .project-card, .hobby-card, .stat-card, .tech-icon-card, .achievement-card, .detail-item, .timeline-card, .filter-btn');
   interactives.forEach(el => {
     el.addEventListener('mouseenter', () => {
@@ -85,15 +81,14 @@ function initCustomCursor() {
     });
   });
 
-  // Hide cursor when leaving window
   document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; follower.style.opacity = '0'; });
   document.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; follower.style.opacity = '0.6'; });
 }
 
 
-/* =============================================
+/* 
    2. NAVBAR — SCROLL EFFECT
-   ============================================= */
+    */
 function initNavbar() {
   const navbar = document.getElementById('navbar');
   if (!navbar) return;
@@ -104,9 +99,9 @@ function initNavbar() {
 }
 
 
-/* =============================================
+/* 
    3. HAMBURGER MENU (MOBILE)
-   ============================================= */
+    */
 function initHamburger() {
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
@@ -125,22 +120,18 @@ function initHamburger() {
     }
   }
 
-  // Toggle menu open/close
   hamburger.addEventListener('click', () => toggleMenu());
 
-  // Close menu when a link is clicked
   navLinks.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => toggleMenu(false));
   });
 
-  // Close menu when clicking outside
   document.addEventListener('click', (e) => {
     if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
       toggleMenu(false);
     }
   });
 
-  // Close menu on Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && hamburger.classList.contains('open')) {
       toggleMenu(false);
@@ -150,9 +141,9 @@ function initHamburger() {
 }
 
 
-/* =============================================
+/* 
    4. TYPING EFFECT — ENHANCED
-   ============================================= */
+    */
 function initTypingEffect() {
   const greetEl = document.getElementById('typedGreeting');
   const roleEl  = document.getElementById('typedRole');
@@ -170,7 +161,6 @@ function initTypingEffect() {
   ];
   const description = "A passionate BTech Computer Science student crafting clean, efficient, and user-friendly web experiences. I turn ideas into interactive digital reality.";
 
-  // Inject a real caret span (not CSS ::after)
   function setCaret(el, show) {
     let caret = el.parentElement?.querySelector('.type-caret');
     if (!caret) {
@@ -182,7 +172,6 @@ function initTypingEffect() {
     caret.style.display = show ? 'inline' : 'none';
   }
 
-  // Phase 1: Type the greeting
   function typeGreeting(cb) {
     let i = 0;
     setCaret(greetEl, true);
@@ -226,7 +215,6 @@ function initTypingEffect() {
       let speed = isDeleting ? 45 : 85;
 
       if (!isDeleting && charIndex === currentRole.length) {
-        // Apply shimmer when fully typed
         roleEl.classList.add('role-shimmer-active');
         speed = 1800;
         isDeleting = true;
@@ -244,7 +232,6 @@ function initTypingEffect() {
     setTimeout(typeRole, 200);
   }
 
-  // Phase 3: Type description once
   function typeDesc() {
     if (!descEl) return;
     let i = 0;
@@ -258,15 +245,14 @@ function initTypingEffect() {
     tick();
   }
 
-  // ── Kick off sequence ────────────────────────────────────
   typeGreeting(startRoles);
 }
 
 
 
-/* =============================================
+/* 
    9. CONTACT FORM SUBMIT HANDLER
-   ============================================= */
+    */
 (function initContactForm() {
   const form = document.getElementById('contactForm');
   if (!form) return;
@@ -395,9 +381,9 @@ function clearFormErrors() {
 
 
 
-/* =============================================
+/* 
    10. SMOOTH SCROLL FOR ANCHOR LINKS
-   ============================================= */
+    */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const target = document.querySelector(this.getAttribute('href'));
@@ -411,9 +397,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 
-/* =============================================
+/* 
    11. SCROLL PROGRESS BAR
-   ============================================= */
+    */
 function initScrollProgress() {
   const bar = document.getElementById('scrollProgress');
   if (!bar) return;
@@ -427,15 +413,15 @@ function initScrollProgress() {
 }
 
 
-/* =============================================
+/* 
    12. DARK / LIGHT THEME TOGGLE
-   ============================================= */
+    */
 function initThemeToggle() {
   const btn = document.getElementById('themeToggle');
   const html = document.documentElement;
   if (!btn) return;
 
-  // Load saved theme or system preference
+  // Load saved theme or  preference
   const saved = localStorage.getItem('av-theme');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const initial = saved || (prefersDark ? 'dark' : 'light');
@@ -457,12 +443,11 @@ function initThemeToggle() {
 }
 
 
-/* initHeroEntrance — REMOVED: handled by animations.js */
 
 
-/* =============================================
+/* 
    14. PARTICLE CANVAS
-   ============================================= */
+ */
 function initParticles() {
   const canvas = document.getElementById('particleCanvas');
   if (!canvas || prefersReducedMotion) return;
@@ -526,12 +511,11 @@ function initParticles() {
 }
 
 
-/* initScrollReveal — REMOVED: handled by animations.js */
 
 
-/* =============================================
+/* 
    16. SKILL BARS — ENHANCED WITH COUNTER
-   ============================================= */
+    */
 function initSkillBars() {
   const fills = document.querySelectorAll('.skill-bar-fill');
 
@@ -556,9 +540,9 @@ function initSkillBars() {
 }
 
 
-/* =============================================
+/* 
    17. COUNT-UP ANIMATION
-   ============================================= */
+    */
 function countUp(from, to, duration, cb) {
   if (prefersReducedMotion) { cb(to); return; }
   const start = performance.now();
@@ -570,12 +554,11 @@ function countUp(from, to, duration, cb) {
   requestAnimationFrame(frame);
 }
 
-/* initCountUpNumbers — REMOVED: handled by animations.js */
 
 
-/* =============================================
+/* 
    18. ACTIVE NAV LINK ON SCROLL & CLICK
-   ============================================= */
+    */
 function initActiveNavLink() {
   const sections = Array.from(document.querySelectorAll('section[id]'));
   const navLinks = Array.from(document.querySelectorAll('.nav-link'));
@@ -583,7 +566,6 @@ function initActiveNavLink() {
 
   if (!sections.length || !navLinks.length) return;
 
-  // Create or retrieve sliding pill element
   let pill = document.querySelector('.nav-active-pill');
   if (!pill && navLinksList) {
     pill = document.createElement('div');
@@ -623,7 +605,6 @@ function initActiveNavLink() {
     }
   }
 
-  // Handle immediate click selection and lock scroll spy during smooth scroll
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
       const href = link.getAttribute('href') || '';
@@ -706,9 +687,9 @@ function initActiveNavLink() {
 }
 
 
-/* =============================================
+/* 
    19. BACK TO TOP BUTTON
-   ============================================= */
+    */
 function initBackToTop() {
   const btn = document.getElementById('backToTop');
   if (!btn) return;
@@ -723,14 +704,6 @@ function initBackToTop() {
 }
 
 
-/* initTimelineAnimation — REMOVED: handled by animations.js */
-
-/* initMagneticButtons — REMOVED: handled by animations.js */
-
-
-/* =============================================
-   22. ACHIEVEMENTS & CERTIFICATIONS
-   ============================================= */
 
 /* ── Achievement Data — Add your own entries here ─── */
 const achievementsData = [
@@ -742,7 +715,7 @@ const achievementsData = [
     date: 'April 2025',
     description: 'Completed a comprehensive C++ programming course covering OOP, STL, memory management, and modern C++ features with hands-on projects.',
     skills: ['C++', 'OOP', 'STL'],
-    image: null, // Replace with actual certificate image path
+    image: null, 
     credentialUrl: '#',
     credentialId: 'CERT-CPP-2025-001'
   },
@@ -1033,9 +1006,9 @@ function initAchievements() {
 }
 
 
-/* =============================================
+/* 
    23. CERTIFICATE PREVIEW MODAL
-   ============================================= */
+    */
 function initCertModal() {
   const overlay = document.getElementById('certModalOverlay');
   const closeBtn = document.getElementById('certModalClose');
@@ -1058,7 +1031,6 @@ function initCertModal() {
     document.body.style.overflow = '';
     currentZoom = 1;
     if (modalImg) modalImg.style.transform = `scale(1)`;
-    // Use a slight delay to let CSS transition finish before hiding
     setTimeout(() => {
       if (!overlay.classList.contains('active')) {
         overlay.style.display = 'none';
@@ -1158,9 +1130,9 @@ function openCertModal(achievementId) {
 }
 
 
-/* =============================================
+/* 
    24. RESOURCES — NOTES, BOOKS & IMPORTANT QUESTIONS
-   ============================================= */
+    */
 
 /* ── Resource Data — Add your own entries here ─── */
 const resourcesData = [
