@@ -1,12 +1,10 @@
-/* =================================================================
-   AVINASH VERMA PORTFOLIO — PREMIUM ANIMATIONS ENGINE
-   Powered by Anime.js 3.2 + GSAP 3 ScrollTrigger
-   ================================================================= */
+/* 
+   AVINASH VERMA PORTFOLIO —  ANIMATIONS ENGINE
+    */
 
 (function () {
   'use strict';
 
-  /* ── Helper: Easing preset constants ────────────────────────── */
   const EASE = {
     out: 'power3.out',
     expo: 'power4.out',
@@ -15,7 +13,6 @@
     spring: 'elastic.out(1, 0.6)'
   };
 
-  /* ── Guard: Wait for Anime.js & GSAP + ScrollTrigger ───────── */
   function waitForLibraries(cb) {
     if (typeof anime !== 'undefined' && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
       cb();
@@ -24,7 +21,6 @@
     }
   }
 
-  /* ── Respect user motion preferences ───────────────────────── */
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   waitForLibraries(function () {
@@ -39,9 +35,8 @@
       return;
     }
 
-    /* ─────────────────────────────────────────────────────────────
-       1. HERO — ANIME.JS ELASTIC SPRING TIMELINE
-       ───────────────────────────────────────────────────────────── */
+    /* 
+        */
     (function heroEntranceAnime() {
       const heroTl = anime.timeline({
         autoplay: true,
@@ -104,9 +99,8 @@
     })();
 
 
-    /* ─────────────────────────────────────────────────────────────
-       2. MOUSE PARALLAX — Hero elements follow cursor subtly
-       ───────────────────────────────────────────────────────────── */
+    /* 
+        */
     (function mouseParallax() {
       const hero = document.querySelector('.hero');
       if (!hero) return;
@@ -160,9 +154,9 @@
     })();
 
 
-    /* ─────────────────────────────────────────────────────────────
-       3. SCROLL PARALLAX — Background depth effect
-       ───────────────────────────────────────────────────────────── */
+    /* 
+       3. SCROLL  — Background depth effect
+        */
     (function scrollParallax() {
       gsap.to('.hero-grid', {
         yPercent: -25,
@@ -188,9 +182,9 @@
     })();
 
 
-    /* ─────────────────────────────────────────────────────────────
-       4. SECTION HEADINGS — Clip-path text reveal + underline draw
-       ───────────────────────────────────────────────────────────── */
+    /* 
+       4. SECTION HEADINGS — Clip- text reveal + underline draw
+        */
     (function sectionHeadings() {
       document.querySelectorAll('.section-header').forEach(header => {
         const tag   = header.querySelector('.section-tag');
@@ -234,9 +228,9 @@
     })();
 
 
-    /* ─────────────────────────────────────────────────────────────
+    /* 
        5. ABOUT SECTION — Split-reveal layout
-       ───────────────────────────────────────────────────────────── */
+        */
     (function aboutSection() {
       const grid = document.querySelector('.about-grid');
       if (!grid) return;
@@ -294,9 +288,9 @@
     })();
 
 
-    /* ─────────────────────────────────────────────────────────────
+    /* 
        6. EDUCATION TIMELINE — Progressive line draw + card reveal
-       ───────────────────────────────────────────────────────────── */
+        */
     (function educationTimeline() {
       const timeline = document.querySelector('.timeline');
       if (!timeline) return;
@@ -523,9 +517,9 @@
       });
     })();
 
-    /* ─────────────────────────────────────────────────────────────
+    /* 
        16. ACHIEVEMENTS — SCROLL ENTRANCE, 3D TILT & FILTER ANIMATION
-       ───────────────────────────────────────────────────────────── */
+        */
     (function achievementsSection() {
       const grid = document.querySelector('.achievements-grid');
       const counters = document.querySelector('.achievement-counters');
@@ -677,9 +671,9 @@
     })();
 
 
-    /* ─────────────────────────────────────────────────────────────
+    /* 
        17. RESOURCES — SCROLL ENTRANCE, 3D TILT & FILTER ANIMATION
-       ───────────────────────────────────────────────────────────── */
+        */
     (function resourcesSection() {
       const grid = document.querySelector('.resources-grid');
       const filters = document.querySelector('.resource-filters');
@@ -765,9 +759,9 @@
     })();
 
 
-    /* ─────────────────────────────────────────────────────────────
+    /* 
        9. HOBBIES SECTION — STAGGER & HOVER FLOAT
-       ───────────────────────────────────────────────────────────── */
+        */
     (function hobbiesSection() {
       const grid = document.querySelector('.hobbies-grid');
       if (!grid) return;
@@ -951,9 +945,9 @@
     })();
 
 
-    /* ─────────────────────────────────────────────────────────────
+    /* 
        14. FLOATING BADGES — Continuous gentle motion
-       ───────────────────────────────────────────────────────────── */
+        */
     (function floatingBadges() {
       gsap.to('.badge-1', {
         y: -8, rotation: -2,
@@ -967,9 +961,9 @@
     })();
 
 
-    /* ─────────────────────────────────────────────────────────────
+    /* 
        15. TECH ICON CARDS — Hover 3D flip tease
-       ───────────────────────────────────────────────────────────── */
+        */
     (function techIconHover() {
       document.querySelectorAll('.tech-icon-card').forEach(card => {
         card.addEventListener('mouseenter', () => {
