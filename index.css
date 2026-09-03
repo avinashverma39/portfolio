@@ -1,7 +1,6 @@
-/* =============================================
+/* 
    AVINASH VERMA PORTFOLIO — STYLESHEET
-   Modern Dark Theme | Poppins + Space Mono
-   ============================================= */
+    */
 
 /* ---- Theme System ---- */
 :root,
@@ -27,7 +26,6 @@
   --section-padding: 100px 0;
 }
 
-/* Light theme variables defined in the consolidated block below (L2623+) */
 
 /* ---- Reset & Base ---- */
 *, *::before, *::after {
@@ -62,9 +60,9 @@ button { border: none; background: none; }
   border-radius: 3px;
 }
 
-/* =============================================
+/* 
    CUSTOM CURSOR
-   ============================================= */
+    */
 .cursor {
   width: 10px;
   height: 10px;
@@ -92,9 +90,9 @@ button { border: none; background: none; }
   opacity: 0.6;
 }
 
-/* =============================================
+/* 
    LAYOUT UTILITIES
-   ============================================= */
+    */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -111,9 +109,9 @@ button { border: none; background: none; }
 .skills-section,
 .hobbies-section { background: var(--bg-secondary); }
 
-/* =============================================
+/* 
    SECTION HEADERS
-   ============================================= */
+    */
 .section-header {
   text-align: center;
   margin-bottom: 60px;
@@ -150,9 +148,9 @@ button { border: none; background: none; }
   border-radius: 2px;
 }
 
-/* =============================================
+/* 
    BUTTONS
-   ============================================= */
+    */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -501,9 +499,9 @@ button { border: none; background: none; }
   border-color: rgba(0, 0, 0, 0.08);
 }
 
-/* =============================================
+/* 
    HERO SECTION
-   ============================================= */
+    */
 .hero {
   min-height: 100vh;
   min-height: 100svh;
@@ -699,7 +697,6 @@ button { border: none; background: none; }
   overflow: hidden;
 }
 
-/* If using actual image: .profile-avatar img { width:100%; height:100%; object-fit:cover; } */
 
 /* Floating Badges */
 .badge {
@@ -1206,9 +1203,9 @@ button { border: none; background: none; }
   color: #181717;
 }
 
-/* =============================================
+/* 
    PROJECTS SECTION
-   ============================================= */
+    */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1399,9 +1396,9 @@ button { border: none; background: none; }
   border-radius: 10px;
 }
 
-/* =============================================
+/* 
    HOBBIES SECTION
-   ============================================= */
+    */
 .hobbies-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1455,9 +1452,9 @@ button { border: none; background: none; }
   line-height: 1.6;
 }
 
-/* =============================================
+/* 
    CONTACT SECTION
-   ============================================= */
+      */
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1.5fr;
@@ -1695,9 +1692,9 @@ button { border: none; background: none; }
   transform: translateY(-2px);
 }
 
-/* =============================================
+/*   
    BACK TO TOP BUTTON
-   ============================================= */
+           */
 .back-to-top {
   position: fixed;
   bottom: 28px;
@@ -1729,9 +1726,9 @@ button { border: none; background: none; }
   box-shadow: 0 8px 25px var(--accent-glow);
 }
 
-/* =============================================
+/* 
    SCROLL REVEAL ANIMATION
-   ============================================= */
+    */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -2141,9 +2138,9 @@ button { border: none; background: none; }
   background: rgba(255, 255, 255, 0.7);
 }
 
-/* =============================================
+/* 
    CERTIFICATE PREVIEW MODAL
-   ============================================= */
+        */
 .cert-modal-overlay {
   position: fixed;
   inset: 0;
@@ -2839,9 +2836,9 @@ button { border: none; background: none; }
 }
 
 
-/* =============================================
+/* 
    RESPONSIVE — TABLET (≤ 900px)
-   ============================================= */
+                    */
 @media (max-width: 900px) {
   :root { --section-padding: 70px 0; }
 
@@ -2883,9 +2880,9 @@ button { border: none; background: none; }
   .resource-modal { max-width: 95vw; }
 }
 
-/* =============================================
+/* 
    RESPONSIVE — MOBILE (≤ 600px)
-   ============================================= */
+    */
 @media (max-width: 600px) {
   :root { --section-padding: 60px 0; }
 
@@ -3136,9 +3133,9 @@ button { border: none; background: none; }
   .resource-card-icon-header { height: 90px; }
 }
 
-/* =============================================
+/* 
    ✨ VISUAL ENHANCEMENTS
-   ============================================= */
+    */
 
 /* ---- Hero Ambient Orbs ---- */
 .hero-orb {
@@ -3202,8 +3199,6 @@ button { border: none; background: none; }
   color: var(--accent) !important;
 }
 
-/* ---- Hero role text gradient (applied via JS after typing completes) ---- */
-/* Note: shimmer applied to .hero-role via JS class .role-shimmer-active */
 .role-shimmer-active {
   background: linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 50%, var(--accent) 100%);
   background-size: 200% auto;
@@ -3465,9 +3460,9 @@ button { border: none; background: none; }
 }
 
 
-/* =============================================
+/* 
    🌗 LIGHT THEME VARIABLES
-   ============================================= */
+    */
 [data-theme="light"] {
   --bg-primary:      #f4f6fb;
   --bg-secondary:    #eaecf5;
@@ -3530,9 +3525,9 @@ html.theme-transitioning *::after {
 }
 
 
-/* =============================================
+/* 
    🌗 THEME TOGGLE BUTTON
-   ============================================= */
+    */
 .theme-toggle {
   width: 42px;
   height: 42px;
@@ -3713,9 +3708,9 @@ html.theme-transitioning *::after {
 }
 
 
-/* =============================================
-   ⏱️ TIMELINE — ANIMATED LINE
-   ============================================= */
+/* 
+    TIMELINE — ANIMATED LINE
+    */
 /* Hide the CSS ::before line when we inject the JS-animated one */
 .timeline-line-animated ~ .timeline::before {
   display: none;
@@ -3738,9 +3733,9 @@ html.theme-transitioning *::after {
 }
 
 
-/* =============================================
-   🃏 PROJECT CARDS — 3D LIFT
-   ============================================= */
+/* 
+    PROJECT CARDS — 3D LIFT
+    */
 .project-card {
   transform-style: preserve-3d;
   will-change: transform;
@@ -3771,9 +3766,9 @@ html.theme-transitioning *::after {
 }
 
 
-/* =============================================
-   📊 SKILL BARS — GLOW PULSE EDGE
-   ============================================= */
+/* 
+   SKILL BARS — GLOW PULSE EDGE
+    */
 .skill-bar-fill::before {
   content: '';
   position: absolute;
@@ -3791,9 +3786,9 @@ html.theme-transitioning *::after {
 }
 
 
-/* =============================================
+/* 
    🏷️ SECTION HEADER UNDERLINE ANIMATION
-   ============================================= */
+    */
 .section-header .highlight::after {
   width: 0;
 }
@@ -3803,18 +3798,18 @@ html.theme-transitioning *::after {
 }
 
 
-/* =============================================
+/* 
    🌟 HERO BUTTONS — MAGNETIC RESET SAFETY
-   ============================================= */
+    */
 .btn {
   transition: var(--transition), transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   will-change: transform;
 }
 
 
-/* =============================================
-   📱 THEME TOGGLE MOBILE — SHOW BESIDE HAMBURGER
-   ============================================= */
+/* 
+    THEME TOGGLE MOBILE — SHOW BESIDE HAMBURGER
+    */
 @media (max-width: 600px) {
   .theme-toggle {
     width: 36px;
@@ -3826,9 +3821,9 @@ html.theme-transitioning *::after {
 }
 
 
-/* =============================================
-   🖱️ CUSTOM CURSOR — DESKTOP ONLY
-   ============================================= */
+/* 
+    CUSTOM CURSOR — DESKTOP ONLY
+    */
 @media (hover: hover) and (pointer: fine) {
   body { cursor: none; }
   button { cursor: none; }
@@ -3841,9 +3836,9 @@ html.theme-transitioning *::after {
 }
 
 
-/* =============================================
-   ⌨️ FOCUS VISIBLE — KEYBOARD NAVIGATION
-   ============================================= */
+/* 
+    FOCUS VISIBLE — KEYBOARD NAVIGATION
+    */
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
@@ -3868,18 +3863,18 @@ html.theme-transitioning *::after {
 }
 
 
-/* =============================================
-   🖥️ LARGE SCREEN ADJUSTMENTS
-   ============================================= */
+/* 
+LARGE SCREEN ADJUSTMENTS
+    */
 @media (min-width: 1440px) {
   .container { max-width: 1320px; }
   .hero-container { max-width: 1320px; }
 }
 
 
-/* =============================================
-   📱 TABLET PORTRAIT
-   ============================================= */
+/* 
+    TABLET PORTRAIT
+    */
 @media (max-width: 768px) and (min-width: 601px) {
   .about-stats { grid-template-columns: repeat(4, 1fr); }
   .hobbies-grid { grid-template-columns: repeat(3, 1fr); }
@@ -3887,9 +3882,9 @@ html.theme-transitioning *::after {
 }
 
 
-/* =============================================
-   ♿ REDUCED MOTION — SAFE FALLBACKS
-   ============================================= */
+/* 
+    REDUCED MOTION — SAFE FALLBACKS
+    */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -3920,9 +3915,9 @@ html.theme-transitioning *::after {
 }
 
 
-/* =============================================
-   💅 LIGHT THEME — ADDITIONAL OVERRIDES
-   ============================================= */
+/* 
+   LIGHT THEME — ADDITIONAL OVERRIDES
+    */
 [data-theme="light"] body {
   background: var(--bg-primary);
 }
@@ -3993,9 +3988,9 @@ html.theme-transitioning *::after {
 }
 
 
-/* =============================================
+/* 
    RESPONSIVE NAVBAR — TABLET & MOBILE
-   ============================================= */
+ */
 
 /* ── Tablet: ≤ 1024px — Hide nav links, show hamburger ── */
 @media (max-width: 1024px) {
@@ -4205,16 +4200,15 @@ html.theme-transitioning *::after {
 }
 
 
-/* =============================================
+/* 
    GSAP ANIMATION SUPPORT STYLES
-   ============================================= */
+    */
 
 /* ── Allow clip-path on titles ── */
 .section-title {
   overflow: visible;
 }
 
-/* ── Animated underline (.hl-line injected by JS) ── */
 .highlight {
   position: relative;
   display: inline-block;
@@ -4258,12 +4252,10 @@ html.theme-transitioning *::after {
   transform-style: preserve-3d;
 }
 
-/* ── Clip-path reveal base state (GSAP sets these dynamically) ── */
 .section-header .section-title {
   will-change: transform, opacity, clip-path;
 }
 
-/* ── Social icon float (GSAP overrides y position; keep layout stable) ── */
 .social-links {
   position: relative;
 }
@@ -4310,7 +4302,6 @@ html.theme-transitioning *::after {
   transform-origin: center bottom;
 }
 
-/* ── GSAP: prevent flash of invisible content before animations run ── */
 .hero-tag,
 .hero-title,
 .hero-description,
@@ -4328,7 +4319,7 @@ html.theme-transitioning *::after {
   }
 }
 
-/* ── Section tag text expand animation ── */
+/* ── Section ta expand animation ── */
 .section-tag {
   overflow: hidden;
 }
@@ -4349,7 +4340,6 @@ html.theme-transitioning *::after {
 
 /* ── Scroll-triggered parallax ── */
 .hero-image-frame {
-  /* will-change set dynamically by GSAP when animating */
 }
 
 /* ── Reduced motion: override GSAP inline styles ── */
