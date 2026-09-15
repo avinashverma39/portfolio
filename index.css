@@ -3090,9 +3090,12 @@ button { border: none; background: none; }
    RESPONSIVE — SMALL PHONE (≤ 400px)
    ============================================= */
 @media (max-width: 400px) {
-  .container { padding: 0 12px; }
+  .container { padding: 0 10px; }
 
-  .hero-container { padding: 0 12px; }
+  .hero-container { padding: 0 10px; }
+
+  .section-title { font-size: clamp(1.3rem, 7vw, 1.8rem); }
+  .section-tag { font-size: 0.75rem; letter-spacing: 1px; }
 
   .hero-title {
     font-size: clamp(1.5rem, 8vw, 2rem);
@@ -3102,22 +3105,79 @@ button { border: none; background: none; }
     font-size: clamp(0.9rem, 3.5vw, 1.1rem);
   }
 
-  .hero-image-frame { width: 180px; height: 180px; }
+  .hero-image-frame { width: 160px; height: 160px; }
 
   .hero-tag { font-size: 0.65rem; padding: 4px 10px; }
+
+  .hero-description { font-size: 0.85rem; }
+
+  .hero-buttons .btn,
+  .about-buttons .btn {
+    max-width: 100%;
+    font-size: 0.85rem;
+    padding: 11px 20px;
+  }
 
   .about-stats { grid-template-columns: 1fr 1fr; gap: 8px; }
   .stat-card { padding: 14px 8px; }
   .stat-card h3 { font-size: 1.3rem; }
+  .stat-card i { font-size: 1rem; }
+  .about-details { padding: 12px; }
+  .detail-item { font-size: 0.78rem; padding: 6px 8px; }
 
   .hobbies-grid { grid-template-columns: 1fr; }
+  .hobby-card { padding: 16px 12px; }
 
+  /* Timeline */
+  .timeline-item { padding-left: 44px; }
+  .timeline-card { padding: 14px; }
+  .timeline-card > p { font-size: 0.82rem; }
+  .timeline-tags span { font-size: 0.68rem; padding: 2px 10px; }
+
+  /* Skills */
+  .skills-group { padding: 18px 14px; }
+  .tech-icon-card { min-width: 52px; padding: 10px 6px; font-size: 0.76rem; }
+  .tech-icon-card i { font-size: 1.8rem; }
+
+  /* Projects */
+  .project-card-body { padding: 16px; }
+  .project-card-actions { padding: 0 16px 16px; gap: 8px; }
+  .project-card h3 { font-size: 1rem; }
+  .project-card p { font-size: 0.82rem; }
+  .project-tags span { font-size: 0.68rem; padding: 3px 10px; }
+
+  /* Achievements */
   .achievement-counter-pill { padding: 6px 10px; font-size: 0.72rem; }
   .achievement-filters .filter-btn { padding: 6px 12px; font-size: 0.78rem; }
+  .achievement-card-body { padding: 18px; }
+  .achievement-card-actions { padding: 0 18px 16px; }
+  .achievement-card-title { font-size: 1rem; }
 
   /* Resources */
   .resource-filters .filter-btn { padding: 6px 12px; font-size: 0.78rem; }
   .resource-card-icon-header { height: 90px; }
+  .resource-card-body { padding: 16px; }
+  .resource-card-action { padding: 0 16px 14px; }
+
+  /* Contact */
+  .contact-form-wrapper { padding: 16px; }
+  .form-group input,
+  .form-group textarea { padding: 11px 14px; font-size: 0.88rem; }
+
+  /* Footer */
+  .footer-links { gap: 8px 12px; }
+  .footer-links a { font-size: 0.8rem; }
+  .footer-bottom { font-size: 0.75rem; }
+
+  /* Modals */
+  .cert-modal-overlay { padding: 8px; }
+  .cert-modal-info { padding: 18px; }
+  .resource-modal-header { padding: 20px 16px 0; }
+  .resource-modal-content { padding: 16px; }
+  .resource-modal-actions { padding: 0 16px 18px; }
+
+  /* Back to top */
+  .back-to-top { bottom: 16px; right: 16px; width: 36px; height: 36px; font-size: 0.85rem; }
 }
 
 /* 
