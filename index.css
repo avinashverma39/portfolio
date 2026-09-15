@@ -37,6 +37,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 body {
@@ -95,6 +96,7 @@ button { border: none; background: none; }
     */
 .container {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -2836,6 +2838,40 @@ button { border: none; background: none; }
 }
 
 
+/* =============================================
+   CODING JOURNEY & GALLERY SECTION
+   ============================================= */
+.journey-section {
+  background: var(--bg-primary);
+  position: relative;
+  overflow: visible;
+}
+
+.journey-bg-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 700px;
+  height: 700px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(50, 205, 50, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.journey-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+.journey-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 28px;
+  perspective: 1200px;
+}
+
 /* 
    RESPONSIVE — TABLET (≤ 900px)
                     */
@@ -2852,13 +2888,14 @@ button { border: none; background: none; }
   .hero-content { order: 2; }
   .hero-image-wrapper { order: 1; }
 
+  .hero-tag { margin-left: auto; margin-right: auto; }
   .hero-description { margin: 0 auto 32px; }
   .hero-buttons { justify-content: center; }
   .social-links { justify-content: center; }
 
   /* About */
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
-  .about-stats { grid-template-columns: repeat(4, 1fr); }
+  .about-stats { grid-template-columns: repeat(2, 1fr); }
   .about-details { grid-template-columns: 1fr; }
   .about-buttons { justify-content: center; }
   .about-text { text-align: center; }
@@ -2868,16 +2905,25 @@ button { border: none; background: none; }
 
   /* Contact */
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .contact-info { text-align: center; }
+  .contact-socials { justify-content: center; }
+  .contact-form-wrapper { padding: 28px; }
 
   /* Achievements */
-  .achievements-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 26px; }
+  .achievements-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 26px; }
   .achievement-card-image { height: 200px; }
   .cert-modal { max-width: 95vw; }
   .cert-modal-image { max-height: 40vh; }
 
   /* Resources */
-  .resources-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+  .resources-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
   .resource-modal { max-width: 95vw; }
+
+  /* Journey */
+  .journey-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
+
+  /* Footer */
+  .footer-links { flex-wrap: wrap; justify-content: center; gap: 14px; }
 }
 
 /* 
