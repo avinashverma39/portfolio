@@ -2939,78 +2939,8 @@ button { border: none; background: none; }
 
   .section-title { font-size: clamp(1.5rem, 6vw, 2rem); }
 
-  /* Nav */
-  .hamburger { display: flex; }
-
-  .nav-notch {
-    width: 100%;
-    max-width: 520px;
-    border-radius: 0 0 18px 18px;
-    padding: 8px 14px;
-    gap: 12px;
-  }
-
-  .nav-notch::before,
-  .nav-notch::after {
-    display: none;
-  }
-
-  .nav-links {
-    position: fixed;
-    top: 56px;
-    left: 12px;
-    right: 12px;
-    width: auto;
-    height: auto;
-    background: rgba(8, 8, 14, 0.96);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 18px;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 16px 20px;
-    gap: 2px;
-    transform: translateY(-10px) scale(0.96);
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.65);
-    z-index: 999;
-  }
-
-  [data-theme="light"] .nav-links {
-    background: rgba(255, 255, 255, 0.97);
-    border-color: rgba(0, 0, 0, 0.08);
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.14);
-  }
-
-  .nav-links.open {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .nav-link {
-    width: 100%;
-    padding: 10px 0;
-    font-size: 0.95rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  [data-theme="light"] .nav-link {
-    border-bottom-color: rgba(0, 0, 0, 0.06);
-  }
-
-  .nav-cta-btn span {
-    display: none;
-  }
-  .nav-cta-btn {
-    padding: 6px 10px;
-  }
-
   /* Hero */
-  .hero { padding-top: 100px; min-height: auto; }
+  .hero { padding-top: 80px; min-height: auto; }
 
   .hero-container { padding: 0 16px; gap: 30px; }
 
@@ -3046,9 +2976,11 @@ button { border: none; background: none; }
     width: 100%;
   }
 
-  .btn {
+  /* Scope full-width buttons to hero only — don't break buttons in cards/modals */
+  .hero-buttons .btn,
+  .about-buttons .btn {
     width: 100%;
-    max-width: 260px;
+    max-width: 280px;
     justify-content: center;
   }
 
@@ -3085,6 +3017,7 @@ button { border: none; background: none; }
   .timeline-card p { font-size: 0.85rem; }
 
   /* Skills */
+  .skills-group { padding: 24px 18px; }
   .skills-group-title { font-size: 1rem; }
   .tech-icons { gap: 10px; }
   .tech-icon-card { padding: 12px 8px; min-width: 60px; }
@@ -3103,16 +3036,18 @@ button { border: none; background: none; }
   .hobby-card h3 { font-size: 0.95rem; }
   .hobby-card p { font-size: 0.82rem; }
 
+  /* Contact */
+  .contact-detail { flex-direction: column; text-align: center; align-items: center; }
+  .contact-socials { justify-content: center; }
+  .contact-form-wrapper { padding: 20px; }
+  .contact-intro { font-size: 0.92rem; }
+
   /* Footer */
   .footer-content { flex-direction: column; text-align: center; align-items: center; }
   .footer-nav { align-items: center; }
   .footer-tagline { text-align: center; }
-  .footer-links { justify-content: center; flex-wrap: wrap; gap: 12px; }
+  .footer-links { justify-content: center; flex-wrap: wrap; gap: 10px 16px; }
   .footer-socials { justify-content: center; }
-
-  /* Contact */
-  .contact-detail { flex-direction: column; text-align: center; align-items: center; }
-  .contact-socials { justify-content: center; }
 
   /* Achievements */
   .achievements-grid { grid-template-columns: 1fr; gap: 24px; }
@@ -3140,9 +3075,15 @@ button { border: none; background: none; }
   .resource-modal-overlay { padding: 12px; }
   .resource-modal-header { padding: 24px 20px 0; gap: 14px; }
   .resource-modal-content { padding: 20px; }
-  .resource-modal-actions { padding: 0 20px 22px; }
+  .resource-modal-actions { padding: 0 20px 22px; flex-direction: column; }
   .resource-modal-icon { width: 48px; height: 48px; font-size: 1.3rem; border-radius: 12px; }
   .resource-modal-title { font-size: 1.1rem; }
+
+  /* Journey */
+  .journey-grid { grid-template-columns: 1fr; gap: 20px; }
+
+  /* Back to top */
+  .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 0.9rem; }
 }
 
 /* =============================================
